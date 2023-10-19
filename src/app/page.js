@@ -133,13 +133,16 @@ export default function Home() {
       </p>
       <div className={styles.grids} ref={gridsRef}>
         <div className={styles.grid} ref={gridRef}>
-          {gridLines.toReversed().map((width, key) => (
-            <div
-              className={styles.gridLine}
-              key={key}
-              onMouseEnter={() => addLetter(width)}
-            ></div>
-          ))}
+          {gridLines
+            .slice()
+            .reverse()
+            .map((width, key) => (
+              <div
+                className={styles.gridLine}
+                key={key}
+                onMouseEnter={() => addLetter(width)}
+              ></div>
+            ))}
         </div>
         <div className={styles.grid}>
           {gridLines.map((width, key) => (
