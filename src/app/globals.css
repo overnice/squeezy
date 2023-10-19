@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Squeezy";
+  src: url("/fonts/SqueezyVF.ttf");
+}
+
+*::selection {
+  color: var(--foreground);
+  background: rgba(0, 0, 0, 0);
+}
+
+:root {
+  /* --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255; */
+
+  --background: #000;
+  --foreground: #fff;
+  --foreground-shade-30: #333333;
+  --foreground-shade-20: #1a1a1a;
+  --foreground-shade-10: #0d0d0d;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+} */
+
+body {
+  /* color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+  background: var(--background);
+  color: var(--foreground);
+
+  &.red {
+    --background: #ff2b2b;
+    --foreground: #e3ff73;
+    --foreground-shade-30: #ff6a29;
+    --foreground-shade-20: #ff5529;
+    --foreground-shade-10: #ff3f2a;
+  }
+
+  &.blue {
+    --background: #73bcff;
+    --foreground: #ff2a5e;
+    --foreground-shade-30: #9d96eb;
+    --foreground-shade-20: #8fa3f2;
+    --foreground-shade-10: #81aff8;
+  }
+
+  &.pink {
+    --background: #ff2a5e;
+    --foreground: #73bcff;
+    --foreground-shade-30: #f8488e;
+    --foreground-shade-20: #fa3e7e;
+    --foreground-shade-10: #fd346e;
+  }
+}
