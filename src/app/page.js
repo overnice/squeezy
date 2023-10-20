@@ -123,8 +123,26 @@ export default function Home() {
     });
   });
 
+  // Gyro
+  function getAccel() {
+    DeviceMotionEvent.requestPermission().then((response) => {
+      if (response == "granted") {
+        console.log("accelerometer permission granted");
+        // Do stuff here
+        document.body.style.background = "#eee";
+      }
+    });
+  }
+
   return (
     <main className={styles.main}>
+      <button
+        id="accelPermsButton"
+        className={styles.accessButton}
+        onClick={getAccel}
+      >
+        Get Access
+      </button>
       <h1 className={styles.title} onClick={changeTheme}>
         Squeezy VF
       </h1>

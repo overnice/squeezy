@@ -9,6 +9,16 @@
   /* cursor: crosshair; */
 }
 
+.accessButton {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  z-index: 30;
+  padding: 10px;
+  background: var(--foreground);
+  color: var(--background);
+}
+
 .title,
 .width {
   color: var(--foreground);
