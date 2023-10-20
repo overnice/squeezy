@@ -56,6 +56,10 @@ export default function Home() {
   const letter2Ref = useRef(null);
   const letter3Ref = useRef(null);
 
+  const min = 0.6080125;
+  const max = 1.0880125;
+  const increment = 0.024;
+
   // function changeLetter() {
   //   setCurrentLetter(letterSet[random()]);
   //   console.log(currentLetter);
@@ -64,7 +68,6 @@ export default function Home() {
   const addLetter = (width) => {
     setCurrentLetter(letterSet[random()]);
     setRenderedLetters((v) => [...v, currentLetter]);
-    // setRenderedLettersWidths((v) => [...v, width]);
     setRenderedLettersWidths((v) => [...v, width]);
 
     renderedLetters.length > 4 && renderedLetters.shift();
@@ -72,33 +75,27 @@ export default function Home() {
     console.log(renderedLetters, renderedLettersWidths);
   };
 
-  // function coordinate(event) {
-  //   const x = event.clientX;
-  //   const y = event.clientY;
-  // }
-
   useEffect(() => {
-    const grids = gridsRef.current;
-    const grid = gridRef.current;
-
-    const gridsWidth = grids.getBoundingClientRect().width;
-    const gridWidth = grid.getBoundingClientRect().width;
-
     let x = 0;
-    let y = 0;
+    let delta = 0;
 
-    // font axis goes from 400 to 700 -> delta is 300
-    let ratio = 300 / gridWidth;
+    let center = window.innerWidth / 2;
+    let height = currentLetterRef.current.getBoundingClientRect().height;
 
-    document.body.addEventListener("mousemove", (e) => {
-      x = Math.floor(e.clientX - (window.innerWidth - gridsWidth) / 2);
+    const width = (ratio) => {
+      return height * ratio;
+    };
 
-      if (x >= gridsWidth - gridWidth) {
-        setCurrentWidth(
-          Math.floor(400 + (x - (gridsWidth - gridWidth)) * ratio)
-        );
-      } else {
-        setCurrentWidth(Math.floor(700 - x * ratio));
+    const ratio = 300 / ((width(max) - width(min)) / 2);
+
+    document.body.addEventListener("mousemove", (e) => {});
+
+    const handleMouseMove = (e) => {
+      x = Math.abs(center - e.clientX);
+      delta = Math.floor(x - width(min) / 2);
+
+      if (delta >= 0 && delta <= (width(max) - width(min)) / 2) {
+        setCurrentWidth(400 + delta * ratio);
       }
 
       currentLetterRef.current.style.setProperty(
@@ -120,58 +117,82 @@ export default function Home() {
         `font-variation-settings`,
         `"wdth" ${renderedLettersWidths[renderedLettersWidths.length - 3]}`
       );
-    });
+    };
+
+    const handleResize = () => {
+      center = window.innerWidth / 2;
+      height = currentLetterRef.current.getBoundingClientRect().height;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
+    };
   });
 
   // Gyro
   function getAccel() {
     DeviceMotionEvent.requestPermission().then((response) => {
       if (response == "granted") {
+        console.log(currentWidth);
+        let delta;
+        const ratio = 300 / 30;
+        // var px = 50; // Position x and y
+        // var vx = 0.0; // Velocity x and y
+        // var updateRate = 1 / 60; // Sensor refresh rate
+
         console.log("accelerometer permission granted");
         // Do stuff here
-        document.body.style.background = "#eee";
+        // document.body.style.background = "#eee";
+
+        // Add a listener to get smartphone acceleration
+        // in the XYZ axes (units in m/s^2)
+        // window.addEventListener("devicemotion", (event) => {
+        // console.log(event);
+        // });
+        // Add a listener to get smartphone orientation
+        // in the alpha-beta-gamma axes (units in degrees)
+        window.addEventListener("deviceorientation", (e) => {
+          delta = Math.abs(e.gamma);
+          // leftToRight_degrees = e.gamma;
+
+          // x = Math.floor(400 + e.gamma);
+
+          if (delta > 0 && delta < 30) {
+            setCurrentWidth(Math.floor(400 + delta * ratio));
+            console.log(currentWidth);
+          }
+
+          // vx = vx + leftToRight_degrees * updateRate * 2;
+
+          // px = px + vx * 0.5;
+          // if (px > 98 || px < 0) {
+          //   px = Math.max(0, Math.min(98, px)); // Clip px between 0-98
+          //   vx = 0;
+          // }
+        });
       }
     });
   }
 
   return (
     <main className={styles.main}>
-      <button
+      {/* <button
         id="accelPermsButton"
         className={styles.accessButton}
         onClick={getAccel}
       >
         Get Access
-      </button>
+      </button> */}
       <h1 className={styles.title} onClick={changeTheme}>
         Squeezy VF
       </h1>
       <p className={styles.width}>
         {renderedLettersWidths[renderedLettersWidths.length - 1]}
       </p>
-      <div className={styles.grids} ref={gridsRef}>
-        <div className={styles.grid} ref={gridRef}>
-          {gridLines
-            .slice()
-            .reverse()
-            .map((width, key) => (
-              <div
-                className={styles.gridLine}
-                key={key}
-                onMouseEnter={() => addLetter(width)}
-              ></div>
-            ))}
-        </div>
-        <div className={styles.grid}>
-          {gridLines.map((width, key) => (
-            <div
-              className={styles.gridLine}
-              key={key}
-              onMouseEnter={() => addLetter(width)}
-            ></div>
-          ))}
-        </div>
-      </div>
+
       <div className={styles.letters}>
         <div className={`${styles.letter} ${styles.letter3}`} ref={letter3Ref}>
           {renderedLetters[renderedLetters.length - 3]}
@@ -184,6 +205,37 @@ export default function Home() {
         </div>
         <div className={styles.letter} ref={currentLetterRef}>
           {currentLetter}
+        </div>
+
+        {/* Grid */}
+        <div className={styles.grids} ref={gridsRef}>
+          <div className={styles.grid} ref={gridRef}>
+            {gridLines
+              .slice()
+              .reverse()
+              .map((width, key) => (
+                <div
+                  className={styles.gridLine}
+                  key={key}
+                  onMouseEnter={() => addLetter(width)}
+                  style={{
+                    width: `${(max - min) / 2 / gridLines.length}em`,
+                  }}
+                ></div>
+              ))}
+          </div>
+          <div className={styles.grid}>
+            {gridLines.map((width, key) => (
+              <div
+                className={styles.gridLine}
+                key={key}
+                onMouseEnter={() => addLetter(width)}
+                style={{
+                  width: `${(max - min) / 2 / gridLines.length}em`,
+                }}
+              ></div>
+            ))}
+          </div>
         </div>
       </div>
     </main>
