@@ -1,11 +1,20 @@
 .main {
   @apply relative;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  /* height: 100vh;
+  margin: 0 auto; */
+  /* cursor: crosshair; */
+}
+
+.variableLines {
+  position: relative;
+  height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: 0 auto;
-  /* cursor: crosshair; */
 }
 
 .accessButton {
@@ -25,7 +34,7 @@
   font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   text-align: center;
@@ -83,10 +92,10 @@
     font-size: calc(90vw / 1.0880125);
   }
   /* pointer-events: none; */
-  position: absolute;
+  /* position: absolute; */
   width: 1.0880125em;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,3 +151,27 @@
     z-index: 10;
     background: orange;
   } */
+
+.editor {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 10vh;
+  box-sizing: border-box;
+}
+
+.editableArea {
+  width: 100%;
+  font-size: 300px;
+  font-family: "Squeezy";
+  text-align: center;
+  line-height: 0.75;
+
+  &::selection {
+    background: var(--foreground-shade-30);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

@@ -6,6 +6,7 @@ import styles from "./page.module.css";
 export default function Home() {
   const [currentLetter, setCurrentLetter] = useState("K");
   const [currentWidth, setCurrentWidth] = useState();
+  const [snappedWidth, setSnappedWidth] = useState();
   const [renderedLetters, setRenderedLetters] = useState([currentLetter]);
   const [renderedLettersWidths, setRenderedLettersWidths] = useState([]);
 
@@ -52,6 +53,7 @@ export default function Home() {
   const gridsRef = useRef(null);
   const gridRef = useRef(null);
   const currentLetterRef = useRef(null);
+  const editableRef = useRef(null);
   const letter1Ref = useRef(null);
   const letter2Ref = useRef(null);
   const letter3Ref = useRef(null);
@@ -82,20 +84,28 @@ export default function Home() {
     let center = window.innerWidth / 2;
     let height = currentLetterRef.current.getBoundingClientRect().height;
 
-    const width = (ratio) => {
+    const getWidth = (ratio) => {
       return height * ratio;
     };
 
-    const ratio = 300 / ((width(max) - width(min)) / 2);
+    const ratio = 300 / ((getWidth(max) - getWidth(min)) / 2);
 
-    document.body.addEventListener("mousemove", (e) => {});
+    // document.body.addEventListener("mousemove", (e) => {});
 
     const handleMouseMove = (e) => {
       x = Math.abs(center - e.clientX);
-      delta = Math.floor(x - width(min) / 2);
+      delta = Math.floor(x - getWidth(min) / 2);
 
-      if (delta >= 0 && delta <= (width(max) - width(min)) / 2) {
-        setCurrentWidth(400 + delta * ratio);
+      const width = 400 + delta * ratio;
+
+      const snappedWidth = gridLines.reduce(function (prev, curr) {
+        return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
+      });
+
+      setSnappedWidth(snappedWidth);
+
+      if (delta >= 0 && delta <= (getWidth(max) - getWidth(min)) / 2) {
+        setCurrentWidth(width);
       }
 
       currentLetterRef.current.style.setProperty(
@@ -116,6 +126,11 @@ export default function Home() {
       letter3Ref.current.style.setProperty(
         `font-variation-settings`,
         `"wdth" ${renderedLettersWidths[renderedLettersWidths.length - 3]}`
+      );
+
+      editableRef.current.style.setProperty(
+        `font-variation-settings`,
+        `"wdth" ${currentWidth}`
       );
     };
 
@@ -161,7 +176,7 @@ export default function Home() {
           // x = Math.floor(400 + e.gamma);
 
           if (delta > 0 && delta < 30) {
-            setCurrentWidth(Math.floor(400 + delta * ratio));
+            setCurrentgetWidth(Math.floor(400 + delta * ratio));
             console.log(currentWidth);
           }
 
@@ -189,31 +204,51 @@ export default function Home() {
       <h1 className={styles.title} onClick={changeTheme}>
         Squeezy VF
       </h1>
-      <p className={styles.width}>
-        {renderedLettersWidths[renderedLettersWidths.length - 1]}
-      </p>
+      <p className={styles.width}>{snappedWidth}</p>
 
-      <div className={styles.letters}>
-        <div className={`${styles.letter} ${styles.letter3}`} ref={letter3Ref}>
-          {renderedLetters[renderedLetters.length - 3]}
-        </div>
-        <div className={`${styles.letter} ${styles.letter2}`} ref={letter2Ref}>
-          {renderedLetters[renderedLetters.length - 2]}
-        </div>
-        <div className={`${styles.letter} ${styles.letter1}`} ref={letter1Ref}>
-          {renderedLetters[renderedLetters.length - 1]}
-        </div>
-        <div className={styles.letter} ref={currentLetterRef}>
-          {currentLetter}
-        </div>
+      <section className={styles.variableLines}>
+        <div className={styles.letters}>
+          <div
+            className={`${styles.letter} ${styles.letter3}`}
+            ref={letter3Ref}
+          >
+            {renderedLetters[renderedLetters.length - 3]}
+          </div>
+          <div
+            className={`${styles.letter} ${styles.letter2}`}
+            ref={letter2Ref}
+          >
+            {renderedLetters[renderedLetters.length - 2]}
+          </div>
+          <div
+            className={`${styles.letter} ${styles.letter1}`}
+            ref={letter1Ref}
+          >
+            {renderedLetters[renderedLetters.length - 1]}
+          </div>
+          <div className={styles.letter} ref={currentLetterRef}>
+            {currentLetter}
+          </div>
 
-        {/* Grid */}
-        <div className={styles.grids} ref={gridsRef}>
-          <div className={styles.grid} ref={gridRef}>
-            {gridLines
-              .slice()
-              .reverse()
-              .map((width, key) => (
+          {/* Grid */}
+          <div className={styles.grids} ref={gridsRef}>
+            <div className={styles.grid} ref={gridRef}>
+              {gridLines
+                .slice()
+                .reverse()
+                .map((width, key) => (
+                  <div
+                    className={styles.gridLine}
+                    key={key}
+                    onMouseEnter={() => addLetter(width)}
+                    style={{
+                      width: `${(max - min) / 2 / gridLines.length}em`,
+                    }}
+                  ></div>
+                ))}
+            </div>
+            <div className={styles.grid}>
+              {gridLines.map((width, key) => (
                 <div
                   className={styles.gridLine}
                   key={key}
@@ -223,21 +258,15 @@ export default function Home() {
                   }}
                 ></div>
               ))}
-          </div>
-          <div className={styles.grid}>
-            {gridLines.map((width, key) => (
-              <div
-                className={styles.gridLine}
-                key={key}
-                onMouseEnter={() => addLetter(width)}
-                style={{
-                  width: `${(max - min) / 2 / gridLines.length}em`,
-                }}
-              ></div>
-            ))}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+      <section className={styles.editor}>
+        <p className={styles.editableArea} ref={editableRef} contentEditable>
+          Type anything
+        </p>
+      </section>
     </main>
   );
 }
