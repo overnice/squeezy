@@ -24,8 +24,8 @@ export default function Home() {
     document.body.className = themes[theme];
   };
 
-  // const gridLines = [400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700];
-  const gridLines = [400, 430, 460, 490, 520, 550, 580, 610, 640, 670, 700];
+  // const snappedWidths = [400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700];
+  const snappedWidths = [400, 430, 460, 490, 520, 550, 580, 610, 640, 670, 700];
 
   const heroLetterSet = [
     "A",
@@ -202,7 +202,7 @@ export default function Home() {
 
       const width = 400 + delta * ratio;
 
-      const snappedWidth = gridLines.reduce(function (prev, curr) {
+      const snappedWidth = snappedWidths.reduce(function (prev, curr) {
         return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
       });
 
