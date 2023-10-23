@@ -24,7 +24,6 @@ export default function Home() {
   };
 
   // const gridLines = [400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700];
-  // const gridLines = [400, 440, 480, 520, 560, 600, 640, 680, 700];
   const gridLines = [400, 430, 460, 490, 520, 550, 580, 610, 640, 670, 700];
 
   const letterSet = [
@@ -46,9 +45,6 @@ export default function Home() {
     "Y",
     "Z",
   ];
-  const random = () => {
-    return Math.floor(Math.random() * letterSet.length);
-  };
 
   const gridsRef = useRef(null);
   const gridRef = useRef(null);
@@ -62,21 +58,6 @@ export default function Home() {
   const max = 1.0880125;
   const increment = 0.024;
 
-  // function changeLetter() {
-  //   setCurrentLetter(letterSet[random()]);
-  //   console.log(currentLetter);
-  // }
-
-  const addLetter = (width) => {
-    setCurrentLetter(letterSet[random()]);
-    setRenderedLetters((v) => [...v, currentLetter]);
-    setRenderedLettersWidths((v) => [...v, width]);
-
-    renderedLetters.length > 4 && renderedLetters.shift();
-    renderedLettersWidths.length > 4 && renderedLettersWidths.shift();
-    console.log(renderedLetters, renderedLettersWidths);
-  };
-
   useEffect(() => {
     let x = 0;
     let delta = 0;
@@ -89,8 +70,6 @@ export default function Home() {
     };
 
     const ratio = 300 / ((getWidth(max) - getWidth(min)) / 2);
-
-    // document.body.addEventListener("mousemove", (e) => {});
 
     const handleMouseMove = (e) => {
       x = Math.abs(center - e.clientX);
@@ -148,49 +127,63 @@ export default function Home() {
   });
 
   // Gyro
-  function getAccel() {
-    DeviceMotionEvent.requestPermission().then((response) => {
-      if (response == "granted") {
-        console.log(currentWidth);
-        let delta;
-        const ratio = 300 / 30;
-        // var px = 50; // Position x and y
-        // var vx = 0.0; // Velocity x and y
-        // var updateRate = 1 / 60; // Sensor refresh rate
+  // function getAccel() {
+  //   DeviceMotionEvent.requestPermission().then((response) => {
+  //     if (response == "granted") {
+  //       console.log(currentWidth);
+  //       let delta;
+  //       const ratio = 300 / 30;
+  //       // var px = 50; // Position x and y
+  //       // var vx = 0.0; // Velocity x and y
+  //       // var updateRate = 1 / 60; // Sensor refresh rate
 
-        console.log("accelerometer permission granted");
-        // Do stuff here
-        // document.body.style.background = "#eee";
+  //       console.log("accelerometer permission granted");
+  //       // Do stuff here
+  //       // document.body.style.background = "#eee";
 
-        // Add a listener to get smartphone acceleration
-        // in the XYZ axes (units in m/s^2)
-        // window.addEventListener("devicemotion", (event) => {
-        // console.log(event);
-        // });
-        // Add a listener to get smartphone orientation
-        // in the alpha-beta-gamma axes (units in degrees)
-        window.addEventListener("deviceorientation", (e) => {
-          delta = Math.abs(e.gamma);
-          // leftToRight_degrees = e.gamma;
+  //       // Add a listener to get smartphone acceleration
+  //       // in the XYZ axes (units in m/s^2)
+  //       // window.addEventListener("devicemotion", (event) => {
+  //       // console.log(event);
+  //       // });
+  //       // Add a listener to get smartphone orientation
+  //       // in the alpha-beta-gamma axes (units in degrees)
+  //       window.addEventListener("deviceorientation", (e) => {
+  //         delta = Math.abs(e.gamma);
+  //         // leftToRight_degrees = e.gamma;
 
-          // x = Math.floor(400 + e.gamma);
+  //         // x = Math.floor(400 + e.gamma);
 
-          if (delta > 0 && delta < 30) {
-            setCurrentgetWidth(Math.floor(400 + delta * ratio));
-            console.log(currentWidth);
-          }
+  //         if (delta > 0 && delta < 30) {
+  //           setCurrentgetWidth(Math.floor(400 + delta * ratio));
+  //           console.log(currentWidth);
+  //         }
 
-          // vx = vx + leftToRight_degrees * updateRate * 2;
+  //         // vx = vx + leftToRight_degrees * updateRate * 2;
 
-          // px = px + vx * 0.5;
-          // if (px > 98 || px < 0) {
-          //   px = Math.max(0, Math.min(98, px)); // Clip px between 0-98
-          //   vx = 0;
-          // }
-        });
-      }
-    });
-  }
+  //         // px = px + vx * 0.5;
+  //         // if (px > 98 || px < 0) {
+  //         //   px = Math.max(0, Math.min(98, px)); // Clip px between 0-98
+  //         //   vx = 0;
+  //         // }
+  //       });
+  //     }
+  //   });
+  // }
+
+  useEffect(() => {
+    const random = () => {
+      return Math.floor(Math.random() * letterSet.length);
+    };
+
+    setCurrentLetter(letterSet[random()]);
+    setRenderedLetters((v) => [...v, currentLetter]);
+    setRenderedLettersWidths((v) => [...v, snappedWidth]);
+
+    renderedLetters.length > 4 && renderedLetters.shift();
+    renderedLettersWidths.length > 4 && renderedLettersWidths.shift();
+    console.log(renderedLetters, renderedLettersWidths);
+  }, [snappedWidth]);
 
   return (
     <main className={styles.main}>
@@ -228,37 +221,6 @@ export default function Home() {
           </div>
           <div className={styles.letter} ref={currentLetterRef}>
             {currentLetter}
-          </div>
-
-          {/* Grid */}
-          <div className={styles.grids} ref={gridsRef}>
-            <div className={styles.grid} ref={gridRef}>
-              {gridLines
-                .slice()
-                .reverse()
-                .map((width, key) => (
-                  <div
-                    className={styles.gridLine}
-                    key={key}
-                    onMouseEnter={() => addLetter(width)}
-                    style={{
-                      width: `${(max - min) / 2 / gridLines.length}em`,
-                    }}
-                  ></div>
-                ))}
-            </div>
-            <div className={styles.grid}>
-              {gridLines.map((width, key) => (
-                <div
-                  className={styles.gridLine}
-                  key={key}
-                  onMouseEnter={() => addLetter(width)}
-                  style={{
-                    width: `${(max - min) / 2 / gridLines.length}em`,
-                  }}
-                ></div>
-              ))}
-            </div>
           </div>
         </div>
       </section>

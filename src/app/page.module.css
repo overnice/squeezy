@@ -6,6 +6,12 @@
   /* height: 100vh;
   margin: 0 auto; */
   /* cursor: crosshair; */
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+
+  > section {
+    scroll-snap-align: start;
+  }
 }
 
 .variableLines {
@@ -50,58 +56,21 @@
   bottom: 12px;
 }
 
-.grids {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%;
-}
-
-.grid {
-  /* pointer-events: none; */
-  display: flex;
-  /* width: 0.48em; */
-  /* gap: 12px; */
-
-  &:last-child .gridLine {
-    border-left: none;
-    /* border-right: 1px solid rgba(255, 255, 255, 0.12); */
-  }
-}
-
-.gridLine {
-  /* pointer-events: none; */
-  /* width: 12px; */
-  width: 100%;
-  /* background: green;
-  opacity: 0.4; */
-
-  /* border-left: 1px solid rgba(255, 255, 255, 0.12); */
-  /* transition: border 0.2s ease; */
-}
-
-/* .gridLine:hover {
-  border-color: rgba(255, 255, 255, 0.3) !important;
-} */
-
 .letters {
   font-size: 90vh;
 
   @media (orientation: portrait) {
     font-size: calc(90vw / 1.0880125);
   }
-  /* pointer-events: none; */
-  /* position: absolute; */
   width: 1.0880125em;
   height: 100%;
-  /* overflow: hidden; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .letter {
+  cursor: default;
   position: absolute;
   font-family: "Squeezy";
   text-align: center;
