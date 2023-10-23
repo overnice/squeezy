@@ -263,7 +263,12 @@ export default function Home() {
         </div>
       </section>
       <section className={styles.editor}>
-        <p className={styles.editableArea} ref={editableRef} contentEditable>
+        <p
+          className={styles.editableArea}
+          ref={editableRef}
+          contentEditable
+          suppressContentEditableWarning
+        >
           Type anything
         </p>
       </section>
