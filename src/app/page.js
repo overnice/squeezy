@@ -78,33 +78,7 @@ export default function Home() {
     "Y",
     "Z",
   ];
-
-  const regularLetters = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "J",
-    "K",
-    "L",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "U",
-    "V",
-    "X",
-    "Y",
-    "Z",
-  ];
   const wideLetters = ["M", "T", "W"];
-  const narrowLetters = ["I"];
   const centerSlitLetters = [
     "A",
     "B",
@@ -184,6 +158,9 @@ export default function Home() {
   ];
 
   const currentLetterRef = useRef(null);
+  const variableLinesSectionRef = useRef(null);
+  const editableSectionRef = useRef(null);
+  const showcaseSectionRef = useRef(null);
 
   const min = 0.6080125;
   const max = 1.0880125;
@@ -223,11 +200,25 @@ export default function Home() {
       height = currentLetterRef.current.getBoundingClientRect().height;
     };
 
-    !isMobile && window.addEventListener("mousemove", handleMouseMove);
+    const variableLinesSection = variableLinesSectionRef.current;
+    const editableSection = editableSectionRef.current;
+    const showcaseSection = showcaseSectionRef.current;
+
+    if (!isMobile) {
+      variableLinesSection &&
+        variableLinesSection.addEventListener("mousemove", handleMouseMove);
+
+      editableSection &&
+        editableSection.addEventListener("mousemove", handleMouseMove);
+
+      showcaseSection &&
+        showcaseSection.addEventListener("mousemove", handleMouseMove);
+    }
 
     window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      editableSection &&
+        editableSection.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
     };
   });
@@ -296,13 +287,33 @@ export default function Home() {
         Squeezy VF
       </h1>
       <p className={styles.width}>{snappedWidth}</p>
+      <div className={styles.widthLinesLeft}>
+        {snappedWidths.map((width, key) => (
+          <div
+            className={`${styles.widthLine} ${
+              width === snappedWidth ? styles.active : ""
+            }`}
+            key={key}
+          ></div>
+        ))}
+      </div>
+      <div className={styles.widthLinesRight}>
+        {snappedWidths.map((width, key) => (
+          <div
+            className={`${styles.widthLine} ${
+              width === snappedWidth ? styles.active : ""
+            }`}
+            key={key}
+          ></div>
+        ))}
+      </div>
       {/* <div className={styles.themeSwitch}>
         <div className={styles.themeHandle}></div>
         <div className={styles.themeHandle}></div>
         <div className={styles.themeHandle}></div>
       </div> */}
 
-      <section className={styles.variableLines}>
+      <section className={styles.variableLines} ref={variableLinesSectionRef}>
         <div className={styles.letters}>
           <div
             className={`${styles.letter} ${styles.letter3}`}
@@ -345,7 +356,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className={styles.editor}>
+      <section className={styles.editor} ref={editableSectionRef}>
         <p
           className={styles.editableArea}
           contentEditable
@@ -376,80 +387,137 @@ export default function Home() {
         </div>
         <div
           className={styles.gridShowcase}
-          // style={{
-          //   fontVariationSettings: `"wdth" ${currentWidth}`,
-          // }}
+          ref={showcaseSectionRef}
+          style={{
+            fontVariationSettings: `"wdth" ${currentWidth}`,
+          }}
         >
-          {showcasedLetter}
-          <div
-            className={`${styles.gridLines} ${
-              regularLetters.includes(showcasedLetter) ? styles.regular : ""
-            } 
-            ${wideLetters.includes(showcasedLetter) ? styles.wide : ""} ${
-              narrowLetters.includes(showcasedLetter) ? styles.narrow : ""
-            } ${
-              centerSlitLetters.includes(showcasedLetter)
-                ? styles.centerSlit
-                : ""
-            } ${
-              doubleSlitLetters.includes(showcasedLetter)
-                ? styles.doubleSlit
-                : ""
-            } ${
-              centerWideGapLetters.includes(showcasedLetter)
-                ? styles.centerWideGap
-                : ""
-            } ${
-              centerGapLetters.includes(showcasedLetter) ? styles.centerGap : ""
-            } ${
-              centerWideBottomEdgeLetters.includes(showcasedLetter)
-                ? styles.centerWideBottomEdge
-                : ""
-            } ${
-              centerTopEdgeLetters.includes(showcasedLetter)
-                ? styles.centerTopEdge
-                : ""
-            } ${
-              centerBottomEdgeLetters.includes(showcasedLetter)
-                ? styles.centerBottomEdge
-                : ""
-            } ${topGapLetters.includes(showcasedLetter) ? styles.topGap : ""} ${
-              bottomGapLetters.includes(showcasedLetter) ? styles.bottomGap : ""
-            } ${
-              bottomGapTopEdgeLetters.includes(showcasedLetter)
-                ? styles.bottomGapTopEdge
-                : ""
-            } ${
-              topEnclosedLetters.includes(showcasedLetter)
-                ? styles.topEnclosed
-                : ""
-            } ${
-              bottomEnclosedLetters.includes(showcasedLetter)
-                ? styles.bottomEnclosed
-                : ""
-            }`}
-          >
+          <div className={styles.showcasedLetter}>
+            {showcasedLetter}
             <div
-              className={styles.left}
-              // style={{
-              //   transform: `translate(${-0.2933 * (currentWidth / 400)}em, 0)`,
-              // }}
-            ></div>
-            <div className={styles.right}></div>
-            <div className={styles.top}></div>
-            <div className={styles.bottom}></div>
-            <div className={styles.centerTop}></div>
-            <div className={styles.centerBottom}></div>
-            <div className={styles.centerTwoTop}></div>
-            <div className={styles.centerTwoBottom}></div>
-            <div className={styles.centerWideTop}></div>
-            <div className={styles.centerWideBottom}></div>
-            <div className={styles.centerLeft}></div>
-            <div className={styles.centerRight}></div>
-            <div className={styles.centerTwoLeft}></div>
-            <div className={styles.centerTwoRight}></div>
-            <div className={styles.outerTop}></div>
-            <div className={styles.outerBottom}></div>
+              className={`${styles.gridLines}
+            ${wideLetters.includes(showcasedLetter) ? styles.wide : ""} ${
+                centerSlitLetters.includes(showcasedLetter)
+                  ? styles.centerSlit
+                  : ""
+              } ${
+                doubleSlitLetters.includes(showcasedLetter)
+                  ? styles.doubleSlit
+                  : ""
+              } ${
+                centerWideGapLetters.includes(showcasedLetter)
+                  ? styles.centerWideGap
+                  : ""
+              } ${
+                centerGapLetters.includes(showcasedLetter)
+                  ? styles.centerGap
+                  : ""
+              } ${
+                centerWideBottomEdgeLetters.includes(showcasedLetter)
+                  ? styles.centerWideBottomEdge
+                  : ""
+              } ${
+                centerTopEdgeLetters.includes(showcasedLetter)
+                  ? styles.centerTopEdge
+                  : ""
+              } ${
+                centerBottomEdgeLetters.includes(showcasedLetter)
+                  ? styles.centerBottomEdge
+                  : ""
+              } ${
+                topGapLetters.includes(showcasedLetter) ? styles.topGap : ""
+              } ${
+                bottomGapLetters.includes(showcasedLetter)
+                  ? styles.bottomGap
+                  : ""
+              } ${
+                bottomGapTopEdgeLetters.includes(showcasedLetter)
+                  ? styles.bottomGapTopEdge
+                  : ""
+              } ${
+                topEnclosedLetters.includes(showcasedLetter)
+                  ? styles.topEnclosed
+                  : ""
+              } ${
+                bottomEnclosedLetters.includes(showcasedLetter)
+                  ? styles.bottomEnclosed
+                  : ""
+              }`}
+            >
+              <div className={styles.left}></div>
+              <div className={styles.right}></div>
+              <div className={styles.top}></div>
+              <div className={styles.bottom}></div>
+              <div className={styles.centerTop}></div>
+              <div className={styles.centerBottom}></div>
+              <div className={styles.centerTwoTop}></div>
+              <div className={styles.centerTwoBottom}></div>
+              <div className={styles.centerWideTop}></div>
+              <div className={styles.centerWideBottom}></div>
+              <div
+                className={styles.centerLeft}
+                style={{
+                  transform:
+                    wideLetters.includes(showcasedLetter) &&
+                    doubleSlitLetters.includes(showcasedLetter)
+                      ? `translate(${-0.1666 * (currentWidth / 400)}em, -50%)`
+                      : null,
+                }}
+              ></div>
+              <div
+                className={styles.centerRight}
+                style={{
+                  transform:
+                    wideLetters.includes(showcasedLetter) &&
+                    doubleSlitLetters.includes(showcasedLetter)
+                      ? `translate(${-0.1433 * (currentWidth / 400)}em, -50%)`
+                      : null,
+                }}
+              ></div>
+              <div
+                className={styles.centerTwoLeft}
+                style={{
+                  transform:
+                    wideLetters.includes(showcasedLetter) &&
+                    doubleSlitLetters.includes(showcasedLetter)
+                      ? `translate(${0.1633 * (currentWidth / 400)}em, -50%)`
+                      : null,
+                }}
+              ></div>
+              <div
+                className={styles.centerTwoRight}
+                style={{
+                  transform:
+                    wideLetters.includes(showcasedLetter) &&
+                    doubleSlitLetters.includes(showcasedLetter)
+                      ? `translate(${0.14 * (currentWidth / 400)}em, -50%)`
+                      : null,
+                }}
+              ></div>
+              <div className={styles.outerTop}></div>
+              <div className={styles.outerBottom}></div>
+            </div>
+          </div>
+          <p className={styles.width}>{snappedWidth}</p>
+          <div className={styles.widthLinesLeft}>
+            {snappedWidths.map((width, key) => (
+              <div
+                className={`${styles.widthLine} ${
+                  width === snappedWidth ? styles.active : ""
+                }`}
+                key={key}
+              ></div>
+            ))}
+          </div>
+          <div className={styles.widthLinesRight}>
+            {snappedWidths.map((width, key) => (
+              <div
+                className={`${styles.widthLine} ${
+                  width === snappedWidth ? styles.active : ""
+                }`}
+                key={key}
+              ></div>
+            ))}
           </div>
         </div>
       </section>
