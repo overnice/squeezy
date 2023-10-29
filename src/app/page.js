@@ -23,8 +23,6 @@ export default function Home() {
     } else {
       setTheme(theme + 1);
     }
-
-    document.body.className = themes[theme];
   };
 
   // const snappedWidths = [400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700];
@@ -266,6 +264,10 @@ export default function Home() {
     renderedLettersWidths.length > 4 && renderedLettersWidths.shift();
     // console.log(renderedLetters, renderedLettersWidths);
   }, [snappedWidth]);
+
+  useEffect(() => {
+    document.body.className = themes[theme];
+  }, [theme]);
 
   return (
     <main

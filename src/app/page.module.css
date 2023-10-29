@@ -106,7 +106,7 @@
   transition: opacity 0.2s ease;
 
   &.active {
-    opacity: 0.5;
+    opacity: 0.8;
   }
 }
 

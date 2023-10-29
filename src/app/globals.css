@@ -17,11 +17,17 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255; */
 
-  --background: #000;
+  --background: #ff2b2b;
+  --foreground: #e3ff73;
+  --foreground-shade-30: #ff6a29;
+  --foreground-shade-20: #ff5529;
+  --foreground-shade-10: #ff3f2a;
+
+  /* --background: #000;
   --foreground: #fff;
   --foreground-shade-30: #333333;
   --foreground-shade-20: #1a1a1a;
-  --foreground-shade-10: #0d0d0d;
+  --foreground-shade-10: #0d0d0d; */
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -65,5 +71,13 @@ body {
     --foreground-shade-30: #f8488e;
     --foreground-shade-20: #fa3e7e;
     --foreground-shade-10: #fd346e;
+  }
+
+  &.black {
+    --background: #000;
+    --foreground: #fff;
+    --foreground-shade-30: #333333;
+    --foreground-shade-20: #1a1a1a;
+    --foreground-shade-10: #0d0d0d;
   }
 }
