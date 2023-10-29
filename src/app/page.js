@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
+
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -10,6 +12,7 @@ export default function Home() {
   const [renderedLetters, setRenderedLetters] = useState([currentLetter]);
   const [renderedLettersWidths, setRenderedLettersWidths] = useState([]);
   const [showcasedLetter, setShowcasedLetter] = useState("A");
+  const [gyroPermissionGranted, setGyroPermissionGranted] = useState(false);
 
   const themes = ["red", "blue", "pink", "black"];
   const [theme, setTheme] = useState(0);
@@ -138,11 +141,13 @@ export default function Home() {
     "Z",
   ];
   const centerGapLetters = ["B", "C", "X"];
-  const centerWideBottomEdgeLetters = ["P"];
+  const centerWideBottomEdgeLetters = ["P", "T"];
   const centerBottomEdgeLetters = ["J", "L", "K"];
   const centerTopEdgeLetters = ["R"];
   const doubleSlitLetters = ["M", "N", "T", "W"];
-  const topGapLetters = ["G"];
+  const topGapLetters = ["G", "E", "F"];
+  const bottomGapLetters = ["E"];
+  const bottomGapTopEdgeLetters = ["F"];
   const topEnclosedLetters = [
     "A",
     "B",
@@ -218,7 +223,8 @@ export default function Home() {
       height = currentLetterRef.current.getBoundingClientRect().height;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    !isMobile && window.addEventListener("mousemove", handleMouseMove);
+
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -227,49 +233,34 @@ export default function Home() {
   });
 
   // Gyro
-  // function getAccel() {
-  //   DeviceMotionEvent.requestPermission().then((response) => {
-  //     if (response == "granted") {
-  //       console.log(currentWidth);
-  //       let delta;
-  //       const ratio = 300 / 30;
-  //       // var px = 50; // Position x and y
-  //       // var vx = 0.0; // Velocity x and y
-  //       // var updateRate = 1 / 60; // Sensor refresh rate
+  function getAccel() {
+    DeviceMotionEvent.requestPermission().then((response) => {
+      if (response == "granted") {
+        setGyroPermissionGranted(true);
+        let delta;
+        const ratio = 300 / 30;
 
-  //       console.log("accelerometer permission granted");
-  //       // Do stuff here
-  //       // document.body.style.background = "#eee";
+        // console.log("accelerometer permission granted");
 
-  //       // Add a listener to get smartphone acceleration
-  //       // in the XYZ axes (units in m/s^2)
-  //       // window.addEventListener("devicemotion", (event) => {
-  //       // console.log(event);
-  //       // });
-  //       // Add a listener to get smartphone orientation
-  //       // in the alpha-beta-gamma axes (units in degrees)
-  //       window.addEventListener("deviceorientation", (e) => {
-  //         delta = Math.abs(e.gamma);
-  //         // leftToRight_degrees = e.gamma;
+        window.addEventListener("deviceorientation", (e) => {
+          delta = Math.abs(e.gamma);
 
-  //         // x = Math.floor(400 + e.gamma);
+          if (delta > 0 && delta < 30) {
+            const width = 400 + delta * ratio;
 
-  //         if (delta > 0 && delta < 30) {
-  //           setCurrentgetWidth(Math.floor(400 + delta * ratio));
-  //           console.log(currentWidth);
-  //         }
+            const snappedWidth = snappedWidths.reduce(function (prev, curr) {
+              return Math.abs(curr - width) < Math.abs(prev - width)
+                ? curr
+                : prev;
+            });
 
-  //         // vx = vx + leftToRight_degrees * updateRate * 2;
-
-  //         // px = px + vx * 0.5;
-  //         // if (px > 98 || px < 0) {
-  //         //   px = Math.max(0, Math.min(98, px)); // Clip px between 0-98
-  //         //   vx = 0;
-  //         // }
-  //       });
-  //     }
-  //   });
-  // }
+            setSnappedWidth(snappedWidth);
+            setCurrentWidth(width);
+          }
+        });
+      }
+    });
+  }
 
   useEffect(() => {
     const random = () => {
@@ -282,22 +273,34 @@ export default function Home() {
 
     renderedLetters.length > 4 && renderedLetters.shift();
     renderedLettersWidths.length > 4 && renderedLettersWidths.shift();
-    console.log(renderedLetters, renderedLettersWidths);
+    // console.log(renderedLetters, renderedLettersWidths);
   }, [snappedWidth]);
 
   return (
-    <main className={styles.main}>
-      {/* <button
-        id="accelPermsButton"
-        className={styles.accessButton}
-        onClick={getAccel}
-      >
-        Get Access
-      </button> */}
+    <main
+      className={styles.main}
+      // style={{
+      //   "--currentWidth": currentWidth,
+      // }}
+    >
+      {isMobile && gyroPermissionGranted === false && (
+        <button
+          id="accelPermsButton"
+          className={styles.accessButton}
+          onClick={getAccel}
+        >
+          Activate Gyro Sensor
+        </button>
+      )}
       <h1 className={styles.title} onClick={changeTheme}>
         Squeezy VF
       </h1>
       <p className={styles.width}>{snappedWidth}</p>
+      {/* <div className={styles.themeSwitch}>
+        <div className={styles.themeHandle}></div>
+        <div className={styles.themeHandle}></div>
+        <div className={styles.themeHandle}></div>
+      </div> */}
 
       <section className={styles.variableLines}>
         <div className={styles.letters}>
@@ -361,11 +364,9 @@ export default function Home() {
               <div
                 className={styles.gridItem}
                 key={key}
-                style={
-                  {
-                    // fontVariationSettings: `"wdth" ${currentWidth}`,
-                  }
-                }
+                // style={{
+                //   fontVariationSettings: `"wdth" ${currentWidth}`,
+                // }}
                 onMouseMove={() => setShowcasedLetter(letter)}
               >
                 {letter}
@@ -375,11 +376,9 @@ export default function Home() {
         </div>
         <div
           className={styles.gridShowcase}
-          style={
-            {
-              // fontVariationSettings: `"wdth" ${currentWidth}`,
-            }
-          }
+          // style={{
+          //   fontVariationSettings: `"wdth" ${currentWidth}`,
+          // }}
         >
           {showcasedLetter}
           <div
@@ -415,6 +414,12 @@ export default function Home() {
                 ? styles.centerBottomEdge
                 : ""
             } ${topGapLetters.includes(showcasedLetter) ? styles.topGap : ""} ${
+              bottomGapLetters.includes(showcasedLetter) ? styles.bottomGap : ""
+            } ${
+              bottomGapTopEdgeLetters.includes(showcasedLetter)
+                ? styles.bottomGapTopEdge
+                : ""
+            } ${
               topEnclosedLetters.includes(showcasedLetter)
                 ? styles.topEnclosed
                 : ""
@@ -424,12 +429,19 @@ export default function Home() {
                 : ""
             }`}
           >
-            <div className={styles.left}></div>
+            <div
+              className={styles.left}
+              // style={{
+              //   transform: `translate(${-0.2933 * (currentWidth / 400)}em, 0)`,
+              // }}
+            ></div>
             <div className={styles.right}></div>
             <div className={styles.top}></div>
             <div className={styles.bottom}></div>
             <div className={styles.centerTop}></div>
             <div className={styles.centerBottom}></div>
+            <div className={styles.centerTwoTop}></div>
+            <div className={styles.centerTwoBottom}></div>
             <div className={styles.centerWideTop}></div>
             <div className={styles.centerWideBottom}></div>
             <div className={styles.centerLeft}></div>

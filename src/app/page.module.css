@@ -3,11 +3,11 @@
   /* display: flex;
   align-items: center;
   justify-content: center; */
-  /* height: 100vh;
+  /* height: 100dvh;
   margin: 0 auto; */
   /* cursor: crosshair; */
   overflow: auto;
-  height: 100vh;
+  height: 100dvh;
   scroll-snap-type: y mandatory;
 
   > section {
@@ -17,7 +17,7 @@
 
 .variableLines {
   position: relative;
-  height: 100vh;
+  height: 100dvh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -26,10 +26,12 @@
 
 .accessButton {
   position: fixed;
+  border-radius: 500px;
   bottom: 10px;
   left: 10px;
   z-index: 30;
-  padding: 10px;
+  padding: 8px 16px;
+  font-weight: bold;
   background: var(--foreground);
   color: var(--background);
 }
@@ -125,7 +127,7 @@
   } */
 
 .editor {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   padding-top: 10vh;
@@ -136,7 +138,7 @@
 
 .editableArea {
   width: 100%;
-  font-size: 200px;
+  font-size: 80px;
   font-family: "Squeezy";
   text-align: center;
   line-height: 0.75;
@@ -150,29 +152,35 @@
   &:focus {
     outline: none;
   }
+
+  @media screen(md) {
+    font-size: 200px;
+  }
 }
 
 .gridContainer {
-  min-height: 100vh;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   font-family: "Squeezy";
   position: relative;
   z-index: 21;
   background-color: var(--background);
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   font-size: 100px;
+  font-size: clamp(100px, 10vw, 260px);
 }
 
 .gridItem {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 16vw; /* Almost square*/
 
   &:hover,
   &.active {
@@ -181,17 +189,33 @@
 }
 
 .gridShowcase {
-  font-size: 300px;
+  font-size: clamp(300px, 30vw, 800px);
+  /* font-size: 300px; */
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--foreground);
   color: var(--background);
   /* color: rgba(0, 0, 0, 0.5); */
-  height: 100vh;
+  height: 100dvh;
   position: sticky;
   top: 0;
   text-align: center;
+}
+
+@media (max-width: 500px) {
+  .gridContainer {
+    display: flex;
+
+    flex-direction: column-reverse;
+    position: relative;
+  }
+
+  .gridShowcase {
+    height: 50dvh;
+
+    font-size: 200px;
+  }
 }
 
 .gridLines {
@@ -218,6 +242,8 @@
   .bottom,
   .centerTop,
   .centerBottom,
+  .centerTwoTop,
+  .centerTwoBottom,
   .centerWideTop,
   .centerWideBottom,
   .outerTop,
@@ -229,15 +255,17 @@
   }
 
   .top {
-    transform: translate(0, -105px);
+    transform: translate(0, -0.35em);
   }
 
   .bottom {
-    transform: translate(0, 105px);
+    transform: translate(0, 0.35em);
   }
 
   .centerTop,
   .centerBottom,
+  .centerTwoTop,
+  .centerTwoBottom,
   .centerWideTop,
   .centerWideBottom,
   .centerLeft,
@@ -251,31 +279,32 @@
 
   &.regular {
     .left {
-      transform: translate(-88px, 0);
+      transform: translate(-0.2933em, 0);
     }
 
     .right {
-      transform: translate(87px, 0);
+      transform: translate(0.29em, 0);
+      /* transform: translate(0.5075em, 0); */
     }
   }
 
   &.wide {
     .left {
-      transform: translate(-133px, 0);
+      transform: translate(-0.443em, 0);
     }
 
     .right {
-      transform: translate(132px, 0);
+      transform: translate(0.44em, 0);
     }
   }
 
   &.narrow {
     .left {
-      transform: translate(-42px, 0);
+      transform: translate(-0.14em, 0);
     }
 
     .right {
-      transform: translate(41px, 0);
+      transform: translate(0.1366em, 0);
     }
   }
 
@@ -286,22 +315,22 @@
     }
 
     .centerLeft {
-      transform: translate(-4px, 0);
+      transform: translate(-0.01333em, 0);
     }
 
     .centerRight {
-      transform: translate(3px, 0);
+      transform: translate(0.01em, 0);
     }
   }
 
   &.centerWideGap,
   &.centerWideBottomEdge {
     .centerWideTop {
-      transform: translate(0, -15px);
+      transform: translate(0, -0.05em);
     }
 
     .centerWideBottom {
-      transform: translate(0, 13px);
+      transform: translate(0, 0.0433em);
     }
   }
 
@@ -319,13 +348,14 @@
   }
 
   &.centerGap,
-  &.centerBottomEdge {
+  &.centerBottomEdge,
+  &.centerTopEdge {
     .centerTop {
-      transform: translate(0, -4px);
+      transform: translate(0, -0.01333em);
     }
 
     .centerBottom {
-      transform: translate(0, 3px);
+      transform: translate(0, 0.01em);
     }
   }
 
@@ -355,25 +385,56 @@
     }
 
     .centerTop {
-      transform: translate(0, -41px);
+      transform: translate(0, -0.1366em);
     }
 
     .centerBottom {
-      transform: translate(0, -33px);
+      transform: translate(0, -0.11em);
     }
   }
 
   &.topEnclosed {
     .outerTop {
       display: block;
-      transform: translate(0, -79px);
+      transform: translate(0, -0.2633em);
+    }
+  }
+
+  &.bottomGap,
+  &.bottomGapTopEdge {
+    .centerTwoTop {
+      transform: translate(0, 0.108em);
+    }
+
+    .centerTwoBottom {
+      transform: translate(0, 0.132em);
+    }
+  }
+
+  &.bottomGap {
+    .centerTwoTop,
+    .centerTwoBottom {
+      display: block;
+    }
+  }
+
+  &.bottomGapTopEdge {
+    .centerTwoTop {
+      display: block;
+    }
+  }
+
+  &.topEnclosed {
+    .outerTop {
+      display: block;
+      transform: translate(0, -0.2633em);
     }
   }
 
   &.bottomEnclosed {
     .outerBottom {
       display: block;
-      transform: translate(0, 78px);
+      transform: translate(0, 0.26em);
     }
   }
 
@@ -387,37 +448,37 @@
 
     &.wide {
       .centerLeft {
-        transform: translate(-50px, 0);
+        transform: translate(-0.1666em, 0);
       }
 
       .centerRight {
-        transform: translate(-43px, 0);
+        transform: translate(-0.1433em, 0);
       }
 
       .centerTwoLeft {
-        transform: translate(49px, 0);
+        transform: translate(0.1633em, 0);
       }
 
       .centerTwoRight {
-        transform: translate(42px, 0);
+        transform: translate(0.14em, 0);
       }
     }
 
     &.regular {
       .centerLeft {
-        transform: translate(-23px, 0);
+        transform: translate(-0.0766em, 0);
       }
 
       .centerRight {
-        transform: translate(-16px, 0);
+        transform: translate(-0.0533em, 0);
       }
 
       .centerTwoLeft {
-        transform: translate(22px, 0);
+        transform: translate(0.0733em, 0);
       }
 
       .centerTwoRight {
-        transform: translate(15px, 0);
+        transform: translate(0.05em, 0);
       }
     }
   }
