@@ -520,6 +520,22 @@
       display: block;
     }
 
+    .centerLeft {
+      transform: translate(-0.0766em, 0);
+    }
+
+    .centerRight {
+      transform: translate(-0.0533em, 0);
+    }
+
+    .centerTwoLeft {
+      transform: translate(0.0733em, 0);
+    }
+
+    .centerTwoRight {
+      transform: translate(0.05em, 0);
+    }
+
     &.wide {
       .centerLeft {
         transform: translate(-0.1666em, 0);
@@ -535,24 +551,6 @@
 
       .centerTwoRight {
         transform: translate(0.14em, 0);
-      }
-    }
-
-    &.regular {
-      .centerLeft {
-        transform: translate(-0.0766em, 0);
-      }
-
-      .centerRight {
-        transform: translate(-0.0533em, 0);
-      }
-
-      .centerTwoLeft {
-        transform: translate(0.0733em, 0);
-      }
-
-      .centerTwoRight {
-        transform: translate(0.05em, 0);
       }
     }
   }
