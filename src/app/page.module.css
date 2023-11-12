@@ -15,6 +15,8 @@
   }
 
   --variable-lines-font-size: 90vh;
+  --letter-ratio-min: 0.5872106262;
+  --letter-ratio-max: 1.0880125;
 
   @media (orientation: portrait) {
     --variable-lines-font-size: calc(90vw / 1.0880125);
@@ -82,20 +84,25 @@
 .widthLinesRight {
   left: 50%;
   transform: translate(
-    calc(var(--variable-lines-font-size) * 0.5872106262 / 2),
+    calc(var(--variable-lines-font-size) * var(--letter-ratio-min) / 2),
     0
   );
-  width: calc(var(--variable-lines-font-size) * (1.0880125 - 0.609) / 2);
+  width: calc(
+    var(--variable-lines-font-size) * (var(--letter-ratio-max) - 0.609) / 2
+  );
 }
 
 .widthLinesLeft {
   right: 50%;
   transform: translate(
-      calc(var(--variable-lines-font-size) * 0.5872106262 / -2),
+      calc(var(--variable-lines-font-size) * var(--letter-ratio-min) / -2),
       0
     )
     scaleX(-1);
-  width: calc(var(--variable-lines-font-size) * (1.0880125 - 0.6072106262) / 2);
+  width: calc(
+    var(--variable-lines-font-size) * (var(--letter-ratio-max) - 0.6072106262) /
+      2
+  );
 }
 
 .widthLine {
@@ -235,6 +242,16 @@
 
 .gridShowcase {
   --variable-lines-font-size: clamp(300px, 30vw, 800px);
+
+  /* &.narrow {
+    --letter-ratio-min: 0.3547232;
+    --letter-ratio-max: 0.5838095;
+  }
+
+  &.wide {
+    --letter-ratio-min: 1.0141055;
+    --letter-ratio-max: 1.8036036;
+  } */
 
   font-size: var(--variable-lines-font-size);
   /* font-size: 300px; */

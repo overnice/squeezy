@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Head from "next/head";
 import { isMobile } from "react-device-detect";
-
 import styles from "./page.module.css";
+import Grid from "./Grid/grid";
 
 export default function Home() {
   const [currentLetter, setCurrentLetter] = useState("K");
@@ -11,7 +12,6 @@ export default function Home() {
   const [snappedWidth, setSnappedWidth] = useState();
   const [renderedLetters, setRenderedLetters] = useState([currentLetter]);
   const [renderedLettersWidths, setRenderedLettersWidths] = useState([]);
-  const [showcasedLetter, setShowcasedLetter] = useState("A");
   const [gyroPermissionGranted, setGyroPermissionGranted] = useState(false);
 
   const themes = ["red", "blue", "pink", "black"];
@@ -25,7 +25,6 @@ export default function Home() {
     }
   };
 
-  // const snappedWidths = [400, 420, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 680, 700];
   const snappedWidths = [400, 430, 460, 490, 520, 550, 580, 610, 640, 670, 700];
 
   const heroLetterSet = [
@@ -48,117 +47,9 @@ export default function Home() {
     "Z",
   ];
 
-  const fullLetterSet = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-  ];
-  const wideLetters = ["M", "T", "W"];
-  const centerSlitLetters = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "J",
-    "K",
-    "L",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "U",
-    "V",
-    "X",
-    "Y",
-    "Z",
-  ];
-  const centerWideGapLetters = [
-    "A",
-    "B",
-    "H",
-    "K",
-    "R",
-    "N",
-    "X",
-    "S",
-    "Y",
-    "Z",
-  ];
-  const centerGapLetters = ["B", "C", "X"];
-  const centerWideBottomEdgeLetters = ["P", "T"];
-  const centerBottomEdgeLetters = ["J", "L", "K"];
-  const centerTopEdgeLetters = ["R"];
-  const doubleSlitLetters = ["M", "N", "T", "W"];
-  const topGapLetters = ["G", "E", "F"];
-  const bottomGapLetters = ["E"];
-  const bottomGapTopEdgeLetters = ["F"];
-  const topEnclosedLetters = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "M",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "Z",
-  ];
-  const bottomEnclosedLetters = [
-    "B",
-    "C",
-    "D",
-    "E",
-    "G",
-    "J",
-    "L",
-    "O",
-    "Q",
-    "S",
-    "U",
-    "V",
-    "W",
-    "Y",
-    "Z",
-  ];
-
   const currentLetterRef = useRef(null);
   const variableLinesSectionRef = useRef(null);
   const editableSectionRef = useRef(null);
-  const showcaseSectionRef = useRef(null);
 
   const min = 0.6080125;
   const max = 1.0880125;
@@ -168,17 +59,13 @@ export default function Home() {
     let delta = 0;
 
     let center = window.innerWidth / 2;
+
     let height = currentLetterRef.current.getBoundingClientRect().height;
-
-    const getWidth = (ratio) => {
-      return height * ratio;
-    };
-
-    const ratio = 300 / ((getWidth(max) - getWidth(min)) / 2);
+    const ratio = 300 / ((height * max - height * min) / 2);
 
     const handleMouseMove = (e) => {
       x = Math.abs(center - e.clientX);
-      delta = Math.floor(x - getWidth(min) / 2);
+      delta = Math.floor(x - (height * min) / 2);
 
       const width = 400 + delta * ratio;
 
@@ -188,7 +75,7 @@ export default function Home() {
 
       setSnappedWidth(snappedWidth);
 
-      if (delta >= 0 && delta <= (getWidth(max) - getWidth(min)) / 2) {
+      if (delta >= 0 && delta <= (height * max - height * min) / 2) {
         setCurrentWidth(width);
       }
     };
@@ -200,7 +87,6 @@ export default function Home() {
 
     const variableLinesSection = variableLinesSectionRef.current;
     const editableSection = editableSectionRef.current;
-    const showcaseSection = showcaseSectionRef.current;
 
     if (!isMobile) {
       variableLinesSection &&
@@ -208,13 +94,14 @@ export default function Home() {
 
       editableSection &&
         editableSection.addEventListener("mousemove", handleMouseMove);
-
-      showcaseSection &&
-        showcaseSection.addEventListener("mousemove", handleMouseMove);
     }
 
     window.addEventListener("resize", handleResize);
+
     return () => {
+      variableLinesSection &&
+        variableLinesSection.addEventListener("mousemove", handleMouseMove);
+
       editableSection &&
         editableSection.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
@@ -276,6 +163,9 @@ export default function Home() {
       //   "--currentWidth": currentWidth,
       // }}
     >
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+      </Head>
       {isMobile && gyroPermissionGranted === false && (
         <button
           id="accelPermsButton"
@@ -370,159 +260,13 @@ export default function Home() {
           Type anything
         </p>
       </section>
-      <section className={styles.gridContainer}>
-        <div className={styles.grid}>
-          {fullLetterSet.map((letter, key) => {
-            return (
-              <div
-                className={styles.gridItem}
-                key={key}
-                // style={{
-                //   fontVariationSettings: `"wdth" ${currentWidth}`,
-                // }}
-                onMouseMove={() => setShowcasedLetter(letter)}
-              >
-                {letter}
-              </div>
-            );
-          })}
-        </div>
-        <div
-          className={styles.gridShowcase}
-          ref={showcaseSectionRef}
-          style={{
-            fontVariationSettings: `"wdth" ${currentWidth}`,
-          }}
-        >
-          <div className={styles.showcasedLetter}>
-            {showcasedLetter}
-            <div
-              className={`${styles.gridLines}
-            ${wideLetters.includes(showcasedLetter) ? styles.wide : ""} ${
-                centerSlitLetters.includes(showcasedLetter)
-                  ? styles.centerSlit
-                  : ""
-              } ${
-                doubleSlitLetters.includes(showcasedLetter)
-                  ? styles.doubleSlit
-                  : ""
-              } ${
-                centerWideGapLetters.includes(showcasedLetter)
-                  ? styles.centerWideGap
-                  : ""
-              } ${
-                centerGapLetters.includes(showcasedLetter)
-                  ? styles.centerGap
-                  : ""
-              } ${
-                centerWideBottomEdgeLetters.includes(showcasedLetter)
-                  ? styles.centerWideBottomEdge
-                  : ""
-              } ${
-                centerTopEdgeLetters.includes(showcasedLetter)
-                  ? styles.centerTopEdge
-                  : ""
-              } ${
-                centerBottomEdgeLetters.includes(showcasedLetter)
-                  ? styles.centerBottomEdge
-                  : ""
-              } ${
-                topGapLetters.includes(showcasedLetter) ? styles.topGap : ""
-              } ${
-                bottomGapLetters.includes(showcasedLetter)
-                  ? styles.bottomGap
-                  : ""
-              } ${
-                bottomGapTopEdgeLetters.includes(showcasedLetter)
-                  ? styles.bottomGapTopEdge
-                  : ""
-              } ${
-                topEnclosedLetters.includes(showcasedLetter)
-                  ? styles.topEnclosed
-                  : ""
-              } ${
-                bottomEnclosedLetters.includes(showcasedLetter)
-                  ? styles.bottomEnclosed
-                  : ""
-              }`}
-            >
-              <div className={styles.left}></div>
-              <div className={styles.right}></div>
-              <div className={styles.top}></div>
-              <div className={styles.bottom}></div>
-              <div className={styles.centerTop}></div>
-              <div className={styles.centerBottom}></div>
-              <div className={styles.centerTwoTop}></div>
-              <div className={styles.centerTwoBottom}></div>
-              <div className={styles.centerWideTop}></div>
-              <div className={styles.centerWideBottom}></div>
-              <div
-                className={styles.centerLeft}
-                style={{
-                  transform:
-                    wideLetters.includes(showcasedLetter) &&
-                    doubleSlitLetters.includes(showcasedLetter)
-                      ? `translate(${-0.1666 * (currentWidth / 400)}em, -50%)`
-                      : null,
-                }}
-              ></div>
-              <div
-                className={styles.centerRight}
-                style={{
-                  transform:
-                    wideLetters.includes(showcasedLetter) &&
-                    doubleSlitLetters.includes(showcasedLetter)
-                      ? `translate(${-0.1433 * (currentWidth / 400)}em, -50%)`
-                      : null,
-                }}
-              ></div>
-              <div
-                className={styles.centerTwoLeft}
-                style={{
-                  transform:
-                    wideLetters.includes(showcasedLetter) &&
-                    doubleSlitLetters.includes(showcasedLetter)
-                      ? `translate(${0.1633 * (currentWidth / 400)}em, -50%)`
-                      : null,
-                }}
-              ></div>
-              <div
-                className={styles.centerTwoRight}
-                style={{
-                  transform:
-                    wideLetters.includes(showcasedLetter) &&
-                    doubleSlitLetters.includes(showcasedLetter)
-                      ? `translate(${0.14 * (currentWidth / 400)}em, -50%)`
-                      : null,
-                }}
-              ></div>
-              <div className={styles.outerTop}></div>
-              <div className={styles.outerBottom}></div>
-            </div>
-          </div>
-          <p className={styles.width}>{snappedWidth}</p>
-          <div className={styles.widthLinesLeft}>
-            {snappedWidths.map((width, key) => (
-              <div
-                className={`${styles.widthLine} ${
-                  width === snappedWidth ? styles.active : ""
-                }`}
-                key={key}
-              ></div>
-            ))}
-          </div>
-          <div className={styles.widthLinesRight}>
-            {snappedWidths.map((width, key) => (
-              <div
-                className={`${styles.widthLine} ${
-                  width === snappedWidth ? styles.active : ""
-                }`}
-                key={key}
-              ></div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Grid
+        isMobile={isMobile}
+        snappedWidths={snappedWidths}
+        extSnappedWidth={gyroPermissionGranted ? snappedWidth : null}
+        extCurrentWidth={gyroPermissionGranted ? currentWidth : null}
+        gyroPermissionGranted={gyroPermissionGranted}
+      />
     </main>
   );
 }
