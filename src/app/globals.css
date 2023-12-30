@@ -13,71 +13,70 @@
 }
 
 :root {
-  /* --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255; */
+  --red-background: #ff2b2b;
+  --red-foreground: #e3ff73;
+  --red-foreground-shade-30: #ff6a29;
+  --red-foreground-shade-20: #ff5529;
+  --red-foreground-shade-10: #ff3f2a;
 
-  --background: #ff2b2b;
-  --foreground: #e3ff73;
-  --foreground-shade-30: #ff6a29;
-  --foreground-shade-20: #ff5529;
-  --foreground-shade-10: #ff3f2a;
+  --blue-background: #73bcff;
+  --blue-foreground: #ff2a5e;
+  --blue-foreground-shade-30: #9d96eb;
+  --blue-foreground-shade-20: #8fa3f2;
+  --blue-foreground-shade-10: #81aff8;
 
-  /* --background: #000;
-  --foreground: #fff;
-  --foreground-shade-30: #333333;
-  --foreground-shade-20: #1a1a1a;
-  --foreground-shade-10: #0d0d0d; */
+  --pink-background: #ff2a5e;
+  --pink-foreground: #73bcff;
+  --pink-foreground-shade-30: #f8488e;
+  --pink-foreground-shade-20: #fa3e7e;
+  --pink-foreground-shade-10: #fd346e;
+
+  --black-background: #000;
+  --black-foreground: #fff;
+  --black-foreground-shade-30: #333333;
+  --black-foreground-shade-20: #1a1a1a;
+  --black-foreground-shade-10: #0d0d0d;
+
+  --background: var(--red-background);
+  --foreground: var(--red-foreground);
+  --foreground-shade-30: var(--red-foreground-shade-30);
+  --foreground-shade-20: var(--red-foreground-shade-20);
+  --foreground-shade-10: var(--red-foreground-shade-10);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
-
 body {
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
   background: var(--background);
   color: var(--foreground);
 
   &.red {
-    --background: #ff2b2b;
-    --foreground: #e3ff73;
-    --foreground-shade-30: #ff6a29;
-    --foreground-shade-20: #ff5529;
-    --foreground-shade-10: #ff3f2a;
+    --background: var(--red-background);
+    --foreground: var(--red-foreground);
+    --foreground-shade-30: var(--red-foreground-shade-30);
+    --foreground-shade-20: var(--red-foreground-shade-20);
+    --foreground-shade-10: var(--red-foreground-shade-10);
   }
 
   &.blue {
-    --background: #73bcff;
-    --foreground: #ff2a5e;
-    --foreground-shade-30: #9d96eb;
-    --foreground-shade-20: #8fa3f2;
-    --foreground-shade-10: #81aff8;
+    --background: var(--blue-background);
+    --foreground: var(--blue-foreground);
+    --foreground-shade-30: var(--blue-foreground-shade-30);
+    --foreground-shade-20: var(--blue-foreground-shade-20);
+    --foreground-shade-10: var(--blue-foreground-shade-10);
   }
 
   &.pink {
-    --background: #ff2a5e;
-    --foreground: #73bcff;
-    --foreground-shade-30: #f8488e;
-    --foreground-shade-20: #fa3e7e;
-    --foreground-shade-10: #fd346e;
+    --background: var(--pink-background);
+    --foreground: var(--pink-foreground);
+    --foreground-shade-30: var(--pink-foreground-shade-30);
+    --foreground-shade-20: var(--pink-foreground-shade-20);
+    --foreground-shade-10: var(--pink-foreground-shade-10);
   }
 
   &.black {
-    --background: #000;
-    --foreground: #fff;
-    --foreground-shade-30: #333333;
-    --foreground-shade-20: #1a1a1a;
-    --foreground-shade-10: #0d0d0d;
+    --background: var(--black-background);
+    --foreground: var(--black-foreground);
+    --foreground-shade-30: var(--black-foreground-shade-30);
+    --foreground-shade-20: var(--black-foreground-shade-20);
+    --foreground-shade-10: var(--black-foreground-shade-10);
   }
 }

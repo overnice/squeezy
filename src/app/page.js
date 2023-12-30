@@ -17,12 +17,19 @@ export default function Home() {
   const themes = ["red", "blue", "pink", "black"];
   const [theme, setTheme] = useState(0);
 
-  const changeTheme = () => {
-    if (theme === themes.length - 1) {
-      setTheme(0);
-    } else {
-      setTheme(theme + 1);
+  const changeTheme = (newTheme) => {
+    // if (theme === themes.length - 1) {
+    //   setTheme(0);
+    // } else {
+    //   setTheme(theme + 1);
+    // }
+
+    if (newTheme === theme) {
+      console.log(theme);
+      return;
     }
+    console.log(newTheme);
+    setTheme(newTheme);
   };
 
   const snappedWidths = [400, 430, 460, 490, 520, 550, 580, 610, 640, 670, 700];
@@ -110,6 +117,29 @@ export default function Home() {
 
   // Gyro
   function getAccel() {
+    // Android
+    // setGyroPermissionGranted(true);
+    // let delta;
+    // const ratio = 300 / 30;
+
+    // // console.log("accelerometer permission granted");
+
+    // window.addEventListener("deviceorientation", (e) => {
+    //   delta = Math.abs(e.gamma);
+
+    //   if (delta > 0 && delta < 30) {
+    //     const width = 400 + delta * ratio;
+
+    //     const snappedWidth = snappedWidths.reduce(function (prev, curr) {
+    //       return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
+    //     });
+
+    //     setSnappedWidth(snappedWidth);
+    //     setCurrentWidth(width);
+    //   }
+    // });
+
+    // IOS
     DeviceMotionEvent.requestPermission().then((response) => {
       if (response == "granted") {
         setGyroPermissionGranted(true);
@@ -175,9 +205,31 @@ export default function Home() {
           Activate Gyro Sensor
         </button>
       )}
-      <h1 className={styles.title} onClick={changeTheme}>
-        Squeezy VF
-      </h1>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Squeezy VF</h1>
+        <div
+          className={styles.themeSwitch}
+          style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}
+        >
+          {themes.map((thisTheme, index) => {
+            // console.log(index, theme);
+
+            return (
+              <button
+                key={index}
+                className={`${styles.switch} ${thisTheme} ${
+                  index === theme ? styles.active : ""
+                }`}
+                onClick={() => changeTheme(index)}
+                style={{
+                  left: 16 * index,
+                }}
+              ></button>
+            );
+          })}
+        </div>
+      </header>
+
       <p className={styles.width}>{snappedWidth}</p>
       <div className={styles.widthLinesLeft}>
         {snappedWidths.map((width, key) => (

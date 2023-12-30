@@ -46,7 +46,7 @@
   color: var(--background);
 }
 
-.title,
+.header,
 .width {
   color: var(--foreground);
   font-family: "Helvetiva", sans-serif;
@@ -64,8 +64,116 @@
   /* filter: invert(100%); */
 }
 
-.title {
+.header {
   top: 12px;
+  padding: 0 12px;
+  /* background: black; */
+  /* border-radius: 24px; */
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    font-size: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+  }
+}
+
+.themeSwitch {
+  box-sizing: content-box;
+  position: relative;
+  display: flex;
+  border-radius: 100px;
+  /* padding: 4px; */
+  background: black;
+  gap: 4px;
+  /* height: 12px; */
+  transition: width .2s cubic-bezier(0.25,0,0,1);
+
+  &:before {
+    content: "";
+    background: black;
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 24px;
+    transition-property: opacity, left, top, bottom, right;
+    transition-duration: .2s;
+    transition-timing-function: cubic-bezier(0.25,0,0,1);
+  }
+
+  &:not(:hover) {
+    &:before {
+      opacity: 0;
+      /* top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0; */
+    }
+    
+    width: 12px !important;
+    .switch {
+      left: 0!important
+    }
+  }
+}
+
+.switch {
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: width .2s cubic-bezier(0.25,0,0,1), left .2s cubic-bezier(0.25,0,0,1);
+  cursor: pointer;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 12px;
+    transform: scale(0.5);
+    transition: transform .2s cubic-bezier(0.25,0,0,1);
+  }
+
+  &:hover, &.active {
+    &:before {
+      transform: scale(1);
+    }
+  }
+
+  &.active {
+    z-index: 10;
+  }
+
+  &:global(.red) {
+    &:before {
+      background: var(--red-foreground);
+    }
+  }
+
+  &:global(.blue) {
+    &:before {
+      background: var(--blue-foreground);
+    }
+  }
+
+  &:global(.pink) {
+    &:before {
+      background: var(--pink-foreground);
+    }
+  }
+
+  &:global(.black) {
+    &:before {
+      background: var(--black-foreground);
+    }
+  }
 }
 
 .width {
