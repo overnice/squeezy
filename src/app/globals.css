@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "Squeezy";
-  src: url("/fonts/SqueezyVF.ttf");
+  src: url("/fonts/SqueezyVF.woff2");
 }
 
 *::selection {
