@@ -308,9 +308,7 @@ export default function Home() {
           style={{
             fontVariationSettings: `"wdth" ${currentWidth}`,
           }}
-        >
-          Type anything
-        </p>
+        ></p>
       </section>
       <Grid
         isMobile={isMobile}
