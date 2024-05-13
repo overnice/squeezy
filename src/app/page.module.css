@@ -23,6 +23,55 @@
   }
 }
 
+.heading {
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading h1 {
+  font-family: "Squeezy";
+  font-size: 13vw;
+  line-height: 13vw;
+  text-align: center;
+  font-variation-settings: "wdth" 400;
+  animation: vars 4s infinite cubic-bezier(0.25, 0, 0, 1) both;
+  animation-delay: var(--delay);
+}
+
+@keyframes vars {
+  0% {
+     font-variation-settings: "wdth" 400;
+  }
+    
+  25% {
+   font-variation-settings: "wdth" 700;
+  } 
+  
+ 50% {
+    font-variation-settings: "wdth" 500;
+  } 
+  
+  75% {
+    font-variation-settings: "wdth" 600;
+  } 
+  
+  100% {
+    font-variation-settings: "wdth" 400;
+  }
+}
+
+
+.heading p {
+  font-family: 'TT_Neoris', sans-serif;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+}
+
 .variableLines {
   position: relative;
   height: 100dvh;
@@ -71,6 +120,7 @@
   /* border-radius: 24px; */
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   button {
     font-size: inherit;
@@ -78,6 +128,11 @@
     letter-spacing: inherit;
   }
 }
+
+.header path {
+  fill: var(--foreground);
+}
+
 
 .themeSwitch {
   box-sizing: content-box;
@@ -87,7 +142,7 @@
   /* padding: 4px; */
   background: black;
   gap: 4px;
-  /* height: 12px; */
+  height: 12px;
   transition: width .2s cubic-bezier(0.25,0,0,1);
 
   &:before {
@@ -177,6 +232,7 @@
 }
 
 .width {
+  position: absolute;
   bottom: 12px;
 }
 
@@ -319,6 +375,7 @@
 
   &:empty:before {
     content: "Type sth...";
+    cursor: pointer;
     color: var(--foreground-shade-30)
   }
 }
@@ -343,6 +400,8 @@
 
 .gridItem {
   display: flex;
+  cursor: pointer;
+  user-select: none;
   align-items: center;
   justify-content: center;
   min-height: 16vw; /* Almost square*/

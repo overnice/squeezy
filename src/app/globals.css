@@ -8,6 +8,12 @@
   font-display: block;
 }
 
+@font-face {
+  font-display: swap;
+  font-family: 'TT_Neoris';
+  src: url('/fonts/TT_Neoris_Variable.woff2');
+}
+
 *::selection {
   color: var(--foreground);
   background: rgba(0, 0, 0, 0);
@@ -46,6 +52,12 @@
 }
 
 body {
+  font-family: 'TT_Neoris, sans-serif';
+  font-feature-settings: 'ss05' on;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  font-variation-settings: 'ital' 1;
   background: var(--background);
   color: var(--foreground);
 

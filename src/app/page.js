@@ -54,6 +54,7 @@ export default function Home() {
     "Z",
   ];
 
+  const headerRef = useRef(null);
   const currentLetterRef = useRef(null);
   const variableLinesSectionRef = useRef(null);
   const editableSectionRef = useRef(null);
@@ -186,6 +187,23 @@ export default function Home() {
     document.body.className = themes[theme];
   }, [theme]);
 
+  // const initialized = useRef(false)
+  // const lastValue = useRef(null)
+  // const weightValues = []
+  // useEffect(() => {
+  //   if (!initialized.current) {
+  //     initialized.current = true
+  //     setInterval(randomizeText, 1000);
+  //   }
+  // });
+  // function randomizeText() {
+  //   let randomWeight = Math.random() * (200 - 35) + 35;
+  //   let randomWidth = 400 + Math.round(Math.random() * 3) * 100;
+  //   headerRef.current.style.fontVariationSettings = "\"wdth\" " + randomWidth;
+  //   console.log(headerRef.current, randomWidth)
+  // }
+  
+
   return (
     <main
       className={styles.main}
@@ -206,6 +224,13 @@ export default function Home() {
         </button>
       )}
       <header className={styles.header}>
+      <svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M12.4029 23.8945C10.2161 23.8945 9.6893 22.17 9.6893 15.039C9.6893 7.81474 10.2161 6.18346 12.4029 6.18346C14.5898 6.18346 15.1166 7.90796 15.1166 15.039C15.1166 22.17 14.5898 23.8945 12.4029 23.8945ZM12.4029 0.108887C1.46856 0.108887 0 7.51955 0 14.9458C0 23.1798 1.03757 30.0001 12.4029 30.0001C23.3373 30.0001 24.8059 22.4807 24.8059 15.0545C24.7899 6.82043 23.7683 0.108887 12.4029 0.108887Z"
+        fill="#FEFEFE"/>
+      </svg>
+
+
         <h1 className={styles.title}>Squeezy VF</h1>
         <div
           className={styles.themeSwitch}
@@ -230,34 +255,43 @@ export default function Home() {
         </div>
       </header>
 
-      <p className={styles.width}>{snappedWidth}</p>
-      <div className={styles.widthLinesLeft}>
-        {snappedWidths.map((width, key) => (
-          <div
-            className={`${styles.widthLine} ${
-              width === snappedWidth ? styles.active : ""
-            }`}
-            key={key}
-          ></div>
-        ))}
-      </div>
-      <div className={styles.widthLinesRight}>
-        {snappedWidths.map((width, key) => (
-          <div
-            className={`${styles.widthLine} ${
-              width === snappedWidth ? styles.active : ""
-            }`}
-            key={key}
-          ></div>
-        ))}
-      </div>
       {/* <div className={styles.themeSwitch}>
         <div className={styles.themeHandle}></div>
         <div className={styles.themeHandle}></div>
         <div className={styles.themeHandle}></div>
       </div> */}
 
+      <section className={styles.heading}>
+      <h1 style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
+      <h1 style={{"--delay": '-0.5s'}} ref={headerRef}>Squeezy</h1>
+      <h1 style={{"--delay": '-0.3s'}} ref={headerRef}>Squeezy</h1>
+      <p>A squishable and squashable variable font</p>
+      </section>
+
       <section className={styles.variableLines} ref={variableLinesSectionRef}>
+        {/* Width Lines */}
+        <p className={styles.width}>{snappedWidth}</p>
+        <div className={styles.widthLinesLeft}>
+          {snappedWidths.map((width, key) => (
+            <div
+              className={`${styles.widthLine} ${
+                width === snappedWidth ? styles.active : ""
+              }`}
+              key={key}
+            ></div>
+          ))}
+        </div>
+        <div className={styles.widthLinesRight}>
+          {snappedWidths.map((width, key) => (
+            <div
+              className={`${styles.widthLine} ${
+                width === snappedWidth ? styles.active : ""
+              }`}
+              key={key}
+            ></div>
+          ))}
+        </div>
+        {/* ------ Lines ------ */}
         <div className={styles.letters}>
           <div
             className={`${styles.letter} ${styles.letter3}`}

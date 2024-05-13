@@ -208,7 +208,7 @@ export default function Grid({
         {fullLetterSet.map((letter, key) => {
           return (
             <div
-              className={styles.gridItem}
+              className={`${styles.gridItem} ${currentLetter === letter ? styles.active : 'fuck'}`}
               key={key}
               onClick={() => setCurrentLetter(letter)}
             >
