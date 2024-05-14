@@ -200,7 +200,7 @@ export default function Grid({
       setSnappedWidth(extSnappedWidth);
       setCurrentWidth(extCurrentWidth);
     }
-  }, [extSnappedWidth, extCurrentWidth]);
+  }, [extSnappedWidth, extCurrentWidth, gyroPermissionGranted]);
 
   return (
     <section className={styles.gridContainer}>

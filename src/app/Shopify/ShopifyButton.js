@@ -6,7 +6,6 @@ const DynamicBuyNow = dynamic(() => import('/src/app/Shopify/BuyNow.js'), {
 });
 
 export default function Products(props) {
-    console.log('props', props)
     useEffect(() => {
         setTimeout(() => {
             const style = getComputedStyle(document.body)

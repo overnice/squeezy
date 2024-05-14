@@ -72,7 +72,6 @@ export default function BuyNow({ id }) {
         }
         initialised.current = true
     });
-
     const content = `<style>
 
     .shopify-buy-frame--toggle {
