@@ -263,11 +263,29 @@ export default function Home() {
       </div> */}
 
       <section className={styles.heading}>
-      <h1 style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
-      <h1 style={{"--delay": '-0.5s'}} ref={headerRef}>Squeezy</h1>
-      <h1 style={{"--delay": '-0.3s'}} ref={headerRef}>Squeezy</h1>
-      <p className="mb-8">A squishable and squashable variable font</p>
-      <ShopifyButton id={8815969796426}></ShopifyButton>
+        <div className="w-fit max-w-full flex items-center">
+          <h1 className={`grow ${styles.left}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
+          <h1 className={`grow ${styles.right}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
+        </div>
+        <div className="w-fit max-w-full flex items-center">
+          <h1 className={`grow ${styles.right}`} style={{"--delay": '-0.8s'}} ref={headerRef}>Squeezy</h1>
+          <h1 className={`grow ${styles.left}`} style={{"--delay": '-0.8s'}} ref={headerRef}>Squeezy</h1>
+        </div>
+        <div className="w-fit max-w-full flex items-center">
+          <h1 className={`grow ${styles.left}`} style={{"--delay": '-0.3s'}} ref={headerRef}>Squeezy</h1>
+          <h1 className={`grow ${styles.right}`} style={{"--delay": '-0.3s'}} ref={headerRef}>Squeezy</h1>
+        </div>
+        <div className="w-fit max-w-full flex items-center">
+          <h1 className={`grow ${styles.right}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
+          <h1 className={`grow ${styles.left}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
+        </div>
+        <div className="w-fit max-w-full flex items-center">
+          <h1 className={`grow ${styles.left}`} style={{"--delay": '-0.5s'}} ref={headerRef}>Squeezy</h1>
+          <h1 className={`grow ${styles.right}`} style={{"--delay": '-0.5s'}} ref={headerRef}>Squeezy</h1>
+        </div>
+        
+        <p className="mb-8">A squishable and squashable variable font</p>
+        <ShopifyButton id={8815969796426}></ShopifyButton>
       </section>
 
       <section className={styles.variableLines} ref={variableLinesSectionRef}>

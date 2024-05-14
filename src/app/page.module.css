@@ -33,17 +33,26 @@
   justify-content: center;
 }
 
-.heading h1 {
+.heading .left {
   font-family: "Squeezy";
-  font-size: 13vw;
-  line-height: 13vw;
+  font-size: 8vw;
+  line-height: 8vw;
   text-align: center;
   font-variation-settings: "wdth" 400;
-  animation: vars 4s infinite cubic-bezier(0.25, 0, 0, 1) both;
+  animation: left 4s infinite cubic-bezier(0.25, 0, 0, 1) both;
   animation-delay: var(--delay);
 }
 
-@keyframes vars {
+.heading .right {
+  font-family: "Squeezy";
+  font-size: 8vw;
+  line-height: 8vw;
+  text-align: center;
+  font-variation-settings: "wdth" 400;
+  animation: right 4s infinite cubic-bezier(0.25, 0, 0, 1) both;
+  animation-delay: var(--delay);
+}
+@keyframes left {
   0% {
      font-variation-settings: "wdth" 400;
   }
@@ -65,11 +74,33 @@
   }
 }
 
+@keyframes right {
+  0% {
+     font-variation-settings: "wdth" 700;
+  }
+    
+  25% {
+   font-variation-settings: "wdth" 400;
+  } 
+  
+ 50% {
+    font-variation-settings: "wdth" 600;
+  } 
+  
+  75% {
+    font-variation-settings: "wdth" 500;
+  } 
+  
+  100% {
+    font-variation-settings: "wdth" 700;
+  }
+}
+
 
 .heading p {
   font-family: 'TT_Neoris', sans-serif;
   font-size: 1.5rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .variableLines {
