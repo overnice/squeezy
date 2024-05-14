@@ -5,7 +5,7 @@ import Head from "next/head";
 import { isMobile } from "react-device-detect";
 import styles from "./page.module.css";
 import Grid from "./Grid/grid";
-
+import ShopifyButton from './Shopify/ShopifyButton'
 export default function Home() {
   const [currentLetter, setCurrentLetter] = useState("K");
   const [currentWidth, setCurrentWidth] = useState();
@@ -203,7 +203,6 @@ export default function Home() {
   //   console.log(headerRef.current, randomWidth)
   // }
   
-
   return (
     <main
       className={styles.main}
@@ -267,7 +266,8 @@ export default function Home() {
       <h1 style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
       <h1 style={{"--delay": '-0.5s'}} ref={headerRef}>Squeezy</h1>
       <h1 style={{"--delay": '-0.3s'}} ref={headerRef}>Squeezy</h1>
-      <p>A squishable and squashable variable font</p>
+      <p className="mb-8">A squishable and squashable variable font</p>
+      <ShopifyButton id={8815969796426}></ShopifyButton>
       </section>
 
       <section className={styles.variableLines} ref={variableLinesSectionRef}>

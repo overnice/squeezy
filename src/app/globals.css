@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .shopify-buy__btn {
+    color: blue
+  }
+}
+
 @font-face {
   font-family: "Squeezy";
   src: url("/fonts/SqueezyVF.woff2");
