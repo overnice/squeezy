@@ -150,6 +150,10 @@ export default function BuyNow({ id }) {
             opacity: 0.8;
         }
     }
+
+    .visuallyhidden {
+        display: none;
+    }
     </style>`
 
     return (
