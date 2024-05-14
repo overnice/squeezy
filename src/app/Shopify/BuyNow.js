@@ -13,13 +13,11 @@ export default function BuyNow({ id }) {
     const initialised = useRef(false)
     useEffect(() => {
         if (!initialised.current) {
-            const targetElement = document.getElementById(`buy-now-${id}`)
-            targetElement.innerHTML = ""
             const buttonBackground = getComputedStyle(document.body).getPropertyValue('--foreground')
             const buttonColor = getComputedStyle(document.body).getPropertyValue('--background')
             ui.createComponent('product', {
                 id,
-                node: targetElement,
+                node: document.getElementById(`buy-now-${id}`),
                 options: {
                     toggle: {
                         iframe: false
@@ -27,8 +25,8 @@ export default function BuyNow({ id }) {
                     cart: {
                         styles: {
                             button: {
-                                "background-color": buttonBackground,
-                                "color": buttonColor,
+                                "background-color": buttonColor,
+                                "color": buttonBackground,
                                 ":hover": {
                                     "background-color": buttonBackground,
                                     "color": buttonColor,
@@ -80,12 +78,17 @@ export default function BuyNow({ id }) {
 
     .shopify-buy__cart-toggle {
         cursor: pointer;
-        padding: 1rem 1rem;
+        padding: 1rem 2rem 1rem 1rem;
         color: var(--background);
         border-radius: 1rem 0 0 1rem;
         background-color: var(--foreground);
         font-family: 'TT_NEORIS';
         top: 95% !important;
+        transform: translateX(1rem);
+        transition: transform 0.3s ease;
+        &:hover {
+            transform: translateX(0);
+        }
     }
 
     .shopify-buy__icon-cart {
@@ -98,18 +101,18 @@ export default function BuyNow({ id }) {
 
     .shopify-buy__cart-toggle__count {
         position: absolute;
-        top: 0;
-        left: 0;
-        transform: translate(-50%, -50%);
-        font-size: 1rem;
+        top: 0.25rem;
+        left: 1.75rem;
+
+        font-size: 0.7rem;
     
         width: 2em;
         height: 2em;
         box-sizing: initial;
     
-        background: orange;
+        background: var(--background);
         // border: 0.1em solid black;
-        color: black;
+        color: var(--foreground);
         text-align: center;
         border-radius: 50%;    
     
