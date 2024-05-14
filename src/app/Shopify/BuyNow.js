@@ -37,6 +37,7 @@ export default function BuyNow({ id }) {
                     },
                     product: {
                         iframe: false,
+                        buttonDestination: 'checkout',
                         contents: {
                                 img: false,
                                 title: false,
