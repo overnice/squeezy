@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import ShopifyBuy from '@shopify/buy-button-js';
 import styles from './shopify.module.css'
 
-console.log( process.env.NEXT_PUBLIC_STOREFRONT_API_KEY)
 const shopifyClient = ShopifyBuy.buildClient({
     domain: 'accounts-3889.myshopify.com',
     storefrontAccessToken: process.env.NEXT_PUBLIC_STOREFRONT_API_KEY
