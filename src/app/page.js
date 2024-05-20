@@ -343,7 +343,7 @@ export default function Home() {
       />
 
       {/* Payment area */}
-      <section data-index='3' className={`max-w-2xl px-4 mx-auto space-y-10 h-[100dvh] content-center ${styles.prose}`}>
+      <section data-index='3' className={`max-w-2xl px-4 mx-auto space-y-10 h-[100svh] content-center ${styles.prose}`}>
           <h1 className={`grow not-prose ${styles.left} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
           <p className="text-xl md:!text-3xl leading-[110%]">
           How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
