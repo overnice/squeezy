@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import ShopifyBuy from '@shopify/buy-button-js';
-import styles from './shopify.module.css'
 
 const shopifyClient = ShopifyBuy.buildClient({
     domain: 'accounts-3889.myshopify.com',
@@ -230,7 +229,7 @@ export default function BuyNow({ shopItemId, uniqueElementId, label }) {
     return (
         <div className="relative btn-wrapper">
             <div dangerouslySetInnerHTML={{__html: content}}></div>
-            <div className={styles.shopify} id={`buy-now-${shopItemId}-${uniqueElementId}`} />
+            <div id={`buy-now-${shopItemId}-${uniqueElementId}`} />
         </div>
     );
 }

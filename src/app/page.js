@@ -5,7 +5,6 @@ import Head from "next/head";
 import { isMobile } from "react-device-detect";
 import styles from "./page.module.css";
 import Grid from "./Grid/grid";
-import ShopifyButton from './Shopify/ShopifyButton'
 import BuyNow from './Shopify/BuyNow'
 
 import localFont from 'next/font/local'
