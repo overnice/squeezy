@@ -5,7 +5,7 @@ import Head from "next/head";
 import { isMobile } from "react-device-detect";
 import styles from "./page.module.css";
 import Grid from "./Grid/grid";
-import BuyNow from './Shopify/BuyNow'
+import ShopifyButton from './Shopify/ShopifyButton'
 
 import localFont from 'next/font/local'
  
@@ -23,6 +23,7 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [gyroButtonVisibility, setGyroButtonVisibility] = useState('hidden')
   const gyroButton = useRef()
+  const mainContainer = useRef()
 
   const themes = ["black", "red", "blue", "pink"];
   const [theme, setTheme] = useState(0);
@@ -206,16 +207,15 @@ export default function Home() {
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
         entries.map((entry, i) => {
-          const main = document.querySelector('main')
           if (entry.isIntersecting) {
             setCurrentSection(+entry.target.dataset.index)
             console.log('enter',+entry.target.dataset.index)
             if (+entry.target.dataset.index === 2) {
-              console.log(main)
-              if (main) main.style.scrollSnapType = 'none'
+              console.log(mainContainer.current)
+              if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
             } else {
 
-              if (main) main.style.scrollSnapType = 'y mandatory'
+              if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y mandatory'
             }
           } else {
 
@@ -232,6 +232,7 @@ export default function Home() {
   
   return (
     <main
+      ref={mainContainer}
       className={`${styles.main} ${TT_NEORIS.className}`}
     >
       <Head>
@@ -251,7 +252,7 @@ export default function Home() {
 
         <div className={`hidden sm:block ${styles.subtitle}`}>A squishable and squashable variable font</div>
 
-        <BuyNow label={"Buy now"} shopItemId={8815969796426} uniqueElementId={'woff'}></BuyNow>
+        <ShopifyButton label={"Buy now"} shopItemId={8815969796426} uniqueElementId={'woff'}></ShopifyButton>
       </header>
 
       <section data-index='0' className={styles.variableLines} ref={variableLinesSectionRef}>
@@ -342,7 +343,7 @@ export default function Home() {
       />
 
       {/* Payment area */}
-      <section data-index='3' className={`max-w-2xl px-4 mx-auto space-y-10 h-[100lvh] content-center ${styles.prose}`}>
+      <section data-index='3' className={`max-w-2xl px-4 mx-auto space-y-10 h-[100dvh] content-center ${styles.prose}`}>
           <h1 className={`grow not-prose ${styles.left} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
           <p className="text-xl md:!text-3xl leading-[110%]">
           How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
@@ -362,8 +363,8 @@ export default function Home() {
               Simple licensing: Personal and commercial use allowed, no pageview count.
             </p>
             <div className="flex items-center gap-x-6 sm:gap-x-10">
-              <BuyNow label={"Desktop (.ttf)"} shopItemId={8825090572618} uniqueElementId={'ttf'}></BuyNow>
-              <BuyNow label={"Web (.woff2)"} shopItemId={8825090572618} uniqueElementId={'woff'}></BuyNow>
+              <ShopifyButton label={"Desktop (.ttf)"} shopItemId={8825090572618} uniqueElementId={'ttf'}></ShopifyButton>
+              <ShopifyButton label={"Web (.woff2)"} shopItemId={8825090572618} uniqueElementId={'woff'}></ShopifyButton>
             </div>
           </div>
         </div>

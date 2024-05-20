@@ -227,9 +227,9 @@ export default function BuyNow({ shopItemId, uniqueElementId, label }) {
     </style>`
 
     return (
-        <div className="relative btn-wrapper">
+        <>
             <div dangerouslySetInnerHTML={{__html: content}}></div>
             <div id={`buy-now-${shopItemId}-${uniqueElementId}`} />
-        </div>
+        </>
     );
 }

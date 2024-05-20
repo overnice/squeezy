@@ -3,11 +3,11 @@
   /* display: flex;
   align-items: center;
   justify-content: center; */
-  /* height: 100lvh;
+  /* height: 100dvh;
   margin: 0 auto; */
   /* cursor: crosshair; */
   overflow: auto;
-  height: 100lvh;
+  height: 100dvh;
   scroll-snap-type: y mandatory;
 
   > section {
@@ -25,7 +25,7 @@
 
 .heading {
   position: relative;
-  height: 100lvh;
+  height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@
 
 .variableLines {
   position: relative;
-  height: 100lvh;
+  height: 100dvh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -354,7 +354,7 @@
 }
 
 .editor {
-  min-height: 100lvh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   box-sizing: border-box;
