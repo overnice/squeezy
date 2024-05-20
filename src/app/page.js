@@ -376,7 +376,7 @@ export default function Home() {
             <button
               ref={gyroButton}
               id="accelPermsButton"
-              className={styles.accessButton}
+              className={`${styles.accessButton} fixed px-4 py-2 rounded-full bottom-20 md:bottom-4 left-1/2 whitespace-nowrap -translate-x-1/2 z-[100]`}
               style={{'visibility': gyroButtonVisibility}}
               onClick={getAccel}
             >
@@ -407,6 +407,7 @@ export default function Home() {
           <div className={`hidden sm:block ${currentSection === 1 ? styles.active : styles.inactive}`}>Try It</div>
           <div className={`hidden sm:block ${currentSection === 2 ? styles.active : styles.inactive}`}>Characters</div>
           <div className={`hidden sm:block ${currentSection === 3 ? styles.active : styles.inactive}`}>Info & Buy</div>
+          <div className="ml-auto rounded-full text-[var(--background)] text-sm md:text-base py-1 px-3 bg-[var(--foreground)]">Made by Overnice</div>
       </footer>
     </main>
   );
