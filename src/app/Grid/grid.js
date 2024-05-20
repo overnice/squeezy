@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-import styles from "../page.module.css";
+import styles from "./grid.module.css";
 
 const fullLetterSet = [
   "A",
@@ -156,7 +156,7 @@ export default function Grid({
     let height = currentLetterRef.current.getBoundingClientRect().height;
     const ratio = 300 / ((height * max - height * min) / 2);
 
-    console.log(currentLetter, min);
+    // console.log(currentLetter, min);
 
     const handleMouseMove = (e) => {
       x = Math.abs(center - e.clientX);

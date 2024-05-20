@@ -17,7 +17,7 @@ export default function Products(props) {
     return (
         <>
             {/* {props.ids?.map((id) => ( */}
-                <div key={props.id} className="mb-8">
+                <div key={props.id} className="relative btn-wrapper">
                     <DynamicBuyNow  id={props.id} />
                 </div>
             {/* ))} */}

@@ -42,7 +42,7 @@ export default function BuyNow({ id }) {
                                 img: false,
                                 title: false,
                                 variantTitle: false,
-                                price: true,
+                                price: false,
                                 options: false,
                                 quantity: false, // determines whether to show any quantity inputs at all
                                 quantityIncrement: false, // button to increase quantity
@@ -50,17 +50,6 @@ export default function BuyNow({ id }) {
                                 quantityInput: true, // input field to directly set quantity
                                 button: true,
                                 description: false
-                        },
-                        styles: {
-                            button: {
-                                "background-color": buttonBackground,
-                                "color": buttonColor,
-                                ":hover": {
-                                    "background-color": buttonBackground,
-                                    "color": buttonColor,
-                                    opacity: 0.8
-                                }
-                            }
                         },
                         text: {
                           button: "Buy now"
@@ -71,6 +60,7 @@ export default function BuyNow({ id }) {
         }
         initialised.current = true
     });
+    // @ts-ignore
     const content = `<style>
 
     .shopify-buy-frame--toggle {
@@ -122,8 +112,37 @@ export default function BuyNow({ id }) {
     }
 
 
+    .shopify-buy-frame::after {
+        content: '›';
+        position: absolute;
+        color: var(--background);
+        padding: 0.6rem 0.8rem 0.7rem 0.9rem;
+        align-content: center;
+        line-height: 0.8rem;
+        // border-radius: 999px;
+        // background-color: var(--foreground);
+        font-size: 1.75rem;
+        top: 0;
+        left: 0;
+        width: 36px;
+    }
 
-
+    .shopify-buy-frame::before {
+        content: '›';
+        position: absolute;
+        color: transparent;
+        padding: 0.6rem 0.8rem 0.7rem 0.9rem;
+        align-content: center;
+        line-height: 0.8rem;
+        border-radius: 999px;
+        background-color: var(--foreground);
+        font-size: 1.75rem;
+        top: 0;
+        left: 0;
+        width: 36px;
+        height: 36px;
+        transition: width 0.3s cubic-bezier(0.25, 0, 0, 1);
+    }
 
     .shopify-buy__product__price {
         font-family: 'TT_Neoris';
@@ -135,24 +154,44 @@ export default function BuyNow({ id }) {
 
     .shopify-buy__btn-wrapper {
         font-family: 'TT_Neoris';
-        background-color: var(--foreground);
         color: var(--background);
-        padding: 0.75rem 1.5rem;
+        // background: var(--foreground);
+        padding: 0.5rem 1rem 0.5rem 1.25rem;
         border-radius: 2rem
         font-weight: 480;
         border-radius: 100px;
-        padding: 8px 20px;
         overflow-wrap: break-word;
-        padding: 0.5rem 1.25rem;
         display: inline-flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         font-size: 1.5rem;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.3s cubic-bezier(0.25, 0, 0, 1);
         &:hover {
             opacity: 0.8;
         }
+    }
+    
+    
+    .shopify-buy__btn  {
+        padding-left: 1.5rem;
+        transition-properties: padding, color;
+        transition-duration: 0.3s;
+        transition-timing-function: cubic-bezier(0.25, 0, 0, 1);
+        font-size: 20px;
+        font-weight: 480;
+        color: var(--foreground);
+        z-index: 100;
+    }
+
+    .btn-wrapper:hover .shopify-buy__btn  {
+        padding-left: 0.75rem;
+        color: var(--background);
+        opacity: 1;
+    }
+
+    .btn-wrapper:hover .shopify-buy-frame::before {
+        width: 100%;
     }
 
     .visuallyhidden {
