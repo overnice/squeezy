@@ -9,15 +9,15 @@ const shopifyClient = ShopifyBuy.buildClient({
 
 const ui = ShopifyBuy.UI.init(shopifyClient);
 
-export default function BuyNow({ id }) {
+export default function BuyNow({ shopItemId, uniqueElementId, label }) {
     const initialised = useRef(false)
     useEffect(() => {
         if (!initialised.current) {
             const buttonBackground = getComputedStyle(document.body).getPropertyValue('--foreground')
             const buttonColor = getComputedStyle(document.body).getPropertyValue('--background')
             ui.createComponent('product', {
-                id,
-                node: document.getElementById(`buy-now-${id}`),
+                id: shopItemId,
+                node: document.getElementById(`buy-now-${shopItemId}-${uniqueElementId}`),
                 options: {
                     toggle: {
                         iframe: false
@@ -52,7 +52,7 @@ export default function BuyNow({ id }) {
                                 description: false
                         },
                         text: {
-                          button: "Buy now"
+                          button: label
                         }
                     },
                 }
@@ -155,17 +155,13 @@ export default function BuyNow({ id }) {
     .shopify-buy__btn-wrapper {
         font-family: 'TT_Neoris';
         color: var(--background);
-        // background: var(--foreground);
         padding: 0.5rem 1rem 0.5rem 1.25rem;
-        border-radius: 2rem
         font-weight: 480;
-        border-radius: 100px;
         overflow-wrap: break-word;
         display: inline-flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        font-size: 1.5rem;
         transition: opacity 0.3s cubic-bezier(0.25, 0, 0, 1);
         &:hover {
             opacity: 0.8;
@@ -180,13 +176,14 @@ export default function BuyNow({ id }) {
         transition-timing-function: cubic-bezier(0.25, 0, 0, 1);
         font-size: 20px;
         font-weight: 480;
+        line-height: 100%;
         color: var(--foreground);
         z-index: 100;
     }
 
     .btn-wrapper:hover .shopify-buy__btn  {
         padding-left: 0.75rem;
-        color: var(--background);
+        color: var(--background) !important;
         opacity: 1;
     }
 
@@ -197,12 +194,43 @@ export default function BuyNow({ id }) {
     .visuallyhidden {
         display: none;
     }
+
+
+  @media (max-width: 500px) {
+    .shopify-buy__btn-wrapper {
+        padding: 0.4rem 0.9rem 0.4rem 1.15rem;
+    }
+
+    .shopify-buy__btn  {
+        padding-left: 1.2rem;
+        font-size: 16px;
+    }
+
+    .shopify-buy-frame::after, 
+    .shopify-buy-frame::before {
+        padding: 0.45rem 0.7rem 0.6rem 0.8rem;
+    }
+
+    .shopify-buy-frame::after {
+        line-height: 0.8rem;
+        font-size: 1.25rem;
+        width: 30px;
+    }
+
+    .shopify-buy-frame::before {
+        line-height: 0.8rem;
+        font-size: 1.25rem;
+        width: 30px;
+        height: 30px;
+        transition: width 0.3s cubic-bezier(0.25, 0, 0, 1);
+    }
+  }
     </style>`
 
     return (
-        <div>
+        <div className="relative btn-wrapper">
             <div dangerouslySetInnerHTML={{__html: content}}></div>
-            <div className={styles.shopify} id={`buy-now-${id}`} />
+            <div className={styles.shopify} id={`buy-now-${shopItemId}-${uniqueElementId}`} />
         </div>
     );
 }

@@ -3,11 +3,11 @@
   /* display: flex;
   align-items: center;
   justify-content: center; */
-  /* height: 100dvh;
+  /* height: 100lvh;
   margin: 0 auto; */
   /* cursor: crosshair; */
   overflow: auto;
-  height: 100dvh;
+  height: 100lvh;
   scroll-snap-type: y mandatory;
 
   > section {
@@ -25,7 +25,7 @@
 
 .heading {
   position: relative;
-  height: 100dvh;
+  height: 100lvh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -95,14 +95,9 @@
 }
 
 
-.main p {
-  font-size: 1.5rem;
-  margin-top: 1rem;
-}
-
 .variableLines {
   position: relative;
-  height: 100dvh;
+  height: 100lvh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -356,32 +351,10 @@
     /* -webkit-text-stroke: 5px #0d0d0d; */
     -webkit-text-stroke: 0.00625em var(--foreground-shade-10);
   }
-
-  /* &:nth-child(2) {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      -webkit-text-stroke-color: rgba(255, 255, 255, 0.2);
-    }
-
-    &:nth-child(3) {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      -webkit-text-stroke-color: rgba(255, 255, 255, 0.1);
-    } */
 }
 
-/* button {
-    position: absolute;
-    z-index: 10;
-    background: orange;
-  } */
-
 .editor {
-  min-height: 100dvh;
+  min-height: 100lvh;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -437,41 +410,5 @@ p.editableArea {
   h1.left {
     font-size: 23.5cqw;
     line-height: 23.5cqw;
-  }
-}
-
-
-.paymentContainer {
-  display: flex;
-  width: 100%;
-  padding: 40px;
-
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 40px;
-
-  border-radius: 16px;
-  background: var(--foreground-shade-20);
-
-  .info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 16px;
-    align-self: stretch;
-
-    .price {
-      font-size: 40px;
-      font-weight: 480;
-      line-height: 100%; /* 40px */
-    }
-    span {
-      font-size: 17px;
-      font-style: normal;
-      font-weight: 480;
-      line-height: 110%; /* 18.7px */
-    }
   }
 }

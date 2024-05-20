@@ -6,6 +6,7 @@ import { isMobile } from "react-device-detect";
 import styles from "./page.module.css";
 import Grid from "./Grid/grid";
 import ShopifyButton from './Shopify/ShopifyButton'
+import BuyNow from './Shopify/BuyNow'
 
 import localFont from 'next/font/local'
  
@@ -16,7 +17,7 @@ const SQUEEZY = localFont({ src: '../../public/fonts/SqueezyVF.woff2' })
 export default function Home() {
   const [currentLetter, setCurrentLetter] = useState("K");
   const [currentWidth, setCurrentWidth] = useState();
-  const [snappedWidth, setSnappedWidth] = useState();
+  const [snappedWidth, setSnappedWidth] = useState('400');
   const [renderedLetters, setRenderedLetters] = useState([currentLetter]);
   const [renderedLettersWidths, setRenderedLettersWidths] = useState([]);
   const [gyroPermissionGranted, setGyroPermissionGranted] = useState(false);
@@ -81,8 +82,6 @@ export default function Home() {
     let height = currentLetterRef.current.getBoundingClientRect().height;
     const ratio = 300 / ((height * max - height * min) / 2);
 
-    console.log('top funs')
-
     const handleMouseMove = (e) => {
       x = Math.abs(center - e.clientX);
       delta = Math.floor(x - (height * min) / 2);
@@ -134,60 +133,56 @@ export default function Home() {
 
   // Gyro
   function getAccel() {
-
-    console.log('run ---- ', document.featurePolicy.allowsFeature('gyroscope'))
-
-
-
-    // Android
-    let delta;
-    const ratio = 300 / 30;
-
-    // console.log("accelerometer permission granted");
-
-    window.addEventListener("deviceorientation", (e) => {
-      console.log('K<AHJFLAKBDFL')
-      delta = Math.abs(e.gamma);
-
-      if (delta > 0 && delta < 30) {
-        const width = 400 + delta * ratio;
-
-        const snappedWidth = snappedWidths.reduce(function (prev, curr) {
-          return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
-        });
-
-        setSnappedWidth(snappedWidth);
-        setCurrentWidth(width);
-      }
-    });
-
-    // // IOS
-    // DeviceMotionEvent.requestPermission().then((response) => {
-    //   if (response == "granted") {
-    //     setGyroPermissionGranted(true);
-    //     let delta;
-    //     const ratio = 300 / 30;
-
-    //     // console.log("accelerometer permission granted");
-
-    //     window.addEventListener("deviceorientation", (e) => {
-    //       delta = Math.abs(e.gamma);
-
-    //       if (delta > 0 && delta < 30) {
-    //         const width = 400 + delta * ratio;
-
-    //         const snappedWidth = snappedWidths.reduce(function (prev, curr) {
-    //           return Math.abs(curr - width) < Math.abs(prev - width)
-    //             ? curr
-    //             : prev;
-    //         });
-
-    //         setSnappedWidth(snappedWidth);
-    //         setCurrentWidth(width);
-    //       }
-    //     });
-    //   }
-    // });
+    if (
+      navigator.userAgent.match(/Android/i)
+    ) {
+      setGyroPermissionGranted(true);
+      // Android
+      let delta;
+      const ratio = 300 / 30;
+  
+  
+      window.addEventListener("deviceorientation", (e) => {
+        delta = Math.abs(e.gamma);
+  
+        if (delta > 0 && delta < 30) {
+          const width = 400 + delta * ratio;
+  
+          const snappedWidth = snappedWidths.reduce(function (prev, curr) {
+            return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
+          });
+  
+          setSnappedWidth(snappedWidth);
+          setCurrentWidth(width);
+        }
+      });
+    } else {
+      // IOS
+      DeviceMotionEvent.requestPermission().then((response) => {
+        if (response == "granted") {
+          setGyroPermissionGranted(true);
+          let delta;
+          const ratio = 300 / 30;
+  
+          window.addEventListener("deviceorientation", (e) => {
+            delta = Math.abs(e.gamma);
+  
+            if (delta > 0 && delta < 30) {
+              const width = 400 + delta * ratio;
+  
+              const snappedWidth = snappedWidths.reduce(function (prev, curr) {
+                return Math.abs(curr - width) < Math.abs(prev - width)
+                  ? curr
+                  : prev;
+              });
+  
+              setSnappedWidth(snappedWidth);
+              setCurrentWidth(width);
+            }
+          });
+        }
+      });
+    }
   }
 
   // RANDOM LETTERS
@@ -202,8 +197,6 @@ export default function Home() {
 
     renderedLetters.length > 4 && renderedLetters.shift();
     renderedLettersWidths.length > 4 && renderedLettersWidths.shift();
-    console.log('event', renderedLetters)
-    // console.log(renderedLetters, renderedLettersWidths);
   }, [snappedWidth]);
 
   // Update Theme on body
@@ -211,23 +204,36 @@ export default function Home() {
     document.body.className = themes[theme];
   }, [theme]);
 
-  const handleScroll = (e) => {
-    const mainContainer = document.querySelector('main')
-    setCurrentSection( Math.round(mainContainer.scrollTop / window.innerHeight));
-  };
-
   useEffect(() => {
-    const mainContainer = document.querySelector('main')
-      mainContainer.addEventListener('scroll', handleScroll);
-      return () => mainContainer.removeEventListener('scroll', handleScroll);
-  }, []);
+    const observer = new IntersectionObserver(entries => {
+        entries.map((entry, i) => {
+          const main = document.querySelector('main')
+          if (entry.isIntersecting) {
+            setCurrentSection(+entry.target.dataset.index)
+            console.log('enter',+entry.target.dataset.index)
+            if (+entry.target.dataset.index === 2) {
+              console.log(main)
+              if (main) main.style.scrollSnapType = 'none'
+            } else {
+
+              if (main) main.style.scrollSnapType = 'y mandatory'
+            }
+          } else {
+
+          }
+        })
+      },
+      {
+        threshold: 0.1
+      }
+    )
+    const targets = document.querySelectorAll('section');
+    targets.forEach(x => observer.observe(x))
+  }, [])
   
   return (
     <main
       className={`${styles.main} ${TT_NEORIS.className}`}
-      // style={{
-      //   "--currentWidth": currentWidth,
-      // }}
     >
       <Head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -246,10 +252,10 @@ export default function Home() {
 
         <div className={`hidden sm:block ${styles.subtitle}`}>A squishable and squashable variable font</div>
 
-        <ShopifyButton id={8815969796426}></ShopifyButton>
+        <BuyNow label={"Buy now"} shopItemId={8815969796426} uniqueElementId={'woff'}></BuyNow>
       </header>
 
-      <section className={styles.variableLines} ref={variableLinesSectionRef}>
+      <section data-index='0' className={styles.variableLines} ref={variableLinesSectionRef}>
         {/* Width Lines */}
         <p className={styles.width}>{snappedWidth}</p>
         {/* 
@@ -318,7 +324,7 @@ export default function Home() {
       </section>
 
 
-      <section className={[styles.editor, SQUEEZY.className].join(' ')} ref={editableSectionRef}>
+      <section data-index='1' className={[styles.editor, SQUEEZY.className].join(' ')} ref={editableSectionRef}>
         <p
           className={[styles.editableArea, SQUEEZY.className].join(' ')}
           contentEditable
@@ -337,25 +343,29 @@ export default function Home() {
       />
 
       {/* Payment area */}
-      <section className={`max-w-2xl mx-auto space-y-10 h-[100dvh] content-center ${styles.prose}`}>
+      <section data-index='3' className={`max-w-2xl px-4 mx-auto space-y-10 h-[100lvh] content-center ${styles.prose}`}>
           <h1 className={`grow not-prose ${styles.left} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
-          <p className="!text-3xl">
+          <p className="text-xl md:!text-3xl leading-[110%]">
           How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
           All characters keep their core while being extremely flexible.
           There’s likely a lot more to talk about, but maybe we just leave it at that.
           </p>
           {/* <h1 className={`grow ${styles.right}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1> */}
         
-        <div className={styles.paymentContainer}>
-          <div className={styles.info}>
+        <div className='flex w-full p-6 sm:p-10 flex-col justify-center gap-y-6 sm:gap-y-10 rounded-2xl bg-[var(--foreground-shade-20)]'>
+          <div className='flex flex-col items-start justify-center gap-y-2 sm:gap-y-4 self-stretch'>
             <div className="flex items-center gap-x-2">
-              <span className={styles.price}>$50</span>
-              <span className={`flex flex-col text-base`}>per<br/>license</span>
+              <span className='text-[40px]'>$50</span>
+              <span className='flex flex-col text-base leading-[110%]'>per<br/>license</span>
             </div>
-            <p className="opacity-60 !text-base">
+            <p className="opacity-60 !text-base !mt-0">
               Squeezy can be purchased for desktop and to be embedded on websites.
               Simple licensing: Personal and commercial use allowed, no pageview count.
             </p>
+            <div className="flex items-center gap-x-6 sm:gap-x-10">
+              <BuyNow label={"Desktop (.ttf)"} shopItemId={8825090572618} uniqueElementId={'ttf'}></BuyNow>
+              <BuyNow label={"Web (.woff2)"} shopItemId={8825090572618} uniqueElementId={'woff'}></BuyNow>
+            </div>
           </div>
         </div>
       </section>
@@ -379,8 +389,6 @@ export default function Home() {
             style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}
           >
             {themes.map((thisTheme, index) => {
-              // console.log(index, theme);
-
               return (
                 <button
                   key={index}
@@ -395,10 +403,10 @@ export default function Home() {
               );
             })}
           </div>
-          <div className={currentSection === 0 ? styles.active : styles.inactive}>Info</div>
-          <div className={currentSection === 1 ? styles.active : styles.inactive}>Try It</div>
-          <div className={currentSection === 2 ? styles.active : styles.inactive}>Characters</div>
-          <div className={currentSection === 3 ? styles.active : styles.inactive}>Info & Buy</div>
+          <div className={`hidden sm:block ${currentSection === 0 ? styles.active : styles.inactive}`}>Info</div>
+          <div className={`hidden sm:block ${currentSection === 1 ? styles.active : styles.inactive}`}>Try It</div>
+          <div className={`hidden sm:block ${currentSection === 2 ? styles.active : styles.inactive}`}>Characters</div>
+          <div className={`hidden sm:block ${currentSection === 3 ? styles.active : styles.inactive}`}>Info & Buy</div>
       </footer>
     </main>
   );

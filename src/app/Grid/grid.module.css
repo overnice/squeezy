@@ -25,7 +25,7 @@
     font-family: "Squeezy";
     position: relative;
     background-color: var(--background);
-    min-height: 100dvh;
+    min-height: 100lvh;
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
@@ -73,7 +73,7 @@
     background: var(--foreground);
     color: var(--background);
     /* color: rgba(0, 0, 0, 0.5); */
-    height: 100dvh;
+    height: 100lvh;
     position: sticky;
     top: 0;
     text-align: center;
@@ -124,7 +124,7 @@
     }
   
     .gridShowcase {
-      height: 50dvh;
+      height: 50lvh;
   
       --variable-lines-font-size: 200px;
     }
