@@ -13,6 +13,12 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
+    transitionTimingFunction: {
+      DEFAULT: 'cubic-bezier(.25,0,0,1)'
+    },
+    transitionDuration: {
+      DEFAULT: '400ms'
+    }
   },
   plugins: [
     require('@tailwindcss/typography')

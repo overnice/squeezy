@@ -22,6 +22,7 @@ export default function Products(props) {
                     shopItemId={props.shopItemId}
                     uniqueElementId={props.uniqueElementId}
                     label={props.label}
+                    compact={props.compact}
                 />
                 </div>
             {/* ))} */}

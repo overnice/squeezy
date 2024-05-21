@@ -8,8 +8,12 @@ const shopifyClient = ShopifyBuy.buildClient({
 
 const ui = ShopifyBuy.UI.init(shopifyClient);
 
-export default function BuyNow({ shopItemId, uniqueElementId, label }) {
+export default function BuyNow({ shopItemId, uniqueElementId, label, compact = false }) {
     const initialised = useRef(false)
+
+    const widthClasses = compact ? 'w-7 h-7' : 'w-10 h-10'
+    const textClasses = compact ? 'text-lg' : 'text-xl'
+    const transformClasses = compact ? 'group-hover:-translate-x-2' : 'group-hover:-translate-x-4'
     useEffect(() => {
         if (!initialised.current) {
             const buttonBackground = getComputedStyle(document.body).getPropertyValue('--foreground')
@@ -50,6 +54,21 @@ export default function BuyNow({ shopItemId, uniqueElementId, label }) {
                                 button: true,
                                 description: false
                         },
+                        templates: {
+                            button: `
+                                <div class="group cursor-pointer flex items-center gap-2.5 ${textClasses} text-[var(--foreground)] hocus:text-[var(--foreground)] mt-2xs">
+                                    <div class="transition-all rounded-full group-hover:w-full absolute top-0 left-0 ${widthClasses} bg-[var(--foreground)]"></div>
+                                    <div class="relative ${widthClasses} rounded-full inline-block transition-transform group-hover:[transform:rotateX(180deg)] content-center">
+                                        <svg width="12" height="18" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg"  class="pl-[2px] mx-auto text-[var(--background)] stroke-current h-[14px] ${compact ? 'stroke-[2.9px]' : 'stroke-[3px]'}">
+                                            <path d="M2 2L9 9L2 16" stroke="#2C2624" stroke-width="3"/>
+                                        </svg>
+                                    </div>
+                                    <div class="transition-all group-hover:!text-[var(--background)] ${transformClasses}">${label}</div>
+                                </div>
+
+
+                                `
+                          },
                         text: {
                           button: label
                         }
@@ -108,120 +127,6 @@ export default function BuyNow({ shopItemId, uniqueElementId, label }) {
     
         line-height: 2em;
         box-sizing: content-box;   
-    }
-
-
-    .shopify-buy-frame::after {
-        content: '›';
-        position: absolute;
-        color: var(--background);
-        padding: 0.6rem 0.8rem 0.7rem 0.9rem;
-        align-content: center;
-        line-height: 0.8rem;
-        // border-radius: 999px;
-        // background-color: var(--foreground);
-        font-size: 1.75rem;
-        top: 0;
-        left: 0;
-        width: 36px;
-    }
-
-    .shopify-buy-frame::before {
-        content: '›';
-        position: absolute;
-        color: transparent;
-        padding: 0.6rem 0.8rem 0.7rem 0.9rem;
-        align-content: center;
-        line-height: 0.8rem;
-        border-radius: 999px;
-        background-color: var(--foreground);
-        font-size: 1.75rem;
-        top: 0;
-        left: 0;
-        width: 36px;
-        height: 36px;
-        transition: width 0.3s cubic-bezier(0.25, 0, 0, 1);
-    }
-
-    .shopify-buy__product__price {
-        font-family: 'TT_Neoris';
-        font-size: 1.5rem;
-        color: var(--foreground);
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-
-    .shopify-buy__btn-wrapper {
-        font-family: 'TT_Neoris';
-        color: var(--background);
-        padding: 0.5rem 1rem 0.5rem 1.25rem;
-        font-weight: 480;
-        overflow-wrap: break-word;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        transition: opacity 0.3s cubic-bezier(0.25, 0, 0, 1);
-        &:hover {
-            opacity: 0.8;
-        }
-    }
-    
-    
-    .shopify-buy__btn  {
-        padding-left: 1.5rem;
-        transition-properties: padding, color;
-        transition-duration: 0.3s;
-        transition-timing-function: cubic-bezier(0.25, 0, 0, 1);
-        font-size: 20px;
-        font-weight: 480;
-        line-height: 100%;
-        color: var(--foreground);
-        z-index: 100;
-    }
-
-    .btn-wrapper:hover .shopify-buy__btn  {
-        padding-left: 0.75rem;
-        color: var(--background) !important;
-        opacity: 1;
-    }
-
-    .btn-wrapper:hover .shopify-buy-frame::before {
-        width: 100%;
-    }
-
-    .visuallyhidden {
-        display: none;
-    }
-
-
-  @media (max-width: 500px) {
-    .shopify-buy__btn-wrapper {
-        padding: 0.4rem 0.9rem 0.4rem 1.15rem;
-    }
-
-    .shopify-buy__btn  {
-        padding-left: 1.2rem;
-        font-size: 16px;
-    }
-
-    .shopify-buy-frame::after, 
-    .shopify-buy-frame::before {
-        padding: 0.45rem 0.7rem 0.6rem 0.8rem;
-    }
-
-    .shopify-buy-frame::after {
-        line-height: 0.8rem;
-        font-size: 1.25rem;
-        width: 30px;
-    }
-
-    .shopify-buy-frame::before {
-        line-height: 0.8rem;
-        font-size: 1.25rem;
-        width: 30px;
-        height: 30px;
-        transition: width 0.3s cubic-bezier(0.25, 0, 0, 1);
     }
   }
     </style>`

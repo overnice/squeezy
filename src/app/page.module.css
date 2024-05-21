@@ -109,8 +109,7 @@
   color: var(--background);
 }
 
-.header,
-.width {
+.header {
   color: var(--foreground);
   font-family: "TT_Neoris", sans-serif;
   font-size: 18px;
@@ -253,11 +252,6 @@
   }
 }
 
-.width {
-  position: absolute;
-  bottom: 24px;
-}
-
 .widthLinesRight,
 .widthLinesLeft {
   position: absolute;
@@ -380,21 +374,13 @@ p.editableArea {
   }
 }
 
-.active {
-  opacity: 1;
-}
-
-.inactive {
-  opacity: 0.4;
-}
-
 .prose {
   container-type: inline-size;
   container-name: prose;
 }
 
 .prose * {
-  color: var(--foreground) !important;
+  /* color: var(--foreground) !important; */
 }
 
 @container prose (min-width: 100px) {
