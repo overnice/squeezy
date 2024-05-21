@@ -27,22 +27,22 @@
 
 :root {
   --red-background: #ff2b2b;
-  --red-foreground: #e3ff73;
+  --red-foreground: #E8FF8A;
   --red-foreground-shade-30: #ff6a29;
   --red-foreground-shade-20: #ff5529;
   --red-foreground-shade-10: #ff3f2a;
 
   --blue-background: #73bcff;
-  --blue-foreground: #ff2a5e;
+  --blue-foreground: #9E0028;
   --blue-foreground-shade-30: #9d96eb;
   --blue-foreground-shade-20: #8fa3f2;
   --blue-foreground-shade-10: #81aff8;
 
-  --pink-background: #ff2a5e;
-  --pink-foreground: #73bcff;
-  --pink-foreground-shade-30: #f8488e;
-  --pink-foreground-shade-20: #fa3e7e;
-  --pink-foreground-shade-10: #fd346e;
+  --pink-background: #9E007C;
+  --pink-foreground: #9ECFFF;
+  --pink-foreground-shade-30: #a31083;
+  --pink-foreground-shade-20: #ca1ba4;
+  --pink-foreground-shade-10: #eb34c4;
 
   --black-background: #000;
   --black-foreground: #fff;
