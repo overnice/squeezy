@@ -22,8 +22,7 @@ export default function Home() {
   const [gyroPermissionGranted, setGyroPermissionGranted] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const [gyroButtonVisibility, setGyroButtonVisibility] = useState('hidden')
-  const gyroButton = useRef()
-  const mainContainer = useRef()
+  const [cursorHintVisibility, setCursorHintVisibility] = useState(true)
 
   const themes = ["black", "red", "blue", "pink"];
   const [theme, setTheme] = useState(0);
@@ -69,6 +68,8 @@ export default function Home() {
   const currentLetterRef = useRef(null);
   const variableLinesSectionRef = useRef(null);
   const editableSectionRef = useRef(null);
+  const gyroButton = useRef()
+  const mainContainer = useRef()
 
   const min = 0.6080125;
   const max = 1.0880125;
@@ -83,6 +84,11 @@ export default function Home() {
     const ratio = 300 / ((height * max - height * min) / 2);
 
     const handleMouseMove = (e) => {
+      if (cursorHintVisibility) {
+        setTimeout(() => {
+          setCursorHintVisibility(false)
+        }, 1000)
+      }
       x = Math.abs(center - e.clientX);
       delta = Math.floor(x - (height * min) / 2);
 
@@ -396,6 +402,25 @@ export default function Home() {
           <div className={`hidden transition-opacity sm:block ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</div>
           <div className="ml-auto rounded-full text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</div>
       </footer>
+      {!isMobile && (
+        <div>
+          <button
+            id="accelPermsButton"
+            className={`${styles.accessButton} ${cursorHintVisibility ? 'opacity-100' : 'opacity-0'} transition-all fixed px-5 py-2 text-lg flex items-center gap-4 rounded-full top-1/2 left-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 z-[100]`}
+          >
+            <div>
+              <svg width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path className="stroke-current text-[var(--background)" fill-rule="evenodd" clip-rule="evenodd" d="M0 0.5L2.83818 13.5L5.5 7.5L12 6.00676L0 0.5Z" fill="white"/>
+                <path className="stroke-current text-[var(--background)" d="M16 7H24" stroke="white" stroke-width="2"/>
+              </svg>
+
+            </div>
+            Move your cursor to control the font width
+          </button>
+        </div>
+        )
+
+      }
       {gyroPermissionGranted === false && (
           <div>
             <button
