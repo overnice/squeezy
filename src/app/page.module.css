@@ -33,18 +33,18 @@
   justify-content: center;
 }
 
-.heading .left {
+.left {
   font-family: "Squeezy";
   text-align: center;
   font-variation-settings: "wdth" 400;
-  /* animation: left 4s infinite cubic-bezier(0.25, 0, 0, 1) both;
-  animation-delay: var(--delay); */
+  animation: left 4s infinite cubic-bezier(0.25, 0, 0, 1) both;
+  animation-delay: var(--delay);
 }
 
-.heading .right {
+.right {
   font-family: "Squeezy";
-  font-size: 2rem;
-  line-height: 2rem;
+  /* font-size: 2rem;
+  line-height: 2rem; */
   text-align: center;
   font-variation-settings: "wdth" 400;
   animation: right 4s infinite cubic-bezier(0.25, 0, 0, 1) both;
@@ -121,22 +121,13 @@
   cursor: default;
   /* mix-blend-mode: difference; */
   /* filter: invert(100%); */
-}
-
-.header {
-  top: 12px;
+  mix-blend-mode: difference;
+  top: 24px;
   padding: 0 24px;
-  /* background: black; */
-  /* border-radius: 24px; */
   display: flex;
   line-height: 1;
   justify-content: space-between;
   align-items: center;
-
-  .subtitle {
-    opacity: 0.4;
-
-  }
 }
 
 .header path {
@@ -182,16 +173,16 @@
 
   &:not(:hover) {
     &:before {
-      opacity: 0;
+      /* opacity: 0; */
       /* top: 0;
       left: 0;
       right: 0;
       bottom: 0; */
     }
     
-    width: 12px !important;
+    /* width: 12px !important; */
     .switch {
-      left: 0!important
+      /* left: 0!important */
     }
   }
 }
@@ -384,8 +375,13 @@ p.editableArea {
 }
 
 @container prose (min-width: 100px) {
-  h1.left {
-    font-size: 23.5cqw;
-    line-height: 23.5cqw;
+  h1.left, h1.right {
+    font-size: 12.75cqw;
+    line-height: 100%;
+  }
+
+  h1.left.small, h1.right.small {
+    font-size: 8.375cqw;
+    line-height: 100%;
   }
 }

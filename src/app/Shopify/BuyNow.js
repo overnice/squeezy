@@ -63,7 +63,7 @@ export default function BuyNow({ shopItemId, uniqueElementId, label, compact = f
                                             <path d="M2 2L9 9L2 16"/>
                                         </svg>
                                     </div>
-                                    <div class="transition-all group-hover:!text-[var(--background)] ${transformClasses}">${label}</div>
+                                    <div class="transition-all group-hover:!text-[var(--background)] w-fit ${transformClasses}">${label}</div>
                                 </div>
 
 

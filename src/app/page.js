@@ -23,6 +23,7 @@ export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
   const [gyroButtonVisibility, setGyroButtonVisibility] = useState('hidden')
   const [cursorHintVisibility, setCursorHintVisibility] = useState(true)
+  const [loaded, setLoaded] = useState(false)
 
   const themes = ["black", "red", "blue", "pink"];
   const [theme, setTheme] = useState(0);
@@ -212,34 +213,35 @@ export default function Home() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
-        entries.map((entry, i) => {
-          if (entry.isIntersecting) {
-            setCurrentSection(+entry.target.dataset.index)
-            console.log('enter',+entry.target.dataset.index)
-            if (+entry.target.dataset.index === 2) {
-              console.log(mainContainer.current)
-              if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
-            } else {
+    entries.map((entry, i) => {
+      if (entry.isIntersecting) {
+        setCurrentSection(+entry.target.dataset.index)
+        console.log('enter',+entry.target.dataset.index)
+        if (+entry.target.dataset.index === 2) {
+          console.log(mainContainer.current)
+          // if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
+        } else {
 
-              if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y mandatory'
-            }
-          } else {
+          // if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y proximity'
+        }
+      } else {
 
-          }
-        })
-      },
-      {
-        threshold: 0.1
       }
-    )
-    const targets = document.querySelectorAll('section');
-    targets.forEach(x => observer.observe(x))
+    })
+  },
+  {
+    threshold: 0.1
+  }
+)
+const targets = document.querySelectorAll('section');
+targets.forEach(x => observer.observe(x))
+    setLoaded(true)
   }, [])
   
   return (
     <main
       ref={mainContainer}
-      className={`${styles.main} ${TT_NEORIS.className}`}
+      className={`${styles.main} ${TT_NEORIS.className} scroll-smooth`}
     >
       <Head>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -261,7 +263,7 @@ export default function Home() {
         <ShopifyButton compact label={"Buy now"} shopItemId={8815969796426} uniqueElementId={'woff'}></ShopifyButton>
       </header>
 
-      <section data-index='0' className={styles.variableLines} ref={variableLinesSectionRef}>
+      <section id="info" data-index='0' className={styles.variableLines} ref={variableLinesSectionRef}>
         {/* Width Lines */}
         <p className='absolute bottom-[30px] text-lg text-center'>{snappedWidth}</p>
         {/* 
@@ -330,7 +332,7 @@ export default function Home() {
       </section>
 
 
-      <section data-index='1' className={[styles.editor, SQUEEZY.className].join(' ')} ref={editableSectionRef}>
+      <section id="try" data-index='1' className={[styles.editor, SQUEEZY.className].join(' ')} ref={editableSectionRef}>
         <p
           className={[styles.editableArea, SQUEEZY.className].join(' ')}
           contentEditable
@@ -349,14 +351,24 @@ export default function Home() {
       />
 
       {/* Payment area */}
-      <section data-index='3' className={`max-w-2xl px-4 mx-auto space-y-10 h-[100svh] content-center ${styles.prose}`}>
-          <h1 className={`grow not-prose ${styles.left} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1>
-          <p className="text-xl md:!text-3xl leading-[110%]">
-          How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
-          All characters keep their core while being extremely flexible.
-          There’s likely a lot more to talk about, but maybe we just leave it at that.
-          </p>
-          {/* <h1 className={`grow ${styles.right}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1> */}
+      <section id="buy" data-index='3' className={`max-w-2xl px-4 mx-auto space-y-10 h-[100svh] content-center ${styles.prose}`}>
+        <h1 className={`grow not-prose ${styles.left} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
+          Squeezy
+        </h1>
+        <div className="flex w-full">
+          <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
+            Squeezy
+          </h1>
+          <h1 className={`small grow not-prose ${styles.right} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
+            Squeezy
+          </h1>
+        </div>
+        <p className="text-xl md:!text-3xl leading-[110%]">
+        How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
+        All characters keep their core while being extremely flexible.
+        There’s likely a lot more to talk about, but maybe we just leave it at that.
+        </p>
+        {/* <h1 className={`grow ${styles.right}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1> */}
         
         <div className='flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-30)]'>
           {/* <div className='flex flex-col items-start justify-center gap-y-2 sm:gap-y-4 self-stretch'> */}
@@ -368,7 +380,7 @@ export default function Home() {
               Squeezy can be purchased for desktop and to be embedded on websites.
               Simple licensing: Personal and commercial use allowed, no pageview count.
             </p>
-            <div className="flex items-center gap-x-6 sm:gap-x-10 mt-10">
+            <div className="flex flex-wrap items-center gap-6 sm:gap-x-10 mt-10">
               <ShopifyButton label={"Desktop (.ttf)"} shopItemId={8825090572618} uniqueElementId={'ttf'}></ShopifyButton>
               <ShopifyButton label={"Web (.woff2)"} shopItemId={8825090572618} uniqueElementId={'woff'}></ShopifyButton>
             </div>
@@ -396,13 +408,13 @@ export default function Home() {
               );
             })}
           </div>
-          <div className={`hidden transition-opacity sm:block ${currentSection === 0 ? 'opacity-100' : 'opacity-30'}`}>Info</div>
-          <div className={`hidden transition-opacity sm:block ${currentSection === 1 ? 'opacity-100' : 'opacity-30'}`}>Try It</div>
-          <div className={`hidden transition-opacity sm:block ${currentSection === 2 ? 'opacity-100' : 'opacity-30'}`}>Characters</div>
-          <div className={`hidden transition-opacity sm:block ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</div>
-          <div className="ml-auto rounded-full text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</div>
+          <a href="#info" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 0 ? 'opacity-100' : 'opacity-30'}`}>Info</a>
+          <a href="#try" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 1 ? 'opacity-100' : 'opacity-30'}`}>Try It</a>
+          <a href="#grid" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 2 ? 'opacity-100' : 'opacity-30'}`}>Characters</a>
+          <a href="#buy" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</a>
+          <a href="https://overnice.com" className="ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</a>
       </footer>
-      {!isMobile && (
+      {loaded && !isMobile && (
         <div>
           <button
             id="accelPermsButton"

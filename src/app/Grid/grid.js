@@ -203,7 +203,8 @@ export default function Grid({
   }, [extSnappedWidth, extCurrentWidth, gyroPermissionGranted]);
 
   return (
-    <section data-index='2' className={styles.gridContainer}>
+    <section
+    id="grid" data-index='2' className={styles.gridContainer}>
       <div className={styles.grid}>
         {fullLetterSet.map((letter, key) => {
           return (
