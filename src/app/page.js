@@ -227,7 +227,7 @@ export default function Home() {
           if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
         } else {
 
-          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y proximity'
+          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y mandatory'
         }
       } else {
 
