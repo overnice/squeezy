@@ -228,10 +228,10 @@ export default function Home() {
       if (entry.isIntersecting) {
         setCurrentSection(+entry.target.dataset.index)
         if (+entry.target.dataset.index === 2) {
-          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
+          if (mainContainer.current && !isMobile) mainContainer.current.style.scrollSnapType = 'none'
         } else {
 
-          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y mandatory'
+          if (mainContainer.current && !isMobile) mainContainer.current.style.scrollSnapType = 'y mandatory'
         }
       } else {
 
