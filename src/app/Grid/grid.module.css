@@ -60,8 +60,8 @@
   
 
     .widthContainer {
+      @apply bottom-10 md:bottom-24;
       position: absolute;
-      bottom: 100px;
     }
     
     .width {

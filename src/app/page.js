@@ -355,7 +355,6 @@ targets.forEach(x => observer.observe(x))
             </button>
           </div>
           )
-
         }
       </section>
 
@@ -379,10 +378,7 @@ targets.forEach(x => observer.observe(x))
       />
 
       {/* Payment area */}
-      <section id="buy" data-index='3' className={`max-w-2xl px-4 mx-auto space-y-10 h-[100svh] content-center ${styles.prose}`}>
-        <h1 className={`grow not-prose ${styles.left} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
-          Squeezy
-        </h1>
+      <section id="buy" data-index='3' className={`max-w-2xl px-4 mx-auto h-[100svh] content-center ${styles.prose}`}>
         <div className="flex w-full">
           <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
             Squeezy
@@ -391,15 +387,29 @@ targets.forEach(x => observer.observe(x))
             Squeezy
           </h1>
         </div>
-        <p className="text-xl md:!text-3xl leading-[110%]">
+        <div className="flex w-full">
+          <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.7s'}} ref={headerRef}>
+            Squeezy
+          </h1>
+          <h1 className={`small grow not-prose ${styles.right} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.7s'}} ref={headerRef}>
+            Squeezy
+          </h1>
+        </div>
+        <div className="flex w-full">
+          <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.2s'}} ref={headerRef}>
+            Squeezy
+          </h1>
+          <h1 className={`small grow not-prose ${styles.right} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.2s'}} ref={headerRef}>
+            Squeezy
+          </h1>
+        </div>
+        <p className="my-10 text-xl md:!text-xl leading-[110%]">
         How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
         All characters keep their core while being extremely flexible.
         There’s likely a lot more to talk about, but maybe we just leave it at that.
         </p>
-        {/* <h1 className={`grow ${styles.right}`} style={{"--delay": '0s'}} ref={headerRef}>Squeezy</h1> */}
         
         <div className='flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-30)]'>
-          {/* <div className='flex flex-col items-start justify-center gap-y-2 sm:gap-y-4 self-stretch'> */}
             <div className="flex items-center gap-x-2 mb-4">
               <span className='text-[40px] leading-[100%]'>$50</span>
               <span className='flex flex-col text-base leading-[110%]'>per<br/>license</span>
@@ -408,33 +418,13 @@ targets.forEach(x => observer.observe(x))
               Squeezy can be purchased for desktop and to be embedded on websites.
               Simple licensing: Personal and commercial use allowed, no pageview count.
             </p>
-            <div className="flex flex-wrap items-center gap-6 sm:gap-x-10 mt-10">
-              <ShopifyButton label={"Desktop (.ttf)"} shopItemId={8825090572618} uniqueElementId={'ttf'}></ShopifyButton>
-              <ShopifyButton label={"Web (.woff2)"} shopItemId={8825090572618} uniqueElementId={'woff'}></ShopifyButton>
+            <div className="flex flex-wrap items-center gap-6 sm:gap-x-10 mt-4 sm:mt-10">
+              <ShopifyButton compact label={"Desktop (.ttf)"} shopItemId={8825090572618} uniqueElementId={'ttf'}></ShopifyButton>
+              <ShopifyButton compact label={"Web (.woff2)"} shopItemId={8825090572618} uniqueElementId={'woff'}></ShopifyButton>
             </div>
-          {/* </div> */}
         </div>
       </section>
 
-        <div
-          className={`fixed bottom-8 -translate-y-1/2 z-[5] left-6 isolate ${styles.themeSwitch}`}
-          style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}
-        >
-          {themes.map((thisTheme, index) => {
-            return (
-              <button
-                key={index}
-                className={`${styles.switch} ${thisTheme} ${
-                  index === theme ? styles.active : ""
-                }`}
-                onClick={() => changeTheme(index)}
-                style={{
-                  left: 16 * index,
-                }}
-              ></button>
-            );
-          })}
-        </div>
       <footer className={`relative mix-blend-difference ${styles.footer}`}>
         <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div>
         <div className="flex w-full relative items-center gap-4 isolate">
@@ -445,6 +435,26 @@ targets.forEach(x => observer.observe(x))
           <a href="https://overnice.com" className="ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</a>
         </div>
       </footer>
+      <div
+        className={`fixed bottom-8 -translate-y-1/2 z-[5] left-6 isolate ${styles.themeSwitch}`}
+        style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}
+      >
+        {themes.map((thisTheme, index) => {
+          return (
+            <button
+              key={index}
+              className={`${styles.switch} ${thisTheme} ${
+                index === theme ? styles.active : ""
+              }`}
+              onClick={() => changeTheme(index)}
+              style={{
+                left: 16 * index,
+              }}
+            ></button>
+          );
+        })}
+      </div>
+
       {gyroPermissionGranted === false && (
           <div>
             <button
