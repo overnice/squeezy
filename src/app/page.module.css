@@ -305,10 +305,10 @@
   color: rgba(255, 255, 255, 0);
   -webkit-text-stroke: 0.00625em var(--foreground);
 
-  &.mainLetter { 
+  /* &.mainLetter { 
     color: var(--foreground-shade-30);
     opacity: 0.6;
-  }
+  } */
 
   &.letter1 {
     /* opacity: 0.3; */

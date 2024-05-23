@@ -98,8 +98,8 @@ export default function Home() {
       const snappedWidth = snappedWidths.reduce(function (prev, curr) {
         return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
       });
-
-      if (snappedWidth !== snappedWidth.current) setSnappedWidth(snappedWidth);
+      setSnappedWidth(snappedWidth);
+      // if (snappedWidth !== snappedWidth.current) setSnappedWidth(snappedWidth);
 
       if (delta >= 0 && delta <= (height * max - height * min) / 2) {
         setCurrentWidth(width);
