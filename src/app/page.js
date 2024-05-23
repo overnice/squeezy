@@ -148,13 +148,13 @@ export default function Home() {
       setGyroPermissionGranted(true);
       // Android
       let delta;
-      const ratio = 300 / 30;
+      const ratio = 300 / 20;
   
   
       window.addEventListener("deviceorientation", (e) => {
         delta = Math.abs(e.gamma);
   
-        if (delta > 2 && delta < 30) {
+        if (delta > 2 && delta < 20) {
           const width = 400 + delta * ratio;
   
           const snappedWidth = snappedWidths.reduce(function (prev, curr) {
@@ -166,7 +166,7 @@ export default function Home() {
           setCurrentWidth(width);
         } else if (delta < 2) {
           setCurrentWidth(400)
-        } else if (delta > 30) {
+        } else if (delta > 20) {
           setCurrentWidth(700)
         }
       });
@@ -176,12 +176,12 @@ export default function Home() {
         if (response == "granted") {
           setGyroPermissionGranted(true);
           let delta;
-          const ratio = 300 / 30;
+          const ratio = 300 / 20;
   
           window.addEventListener("deviceorientation", (e) => {
             delta = Math.abs(e.gamma);
   
-            if (delta > 2 && delta < 30) {
+            if (delta > 2 && delta < 20) {
               const width = 400 + delta * ratio;
   
               const snappedWidth = snappedWidths.reduce(function (prev, curr) {
@@ -194,7 +194,7 @@ export default function Home() {
               setCurrentWidth(width);
             } else if (delta < 2) {
               setCurrentWidth(400)
-            } else if (delta > 30) {
+            } else if (delta > 20) {
               setCurrentWidth(700)
             }
           });
@@ -228,10 +228,10 @@ export default function Home() {
       if (entry.isIntersecting) {
         setCurrentSection(+entry.target.dataset.index)
         if (+entry.target.dataset.index === 2) {
-          if (mainContainer.current && !isMobile) mainContainer.current.style.scrollSnapType = 'none'
+          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
         } else {
 
-          if (mainContainer.current && !isMobile) mainContainer.current.style.scrollSnapType = 'y mandatory'
+          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y mandatory'
         }
       } else {
 
