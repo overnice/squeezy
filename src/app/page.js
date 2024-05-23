@@ -152,15 +152,20 @@ export default function Home() {
       window.addEventListener("deviceorientation", (e) => {
         delta = Math.abs(e.gamma);
   
-        if (delta > 0 && delta < 30) {
+        if (delta > 2 && delta < 30) {
           const width = 400 + delta * ratio;
   
           const snappedWidth = snappedWidths.reduce(function (prev, curr) {
             return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
           });
-  
+
+          
           setSnappedWidth(snappedWidth);
           setCurrentWidth(width);
+        } else if (delta < 2) {
+          setCurrentWidth(400)
+        } else if (delta > 30) {
+          setCurrentWidth(700)
         }
       });
     } else {
