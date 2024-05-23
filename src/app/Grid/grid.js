@@ -158,15 +158,11 @@ export default function Grid({
     let height = currentLetterRef.current.getBoundingClientRect().height;
     const ratio = 300 / ((height * max - height * min) / 2);
 
-    // console.log(currentLetter, min);
-
     const handleMouseMove = (e) => {
       x = Math.abs(center - e.clientX);
       delta = Math.floor(x - (height * min) / 2);
 
       const width = 400 + delta * ratio;
-
-      console.log('width', width)
 
       const snappedWidth = snappedWidths.reduce(function (prev, curr) {
         return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;

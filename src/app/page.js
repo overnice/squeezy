@@ -36,10 +36,8 @@ export default function Home() {
     }
 
     if (newTheme === theme) {
-      // console.log(theme);
       return;
     }
-    // console.log(newTheme);
     setTheme(newTheme);
   };
 
@@ -225,13 +223,11 @@ export default function Home() {
     entries.map((entry, i) => {
       if (entry.isIntersecting) {
         setCurrentSection(+entry.target.dataset.index)
-        console.log('enter',+entry.target.dataset.index)
         if (+entry.target.dataset.index === 2) {
-          console.log(mainContainer.current)
-          // if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
+          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
         } else {
 
-          // if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y proximity'
+          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y proximity'
         }
       } else {
 
