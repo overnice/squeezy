@@ -202,8 +202,8 @@ export default function Home() {
     setRenderedLetters((v) => [...v, currentLetter]);
     setRenderedLettersWidths((v) => [...v, snappedWidth]);
 
-    renderedLetters.length > 4 && renderedLetters.shift();
-    renderedLettersWidths.length > 4 && renderedLettersWidths.shift();
+    renderedLetters.length > 5 && renderedLetters.shift();
+    renderedLettersWidths.length > 5 && renderedLettersWidths.shift();
   }, [snappedWidth]);
 
   // Update Theme on body
@@ -263,9 +263,9 @@ targets.forEach(x => observer.observe(x))
         <ShopifyButton compact label={"Buy now"} shopItemId={8815969796426} uniqueElementId={'woff'}></ShopifyButton>
       </header>
 
-      <section id="info" data-index='0' className={styles.variableLines} ref={variableLinesSectionRef}>
+      <section id="info" data-index='0' className={`relative ${styles.variableLines}`} ref={variableLinesSectionRef}>
         {/* Width Lines */}
-        <p className='absolute bottom-[30px] text-lg text-center'>{snappedWidth}</p>
+        {/* <p className='absolute bottom-[30px] text-lg text-center'>{snappedWidth}</p> */}
         {/* 
         <div className={styles.widthLinesLeft}>
           {snappedWidths.map((width, key) => (
@@ -293,6 +293,16 @@ targets.forEach(x => observer.observe(x))
             className={`${styles.letter} ${styles.letter3}`}
             style={{
               fontVariationSettings: `"wdth" ${
+                renderedLettersWidths[renderedLettersWidths.length - 4]
+              }`,
+            }}
+          >
+            {renderedLetters[renderedLetters.length - 4]}
+          </div>
+          <div
+            className={`${styles.letter} ${styles.letter2}`}
+            style={{
+              fontVariationSettings: `"wdth" ${
                 renderedLettersWidths[renderedLettersWidths.length - 3]
               }`,
             }}
@@ -300,7 +310,7 @@ targets.forEach(x => observer.observe(x))
             {renderedLetters[renderedLetters.length - 3]}
           </div>
           <div
-            className={`${styles.letter} ${styles.letter2}`}
+            className={`${styles.letter} ${styles.letter1}`}
             style={{
               fontVariationSettings: `"wdth" ${
                 renderedLettersWidths[renderedLettersWidths.length - 2]
@@ -308,16 +318,6 @@ targets.forEach(x => observer.observe(x))
             }}
           >
             {renderedLetters[renderedLetters.length - 2]}
-          </div>
-          <div
-            className={`${styles.letter} ${styles.letter1}`}
-            style={{
-              fontVariationSettings: `"wdth" ${
-                renderedLettersWidths[renderedLettersWidths.length - 1]
-              }`,
-            }}
-          >
-            {renderedLetters[renderedLetters.length - 1]}
           </div>
           <div
             className={`${styles.letter} ${styles.mainLetter}`}
@@ -329,6 +329,25 @@ targets.forEach(x => observer.observe(x))
             {currentLetter}
           </div>
         </div>
+        {loaded && !isMobile && (
+          <div>
+            <button
+              id="accelPermsButton"
+              className={`${styles.accessButton} ${cursorHintVisibility ? 'opacity-100' : 'opacity-0'} transition-all absolute px-5 py-2 text-lg flex items-center gap-4 rounded-full top-1/2 left-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 z-[100]`}
+            >
+              <div>
+                <svg width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path className="stroke-current text-[var(--background)" fillRule="evenodd" clipRule="evenodd" d="M0 0.5L2.83818 13.5L5.5 7.5L12 6.00676L0 0.5Z" fill="white"/>
+                  <path className="stroke-current text-[var(--background)" d="M16 7H24" stroke="white" strokeWidth="2"/>
+                </svg>
+
+              </div>
+              Move your cursor to control the font width
+            </button>
+          </div>
+          )
+
+        }
       </section>
 
 
@@ -388,51 +407,35 @@ targets.forEach(x => observer.observe(x))
         </div>
       </section>
 
-      <footer className={styles.footer}>
         <div
-            className={styles.themeSwitch}
-            style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}
-          >
-            {themes.map((thisTheme, index) => {
-              return (
-                <button
-                  key={index}
-                  className={`${styles.switch} ${thisTheme} ${
-                    index === theme ? styles.active : ""
-                  }`}
-                  onClick={() => changeTheme(index)}
-                  style={{
-                    left: 16 * index,
-                  }}
-                ></button>
-              );
-            })}
-          </div>
+          className={`fixed bottom-8 -translate-y-1/2 z-[5] left-6 isolate ${styles.themeSwitch}`}
+          style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}
+        >
+          {themes.map((thisTheme, index) => {
+            return (
+              <button
+                key={index}
+                className={`${styles.switch} ${thisTheme} ${
+                  index === theme ? styles.active : ""
+                }`}
+                onClick={() => changeTheme(index)}
+                style={{
+                  left: 16 * index,
+                }}
+              ></button>
+            );
+          })}
+        </div>
+      <footer className={`relative mix-blend-difference ${styles.footer}`}>
+        <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div>
+        <div className="flex w-full relative items-center gap-4 isolate">
           <a href="#info" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 0 ? 'opacity-100' : 'opacity-30'}`}>Info</a>
           <a href="#try" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 1 ? 'opacity-100' : 'opacity-30'}`}>Try It</a>
           <a href="#grid" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 2 ? 'opacity-100' : 'opacity-30'}`}>Characters</a>
           <a href="#buy" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</a>
           <a href="https://overnice.com" className="ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</a>
-      </footer>
-      {loaded && !isMobile && (
-        <div>
-          <button
-            id="accelPermsButton"
-            className={`${styles.accessButton} ${cursorHintVisibility ? 'opacity-100' : 'opacity-0'} transition-all fixed px-5 py-2 text-lg flex items-center gap-4 rounded-full top-1/2 left-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 z-[100]`}
-          >
-            <div>
-              <svg width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path className="stroke-current text-[var(--background)" fill-rule="evenodd" clip-rule="evenodd" d="M0 0.5L2.83818 13.5L5.5 7.5L12 6.00676L0 0.5Z" fill="white"/>
-                <path className="stroke-current text-[var(--background)" d="M16 7H24" stroke="white" stroke-width="2"/>
-              </svg>
-
-            </div>
-            Move your cursor to control the font width
-          </button>
         </div>
-        )
-
-      }
+      </footer>
       {gyroPermissionGranted === false && (
           <div>
             <button

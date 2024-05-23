@@ -109,7 +109,7 @@ export default function Grid({
   gyroPermissionGranted,
 }) {
   const [currentLetter, setCurrentLetter] = useState("A");
-  const [currentWidth, setCurrentWidth] = useState();
+  const [currentWidth, setCurrentWidth] = useState(400);
   const [snappedWidth, setSnappedWidth] = useState();
 
   const showcaseSectionRef = useRef(null);
@@ -118,17 +118,17 @@ export default function Grid({
   // Width to height ratios 400 / 700
   const ratios = {
     narrow: {
-      min: 0.3547232,
-      max: 0.5838095,
+      min: 0.2775,
+      max: 0.525,
     },
 
     regular: {
-      min: 0.6080125,
-      max: 1.0880125,
+      min: 0.585,
+      max: 1.0695,
     },
     wide: {
-      min: 1.0141055,
-      max: 1.8036036,
+      min: 0.887,
+      max: 1.6125
     },
   };
 
@@ -152,6 +152,8 @@ export default function Grid({
       min = ratios.regular.min;
       max = ratios.regular.max;
     }
+    showcaseSection.style.setProperty('--min', min);
+    showcaseSection.style.setProperty('--max', max);
 
     let height = currentLetterRef.current.getBoundingClientRect().height;
     const ratio = 300 / ((height * max - height * min) / 2);
@@ -164,16 +166,25 @@ export default function Grid({
 
       const width = 400 + delta * ratio;
 
+      console.log('width', width)
+
       const snappedWidth = snappedWidths.reduce(function (prev, curr) {
         return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
       });
-
       setSnappedWidth(snappedWidth);
-      console.log(currentWidth, snappedWidth);
 
       if (delta >= 0 && delta <= (height * max - height * min) / 2) {
         setCurrentWidth(width);
+      } else if (delta < 0) {
+        setCurrentWidth(400)
+      } else if (delta > (height * max - height * min) / 2) {
+        setCurrentWidth(700)
       }
+    };
+
+    const handleMouseLeave = (e) => {
+      // setSnappedWidth(700);
+      // setCurrentWidth(700);
     };
 
     const handleResize = () => {
@@ -183,14 +194,20 @@ export default function Grid({
 
     if (!isMobile) {
       showcaseSection &&
-        showcaseSection.addEventListener("mousemove", handleMouseMove);
+      showcaseSection.addEventListener("mousemove", handleMouseMove);
+
+      currentLetterRef.current &&
+      currentLetterRef.current.addEventListener("mouseleave", handleMouseLeave);
     }
 
     window.addEventListener("resize", handleResize);
 
     return () => {
       showcaseSection &&
-        showcaseSection.removeEventListener("mousemove", handleMouseMove);
+      showcaseSection.removeEventListener("mousemove", handleMouseMove);
+
+      currentLetterRef.current &&
+      currentLetterRef.current.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", handleResize);
     };
   });
@@ -323,26 +340,31 @@ export default function Grid({
             <div className={styles.outerBottom}></div>
           </div>
         </div>
-        <p className={styles.width}>{snappedWidth}</p>
-        <div className={styles.widthLinesLeft}>
-          {snappedWidths.map((width, key) => (
-            <div
-              className={`${styles.widthLine} ${
-                width === snappedWidth ? styles.active : ""
-              }`}
-              key={key}
-            ></div>
-          ))}
-        </div>
-        <div className={styles.widthLinesRight}>
-          {snappedWidths.map((width, key) => (
-            <div
-              className={`${styles.widthLine} ${
-                width === snappedWidth ? styles.active : ""
-              }`}
-              key={key}
-            ></div>
-          ))}
+
+        <div className={styles.widthContainer}>
+          {/* WIDTH VALUE! */}
+          <p className={styles.width}>{Math.round(currentWidth)}</p>
+          {/* ------------ */}
+          <div className={styles.widthLinesLeft}>
+            {snappedWidths.map((width, key) => (
+              <div
+                className={`${styles.widthLine} ${
+                  width === snappedWidth ? styles.active : ""
+                }`}
+                key={key}
+              ></div>
+            ))}
+          </div>
+          <div className={styles.widthLinesRight}>
+            {snappedWidths.map((width, key) => (
+              <div
+                className={`${styles.widthLine} ${
+                  width === snappedWidth ? styles.active : ""
+                }`}
+                key={key}
+              ></div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,25 +1,3 @@
-.width {
-  color: var(--foreground);
-  font-family: "TT_Neoris", sans-serif;
-  font-size: 18px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  text-align: center;
-  z-index: 20;
-  cursor: default;
-  /* mix-blend-mode: difference; */
-  /* filter: invert(100%); */
-}
-
-.width {
-  position: absolute;
-  bottom: 24px;
-}
-
-
-
-
 .gridContainer {
     width: 100%;
     font-family: "Squeezy";
@@ -79,40 +57,64 @@
     text-align: center;
     overflow: hidden;
   
-    /* .widthLinesLeft,
-    .widthLinesRight {
-    } */
   
-    .width {
+
+    .widthContainer {
       position: absolute;
+      bottom: 100px;
+    }
+    
+    .width {
       color: var(--background);
+      font-family: "TT_Neoris", sans-serif;
+      font-size: 18px;
+      text-align: center;
+      z-index: 20;
+      cursor: default;
     }
-  
+
     .widthLine {
-      background: var(--background);
+      height: 12px;
+      width: 1px;
+      background-color: var(--background);
+      opacity: 0.1;
+      transition: opacity 0.2s ease;
+    
+      &.active {
+        opacity: 0.8;
+      }
+    }
+
+    .widthLinesLeft,
+    .widthLinesRight {
+      position: absolute;
+      top: 50%;
+      display: flex;
+      justify-content: space-between;
     }
   
-    /* .widthLinesRight {
+    .widthLinesRight {
+      left: 50%;
       transform: translate(
-        calc(var(--variable-lines-font-size) * 0.6072106262 / 2),
-        0
+        calc(var(--variable-lines-font-size) * var(--min) / 2),
+        -50%
       );
       width: calc(
-        var(--variable-lines-font-size) * (1.0880125 - 0.6072106262) / 2
+        var(--variable-lines-font-size) * (var(--max) - var(--min)) / 2
       );
     }
   
     .widthLinesLeft {
       right: 50%;
       transform: translate(
-          calc(var(--variable-lines-font-size) * 0.6072106262 / -2),
-          0
+          calc(var(--variable-lines-font-size) * var(--min) / -2),
+          -50%
         )
         scaleX(-1);
       width: calc(
-        var(--variable-lines-font-size) * (1.0880125 - 0.6072106262) / 2
+        var(--variable-lines-font-size) * (var(--max) - var(--min)) / 2
       );
-    } */
+    }
   }
   
   @media (max-width: 500px) {
@@ -138,6 +140,7 @@
   
   .gridLines {
     > * {
+      pointer-events: none;
       position: absolute;
       background: var(--background);
       opacity: 0.1;
@@ -350,36 +353,36 @@
       }
   
       .centerLeft {
-        transform: translate(-0.0766em, 0);
+        transform: translate(-0.0766em, -50%);
       }
   
       .centerRight {
-        transform: translate(-0.0533em, 0);
+        transform: translate(-0.0533em, -50%);
       }
   
       .centerTwoLeft {
-        transform: translate(0.0733em, 0);
+        transform: translate(0.0733em, -50%);
       }
   
       .centerTwoRight {
-        transform: translate(0.05em, 0);
+        transform: translate(0.05em, -50%);
       }
   
       &.wide {
         .centerLeft {
-          transform: translate(-0.1666em, 0);
+          transform: translate(-0.1666em, -50%);
         }
   
         .centerRight {
-          transform: translate(-0.1433em, 0);
+          transform: translate(-0.1433em, -50%);
         }
   
         .centerTwoLeft {
-          transform: translate(0.1633em, 0);
+          transform: translate(0.1633em, -50%);
         }
   
         .centerTwoRight {
-          transform: translate(0.14em, 0);
+          transform: translate(0.14em, -50%);
         }
       }
     }
