@@ -8,6 +8,7 @@ import Grid from "./Grid/grid";
 import ShopifyButton from './Shopify/ShopifyButton'
 
 import localFont from 'next/font/local'
+import Button from "./button";
  
 // Font files can be colocated inside of `pages`
 const TT_NEORIS = localFont({ src: '../../public/fonts/TT_Neoris_Variable.woff2' })
@@ -228,10 +229,18 @@ export default function Home() {
       if (entry.isIntersecting) {
         setCurrentSection(+entry.target.dataset.index)
         if (+entry.target.dataset.index === 2) {
-          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'none'
+          if (mainContainer.current) {
+            setTimeout(() => {
+              mainContainer.current.style.scrollSnapType = 'none'
+            }, 500);
+          }
         } else {
 
-          if (mainContainer.current) mainContainer.current.style.scrollSnapType = 'y mandatory'
+          if (mainContainer.current) {
+            setTimeout(() => {
+              mainContainer.current.style.scrollSnapType = 'y mandatory'
+            }, 500);
+          }
         }
       } else {
 
@@ -268,11 +277,14 @@ targets.forEach(x => observer.observe(x))
         </div>
 
         <div className={`hidden sm:block ${styles.subtitle}`}>A squishable and squashable variable font</div>
-
-        <ShopifyButton compact label={"Buy now"} shopItemId={8815969796426} uniqueElementId={'woff'}></ShopifyButton>
+          <Button
+            onClick={() => document.getElementById('buy')?.scrollIntoView()}
+            compact
+            text={'Buy now'}
+          />
       </header>
 
-      <section id="info" data-index='0' className={`relative ${styles.variableLines}`} ref={variableLinesSectionRef}>
+      <section id="info" data-index='0' className={`relative select-none ${styles.variableLines}`} ref={variableLinesSectionRef}>
         {/* ------ Letters ------ */}
         <div className={`${styles.letters} ${SQUEEZY.className}`}>
           <div
@@ -346,6 +358,7 @@ targets.forEach(x => observer.observe(x))
           }}
         ></p>
       </section>
+      
       <Grid
         isMobile={isMobile}
         snappedWidths={snappedWidths}
@@ -397,7 +410,7 @@ targets.forEach(x => observer.observe(x))
             </p>
             <div className="flex flex-wrap items-center gap-6 sm:gap-x-10 mt-4 sm:mt-10">
               <ShopifyButton compact label={"Desktop (.ttf)"} shopItemId={8825090572618} uniqueElementId={'ttf'}></ShopifyButton>
-              <ShopifyButton compact label={"Web (.woff2)"} shopItemId={8825090572618} uniqueElementId={'woff'}></ShopifyButton>
+              <ShopifyButton compact label={"Web (.woff2)"} shopItemId={8815969796426} uniqueElementId={'woff2'}></ShopifyButton>
             </div>
         </div>
       </section>

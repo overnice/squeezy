@@ -232,7 +232,7 @@ export default function Grid({
         })}
       </div>
       <div
-        className={`${styles.gridShowcase} ${
+        className={`select-none ${styles.gridShowcase} ${
           narrowLetters.includes(currentLetter) ? styles.narrow : ""
         } ${wideLetters.includes(currentLetter) ? styles.wide : ""}`}
         ref={showcaseSectionRef}
