@@ -101,6 +101,10 @@ export default function Home() {
 
       if (delta >= 0 && delta <= (height * max - height * min) / 2) {
         setCurrentWidth(width);
+      } else if (delta < 0) {
+        setCurrentWidth(400)
+      } else if (delta > (height * max - height * min) / 2) {
+        setCurrentWidth(700)
       }
     };
 
@@ -269,29 +273,6 @@ targets.forEach(x => observer.observe(x))
       </header>
 
       <section id="info" data-index='0' className={`relative ${styles.variableLines}`} ref={variableLinesSectionRef}>
-        {/* Width Lines */}
-        {/* <p className='absolute bottom-[30px] text-lg text-center'>{snappedWidth}</p> */}
-        {/* 
-        <div className={styles.widthLinesLeft}>
-          {snappedWidths.map((width, key) => (
-            <div
-              className={`${styles.widthLine} ${
-                width === snappedWidth ? styles.active : ""
-              }`}
-              key={key}
-            ></div>
-          ))}
-        </div>
-        <div className={styles.widthLinesRight}>
-          {snappedWidths.map((width, key) => (
-            <div
-              className={`${styles.widthLine} ${
-                width === snappedWidth ? styles.active : ""
-              }`}
-              key={key}
-            ></div>
-          ))}
-        </div> */}
         {/* ------ Letters ------ */}
         <div className={`${styles.letters} ${SQUEEZY.className}`}>
           <div
