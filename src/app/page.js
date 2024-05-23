@@ -413,7 +413,7 @@ targets.forEach(x => observer.observe(x))
         </div>
       </footer>
       <div
-        className={`fixed bottom-8 -translate-y-1/2 z-[5] left-6 isolate ${styles.themeSwitch}`}
+        className={`fixed bottom-8 -translate-y-1/2 z-[100] left-6 isolate ${styles.themeSwitch}`}
         style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}
       >
         {themes.map((thisTheme, index) => {
