@@ -129,7 +129,7 @@
   align-items: center;
 }
 
-.header path {
+.header path.logo {
   fill: var(--foreground);
 }
 
@@ -138,7 +138,6 @@
   display: flex;
   gap: 0 1rem;
   font-size: 18px;
-  padding: 1.5rem;
   align-items: center;
   justify-content: space-between;
   font-family: 'TT_Neoris';

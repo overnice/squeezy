@@ -22,6 +22,7 @@ export default function Home() {
   const [renderedLettersWidths, setRenderedLettersWidths] = useState([]);
   const [gyroPermissionGranted, setGyroPermissionGranted] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
+  const [openDetails, setOpenDetails] = useState(false);
   const [gyroButtonVisibility, setGyroButtonVisibility] = useState('hidden')
   const [cursorHintVisibility, setCursorHintVisibility] = useState(true)
   const [loaded, setLoaded] = useState(false)
@@ -251,10 +252,16 @@ export default function Home() {
     threshold: 0.1
   }
 )
-const targets = document.querySelectorAll('section');
-targets.forEach(x => observer.observe(x))
-    setLoaded(true)
+
+
+  const targets = document.querySelectorAll('section');
+  targets.forEach(x => observer.observe(x))
+      setLoaded(true)
   }, [])
+
+  const toggleDetails = () => {
+    setOpenDetails(!openDetails)
+  }
   
   return (
     <main
@@ -269,6 +276,7 @@ targets.forEach(x => observer.observe(x))
           <a href="https://overnice.com">
             <svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
+              className="logo"
               d="M12.4029 23.8945C10.2161 23.8945 9.6893 22.17 9.6893 15.039C9.6893 7.81474 10.2161 6.18346 12.4029 6.18346C14.5898 6.18346 15.1166 7.90796 15.1166 15.039C15.1166 22.17 14.5898 23.8945 12.4029 23.8945ZM12.4029 0.108887C1.46856 0.108887 0 7.51955 0 14.9458C0 23.1798 1.03757 30.0001 12.4029 30.0001C23.3373 30.0001 24.8059 22.4807 24.8059 15.0545C24.7899 6.82043 23.7683 0.108887 12.4029 0.108887Z"
               fill="#FEFEFE"/>
             </svg>
@@ -421,34 +429,44 @@ targets.forEach(x => observer.observe(x))
         </div>
       </section>
 
-      <footer className={`relative ${styles.footer}`}>
+      <footer className={`relative flex-wrap ${styles.footer}`}>
         {/* <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div> */}
-        <div className="flex items-center backdrop-blur-md gap-4 px-4 rounded-full py-1.5 bg-[color-mix(in_srgb,_var(--foreground-shade-20)_50%,_transparent)]">
-          <div
-            className={`${styles.themeSwitch}`}
-            >
-            {/* style={{ width: 12 * themes.length + 4 * (themes.length - 1) }} */}
-            {themes.map((thisTheme, index) => {
-              return (
-                <button
-                  key={index}
-                  data-index={index}
-                  className={`${styles.switch} ${thisTheme} ${
-                    index === theme ? styles.active : ""
-                  }`}
-                  onClick={() => changeTheme(index)}
-                ></button>
-              );
-            })}
+        <div className="flex w-full items-center p-4 justify-between">
+          <div className="flex  items-center backdrop-blur-md gap-4 px-4 rounded-full py-1.5 bg-[color-mix(in_srgb,_var(--foreground-shade-20)_50%,_transparent)]">
+            <div
+              className={`${styles.themeSwitch}`}
+              >
+              {/* style={{ width: 12 * themes.length + 4 * (themes.length - 1) }} */}
+              {themes.map((thisTheme, index) => {
+                return (
+                  <button
+                    key={index}
+                    data-index={index}
+                    className={`${styles.switch} ${thisTheme} ${
+                      index === theme ? styles.active : ""
+                    }`}
+                    onClick={() => changeTheme(index)}
+                  ></button>
+                );
+              })}
+            </div>
+            <div className="flex w-full relative items-center gap-4 isolate">
+              <a href="#info" className={`scroll-smooth transition-opacity ${currentSection !== 0 ? 'hidden sm:block' : '' } ${currentSection === 0 ? 'opacity-100' : 'opacity-30'}`}>Info</a>
+              <a href="#try" className={`scroll-smooth transition-opacity ${currentSection !== 1 ? 'hidden sm:block' : '' } ${currentSection === 1 ? 'opacity-100' : 'opacity-30'}`}>Try It</a>
+              <a href="#grid" className={`scroll-smooth transition-opacity ${currentSection !== 2 ? 'hidden sm:block' : '' } ${currentSection === 2 ? 'opacity-100' : 'opacity-30'}`}>Characters</a>
+              <a href="#buy" className={`scroll-smooth transition-opacity ${currentSection !== 3 ? 'hidden sm:block' : '' } ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</a>
+            </div>
           </div>
-          <div className="flex w-full relative items-center gap-4 isolate">
-            <a href="#info" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 0 ? 'opacity-100' : 'opacity-30'}`}>Info</a>
-            <a href="#try" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 1 ? 'opacity-100' : 'opacity-30'}`}>Try It</a>
-            <a href="#grid" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 2 ? 'opacity-100' : 'opacity-30'}`}>Characters</a>
-            <a href="#buy" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</a>
+          <a href="https://overnice.com" className="hidden sm:block ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</a>
+          <div onClick={toggleDetails} className="flex cursor-pointer  ml-auto sm:hidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[color-mix(in_srgb,_var(--foreground-shade-20)_50%,_transparent)] hover:bg-[var(--foreground-shade-30)] transition-colors">i</div>
+
+        </div>
+        <div className={`w-full bg-white transition-[max-height] ${openDetails ? 'max-h-40' : 'max-h-0'} h-fit overflow-hidden`}>
+          <div className="p-6">
+            <p className="text-[var(--background)] mb-4 text-lg">A squishable and squashable variable font</p>
+            <a href="https://overnice.com" className="rounded-full hover:scale-105 transition-transform text-[var(--foreground)] text-base md:text-lg py-1.5 px-4 bg-[var(--background)]">Made by Overnice</a>
           </div>
         </div>
-          <a href="https://overnice.com" className="ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</a>
       </footer>
 
       {gyroPermissionGranted === false && (
