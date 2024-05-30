@@ -331,14 +331,22 @@ targets.forEach(x => observer.observe(x))
           <div>
             <button
               id="accelPermsButton"
-              className={`${styles.accessButton} ${cursorHintVisibility ? 'opacity-100' : 'opacity-0'} transition-all absolute px-5 py-2 text-lg flex items-center gap-4 rounded-full top-1/2 left-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 z-[100]`}
+              className={`${styles.accessButton} ${cursorHintVisibility ? 'opacity-100' : 'opacity-0 !translate-y-0'} transition-all duration-700 absolute px-5 py-2 text-lg flex items-center gap-4 rounded-full top-1/2 left-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 z-[100]`}
             >
               <div>
-                <svg width="24" height="14" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path className="stroke-current text-[var(--background)" fillRule="evenodd" clipRule="evenodd" d="M0 0.5L2.83818 13.5L5.5 7.5L12 6.00676L0 0.5Z" fill="white"/>
-                  <path className="stroke-current text-[var(--background)" d="M16 7H24" stroke="white" strokeWidth="2"/>
+                <svg width="25" height="15" viewBox="0 0 25 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clipPath="url(#clip0_279_299)">
+                    <path d="M3 7.5H11" stroke="black" strokeWidth="2"/>
+                    <path d="M17 7.5H25" stroke="black" strokeWidth="2"/>
+                    <rect className={styles.arrow} width="14" height="15" fill="white"/>
+                    <path className={styles.arrow} fillRule="evenodd" clipRule="evenodd" d="M1 1L3.83818 14L6.5 8L13 6.50676L1 1Z" fill="black"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_279_299">
+                      <rect width="25" height="15" fill="white"/>
+                    </clipPath>
+                  </defs>
                 </svg>
-
               </div>
               Move your cursor to control the font width
             </button>
@@ -369,7 +377,7 @@ targets.forEach(x => observer.observe(x))
 
       {/* Payment area */}
       <section id="buy" data-index='3' className={`max-w-2xl px-4 mx-auto h-[100svh] content-center ${styles.prose}`}>
-        <div className="flex w-full">
+        {/* <div className="flex w-full">
           <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
             Squeezy
           </h1>
@@ -392,58 +400,56 @@ targets.forEach(x => observer.observe(x))
           <h1 className={`small grow not-prose ${styles.right} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.2s'}} ref={headerRef}>
             Squeezy
           </h1>
-        </div>
-        <p className="my-10 text-xl md:!text-xl leading-[110%]">
-        How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
-        All characters keep their core while being extremely flexible.
-        There’s likely a lot more to talk about, but maybe we just leave it at that.
+        </div> */}
+        <p className="my-10 text-xl md:!text-2xl leading-[130%]">
+          How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
+          All characters keep their core while being extremely flexible.
+          There’s likely a lot more to talk about, but maybe we just leave it at that.
         </p>
         
         <div className='flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-30)]'>
             <div className="flex items-center gap-x-2 mb-4">
-              <span className='text-[40px] leading-[100%]'>$50</span>
-              <span className='flex flex-col text-base leading-[110%]'>per<br/>license</span>
+              <span className='text-[40px] leading-[100%]'>€50</span>
+              <span className='flex flex-col text-base leading-[110%]'>desktop &<br/>web licence</span>
             </div>
             <p className="opacity-60 !text-base !mt-0">
-              Squeezy can be purchased for desktop and to be embedded on websites.
-              Simple licensing: Personal and commercial use allowed, no pageview count.
+              Squeezy can be used for both desktop and web. Simple licensing: Personal and commercial use allowed, no pageview count.
             </p>
             <div className="flex flex-wrap items-center gap-6 sm:gap-x-10 mt-4 sm:mt-10">
-              <ShopifyButton compact label={"Desktop (.ttf)"} shopItemId={8825090572618} uniqueElementId={'ttf'}></ShopifyButton>
-              <ShopifyButton compact label={"Web (.woff2)"} shopItemId={8815969796426} uniqueElementId={'woff2'}></ShopifyButton>
+              <ShopifyButton label={"Buy"} shopItemId={8815969796426} uniqueElementId={'woff2'}></ShopifyButton>
             </div>
         </div>
       </section>
 
-      <footer className={`relative mix-blend-difference ${styles.footer}`}>
-        <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div>
-        <div className="flex w-full relative items-center gap-4 isolate">
-          <a href="#info" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 0 ? 'opacity-100' : 'opacity-30'}`}>Info</a>
-          <a href="#try" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 1 ? 'opacity-100' : 'opacity-30'}`}>Try It</a>
-          <a href="#grid" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 2 ? 'opacity-100' : 'opacity-30'}`}>Characters</a>
-          <a href="#buy" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</a>
-          <a href="https://overnice.com" className="ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</a>
+      <footer className={`relative ${styles.footer}`}>
+        {/* <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div> */}
+        <div className="flex items-center backdrop-blur-md gap-4 px-4 rounded-full py-1.5 bg-[color-mix(in_srgb,_var(--foreground-shade-20)_50%,_transparent)]">
+          <div
+            className={`${styles.themeSwitch}`}
+            >
+            {/* style={{ width: 12 * themes.length + 4 * (themes.length - 1) }} */}
+            {themes.map((thisTheme, index) => {
+              return (
+                <button
+                  key={index}
+                  data-index={index}
+                  className={`${styles.switch} ${thisTheme} ${
+                    index === theme ? styles.active : ""
+                  }`}
+                  onClick={() => changeTheme(index)}
+                ></button>
+              );
+            })}
+          </div>
+          <div className="flex w-full relative items-center gap-4 isolate">
+            <a href="#info" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 0 ? 'opacity-100' : 'opacity-30'}`}>Info</a>
+            <a href="#try" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 1 ? 'opacity-100' : 'opacity-30'}`}>Try It</a>
+            <a href="#grid" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 2 ? 'opacity-100' : 'opacity-30'}`}>Characters</a>
+            <a href="#buy" className={`hidden scroll-smooth transition-opacity sm:block ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</a>
+          </div>
         </div>
+          <a href="https://overnice.com" className="ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</a>
       </footer>
-      <div
-        className={`fixed bottom-8 -translate-y-1/2 z-[100] left-6 isolate ${styles.themeSwitch}`}
-        style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}
-      >
-        {themes.map((thisTheme, index) => {
-          return (
-            <button
-              key={index}
-              className={`${styles.switch} ${thisTheme} ${
-                index === theme ? styles.active : ""
-              }`}
-              onClick={() => changeTheme(index)}
-              style={{
-                left: 16 * index,
-              }}
-            ></button>
-          );
-        })}
-      </div>
 
       {gyroPermissionGranted === false && (
           <div>
