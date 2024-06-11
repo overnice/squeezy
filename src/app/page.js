@@ -384,7 +384,7 @@ export default function Home() {
       />
 
       {/* Payment area */}
-      <section id="buy" data-index='3' className={`max-w-2xl px-4 mx-auto h-[100svh] content-center ${styles.prose}`}>
+      <section id="buy" data-index='3' className={`max-w-2xl px-4 mx-auto h-[100svh] flex flex-wrap content-center ${styles.prose}`}>
         {/* <div className="flex w-full">
           <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
             Squeezy
