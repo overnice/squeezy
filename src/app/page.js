@@ -276,9 +276,9 @@ export default function Home() {
           <a href="https://overnice.com">
             <svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
-              className="logo"
+              className="logo fill-current"
               d="M12.4029 23.8945C10.2161 23.8945 9.6893 22.17 9.6893 15.039C9.6893 7.81474 10.2161 6.18346 12.4029 6.18346C14.5898 6.18346 15.1166 7.90796 15.1166 15.039C15.1166 22.17 14.5898 23.8945 12.4029 23.8945ZM12.4029 0.108887C1.46856 0.108887 0 7.51955 0 14.9458C0 23.1798 1.03757 30.0001 12.4029 30.0001C23.3373 30.0001 24.8059 22.4807 24.8059 15.0545C24.7899 6.82043 23.7683 0.108887 12.4029 0.108887Z"
-              fill="#FEFEFE"/>
+              />
             </svg>
           </a>
           <h1 className={styles.title}>Squeezy VF</h1>
@@ -432,7 +432,7 @@ export default function Home() {
       <footer className={`relative flex-wrap ${styles.footer}`}>
         {/* <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div> */}
         <div className="flex w-full items-center p-4 justify-between">
-          <div className="flex  items-center backdrop-blur-md gap-4 px-4 rounded-full py-1.5 bg-[color-mix(in_srgb,_var(--foreground-shade-20)_50%,_transparent)]">
+          <div className="flex  items-center gap-4 px-4 rounded-full py-1.5 bg-[var(--footer-background)]">
             <div
               className={`${styles.themeSwitch}`}
               >

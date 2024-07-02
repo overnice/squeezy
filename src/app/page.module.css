@@ -10,7 +10,7 @@
   height: 100svh;
   scroll-snap-type: y mandatory;
 
-  > section {
+  > section, > header {
     scroll-snap-align: start;
   }
 
@@ -113,16 +113,15 @@
   color: var(--foreground);
   font-family: "TT_Neoris", sans-serif;
   font-size: 18px;
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   right: 0;
   text-align: center;
   z-index: 20;
   cursor: default;
-  mix-blend-mode: difference;
-  /* filter: invert(100%); */
-  top: 24px;
-  padding: 0 24px;
+  /* mix-blend-mode: difference; */
+  /* filter: invert(100%); */;
+  padding: 24px;
   display: flex;
   line-height: 1;
   justify-content: space-between;

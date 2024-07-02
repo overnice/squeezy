@@ -31,25 +31,30 @@
   --red-foreground-shade-30: #ff6a29;
   --red-foreground-shade-20: #ff5529;
   --red-foreground-shade-10: #ff3f2a;
+  --red-footer-background: #FB9246;
 
   --blue-background: #73bcff;
   --blue-foreground: #9E0028;
   --blue-foreground-shade-30: #9d96eb;
   --blue-foreground-shade-20: #8fa3f2;
   --blue-foreground-shade-10: #81aff8;
+  --blue-footer-background: #4ca0ec;
 
   --pink-background: #9E007C;
   --pink-foreground: #9ECFFF;
   --pink-foreground-shade-10: #a31083;
   --pink-foreground-shade-20: #ca1ba4;
   --pink-foreground-shade-30: #eb34c4;
+  --pink-footer-background: #9E54AE;
 
   --black-background: #000;
   --black-foreground: #fff;
   --black-foreground-shade-30: #333333;
   --black-foreground-shade-20: #1a1a1a;
   --black-foreground-shade-10: #0d0d0d;
+  --black-footer-background: #7C7C7C80;
 
+  --footer-background: var(--black-footer-background);
   --background: var(--black-background);
   --foreground: var(--black-foreground);
   --foreground-shade-30: var(--black-foreground-shade-30);
@@ -78,6 +83,7 @@ body {
   color: var(--foreground);
 
   &.red {
+  --footer-background: var(--red-footer-background);
     --background: var(--red-background);
     --foreground: var(--red-foreground);
     --foreground-shade-30: var(--red-foreground-shade-30);
@@ -86,6 +92,7 @@ body {
   }
 
   &.blue {
+    --footer-background: var(--blue-footer-background);
     --background: var(--blue-background);
     --foreground: var(--blue-foreground);
     --foreground-shade-30: var(--blue-foreground-shade-30);
@@ -94,6 +101,7 @@ body {
   }
 
   &.pink {
+    --footer-background: var(--pink-footer-background);
     --background: var(--pink-background);
     --foreground: var(--pink-foreground);
     --foreground-shade-30: var(--pink-foreground-shade-30);
@@ -102,6 +110,7 @@ body {
   }
 
   &.black {
+    --footer-background: var(--black-footer-background);
     --background: var(--black-background);
     --foreground: var(--black-foreground);
     --foreground-shade-30: var(--black-foreground-shade-30);
