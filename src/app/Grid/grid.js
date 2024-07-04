@@ -226,8 +226,13 @@ export default function Grid({
             <div
               className={`${styles.gridItem} ${currentLetter === letter ? styles.active : 'fuck'}`}
               key={key}
-              onClick={() => setCurrentLetter(letter)}
-            >
+              onClick={() => {
+                setCurrentLetter(letter)
+                setTimeout(() => {
+                  // Update letter width for wide letter guide lines
+                  setLetterClientWidth(currentLetterRef.current.getBoundingClientRect().width)
+                }, 10);
+              }}>
               {letter}
             </div>
           );
