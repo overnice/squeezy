@@ -110,6 +110,7 @@ export default function Grid({
 }) {
   const [currentLetter, setCurrentLetter] = useState("A");
   const [currentWidth, setCurrentWidth] = useState(400);
+  const [letterClientWidth, setLetterClientWidth] = useState(400);
   const [snappedWidth, setSnappedWidth] = useState();
 
   const showcaseSectionRef = useRef(null);
@@ -176,6 +177,7 @@ export default function Grid({
       } else if (delta > (height * max - height * min) / 2) {
         setCurrentWidth(700)
       }
+      setLetterClientWidth(currentLetterRef.current.getBoundingClientRect().width)
     };
 
     const handleMouseLeave = (e) => {
@@ -298,7 +300,11 @@ export default function Grid({
                 transform:
                   wideLetters.includes(currentLetter) &&
                   doubleSlitLetters.includes(currentLetter)
-                    ? `translate(${-0.1666 * (currentWidth / 400)}em, -50%)`
+                    ? `translate(calc(
+                      -${(letterClientWidth - 14) * 0.5}px
+                      + ${(letterClientWidth - 14) * 0.324}px
+                      - ${(1- ((currentWidth - 400) / 300)) * 5}px
+                    ), -50%)`
                     : null,
               }}
             ></div>
@@ -308,7 +314,11 @@ export default function Grid({
                 transform:
                   wideLetters.includes(currentLetter) &&
                   doubleSlitLetters.includes(currentLetter)
-                    ? `translate(${-0.1433 * (currentWidth / 400)}em, -50%)`
+                    ? `translate(calc(
+                      -${(letterClientWidth - 14) * 0.5}px
+                      + ${(letterClientWidth - 14) * 0.338}px
+                      + ${(1- ((currentWidth - 400) / 300)) * 2}px
+                    ), -50%)`
                     : null,
               }}
             ></div>
@@ -318,7 +328,11 @@ export default function Grid({
                 transform:
                   wideLetters.includes(currentLetter) &&
                   doubleSlitLetters.includes(currentLetter)
-                    ? `translate(${0.1633 * (currentWidth / 400)}em, -50%)`
+                    ? `translate(calc(
+                      -${(letterClientWidth - 14) * 0.5}px
+                      + ${(letterClientWidth - 14) * 0.675}px
+                      + ${(1- ((currentWidth - 400) / 300)) * 4}px
+                    ), -50%)`
                     : null,
               }}
             ></div>
@@ -328,7 +342,11 @@ export default function Grid({
                 transform:
                   wideLetters.includes(currentLetter) &&
                   doubleSlitLetters.includes(currentLetter)
-                    ? `translate(${0.14 * (currentWidth / 400)}em, -50%)`
+                  ? `translate(calc(
+                    -${(letterClientWidth - 14) * 0.5}px
+                    + ${(letterClientWidth - 14) * 0.6615}px
+                    - ${(1- ((currentWidth - 400) / 300)) * 2}px
+                  ), -50%)`
                     : null,
               }}
             ></div>
