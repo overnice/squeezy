@@ -6,31 +6,60 @@ import styles from "./grid.module.css";
 
 const fullLetterSet = [
   "A",
+  "Ä",
+  "Á",
+  "À",
+  "Â",
+  "Ã",
   "B",
   "C",
   "D",
   "E",
+  "É",
+  "È",
+  "Ê",
   "F",
   "G",
   "H",
   "I",
+  "Ï",
+  "Í",
+  "Ì",
+  "Î",
   "J",
   "K",
   "L",
   "M",
   "N",
+  "Ñ",
   "O",
+  "Ö",
+  "Ó",
+  "Ò",
+  "Ô",
+  "Õ",
   "P",
   "Q",
   "R",
   "S",
   "T",
   "U",
+  "Ü",
+  "Ú",
+  "Ù",
+  "Û",
   "V",
   "W",
   "X",
   "Y",
   "Z",
+  ".",
+  ",",
+  ":",
+  ";",
+  "-",
+  "–",
+  "—",
 ];
 const narrowLetters = ["I"];
 const wideLetters = ["M", "T", "W"];
@@ -129,7 +158,7 @@ export default function Grid({
     },
     wide: {
       min: 0.887,
-      max: 1.6125
+      max: 1.6125,
     },
   };
 
@@ -153,8 +182,8 @@ export default function Grid({
       min = ratios.regular.min;
       max = ratios.regular.max;
     }
-    showcaseSection.style.setProperty('--min', min);
-    showcaseSection.style.setProperty('--max', max);
+    showcaseSection.style.setProperty("--min", min);
+    showcaseSection.style.setProperty("--max", max);
 
     let height = currentLetterRef.current.getBoundingClientRect().height;
     const ratio = 300 / ((height * max - height * min) / 2);
@@ -173,11 +202,13 @@ export default function Grid({
       if (delta >= 0 && delta <= (height * max - height * min) / 2) {
         setCurrentWidth(width);
       } else if (delta < 0) {
-        setCurrentWidth(400)
+        setCurrentWidth(400);
       } else if (delta > (height * max - height * min) / 2) {
-        setCurrentWidth(700)
+        setCurrentWidth(700);
       }
-      setLetterClientWidth(currentLetterRef.current.getBoundingClientRect().width)
+      setLetterClientWidth(
+        currentLetterRef.current.getBoundingClientRect().width
+      );
     };
 
     const handleMouseLeave = (e) => {
@@ -192,20 +223,26 @@ export default function Grid({
 
     if (!isMobile) {
       showcaseSection &&
-      showcaseSection.addEventListener("mousemove", handleMouseMove);
+        showcaseSection.addEventListener("mousemove", handleMouseMove);
 
       currentLetterRef.current &&
-      currentLetterRef.current.addEventListener("mouseleave", handleMouseLeave);
+        currentLetterRef.current.addEventListener(
+          "mouseleave",
+          handleMouseLeave
+        );
     }
 
     window.addEventListener("resize", handleResize);
 
     return () => {
       showcaseSection &&
-      showcaseSection.removeEventListener("mousemove", handleMouseMove);
+        showcaseSection.removeEventListener("mousemove", handleMouseMove);
 
       currentLetterRef.current &&
-      currentLetterRef.current.removeEventListener("mouseleave", handleMouseLeave);
+        currentLetterRef.current.removeEventListener(
+          "mouseleave",
+          handleMouseLeave
+        );
       window.removeEventListener("resize", handleResize);
     };
   });
@@ -218,21 +255,25 @@ export default function Grid({
   }, [extSnappedWidth, extCurrentWidth, gyroPermissionGranted]);
 
   return (
-    <section
-    id="grid" data-index='2' className={styles.gridContainer}>
+    <section id="grid" data-index="2" className={styles.gridContainer}>
       <div className={styles.grid}>
         {fullLetterSet.map((letter, key) => {
           return (
             <div
-              className={`${styles.gridItem} ${currentLetter === letter ? styles.active : 'fuck'}`}
+              className={`${styles.gridItem} ${
+                currentLetter === letter ? styles.active : "fuck"
+              }`}
               key={key}
               onClick={() => {
-                setCurrentLetter(letter)
+                setCurrentLetter(letter);
                 setTimeout(() => {
                   // Update letter width for wide letter guide lines
-                  setLetterClientWidth(currentLetterRef.current.getBoundingClientRect().width)
+                  setLetterClientWidth(
+                    currentLetterRef.current.getBoundingClientRect().width
+                  );
                 }, 10);
-              }}>
+              }}
+            >
               {letter}
             </div>
           );
@@ -308,7 +349,7 @@ export default function Grid({
                     ? `translate(calc(
                       -${(letterClientWidth - 14) * 0.5}px
                       + ${(letterClientWidth - 14) * 0.324}px
-                      - ${(1- ((currentWidth - 400) / 300)) * 5}px
+                      - ${(1 - (currentWidth - 400) / 300) * 5}px
                     ), -50%)`
                     : null,
               }}
@@ -322,7 +363,7 @@ export default function Grid({
                     ? `translate(calc(
                       -${(letterClientWidth - 14) * 0.5}px
                       + ${(letterClientWidth - 14) * 0.338}px
-                      + ${(1- ((currentWidth - 400) / 300)) * 2}px
+                      + ${(1 - (currentWidth - 400) / 300) * 2}px
                     ), -50%)`
                     : null,
               }}
@@ -336,7 +377,7 @@ export default function Grid({
                     ? `translate(calc(
                       -${(letterClientWidth - 14) * 0.5}px
                       + ${(letterClientWidth - 14) * 0.675}px
-                      + ${(1- ((currentWidth - 400) / 300)) * 4}px
+                      + ${(1 - (currentWidth - 400) / 300) * 4}px
                     ), -50%)`
                     : null,
               }}
@@ -347,10 +388,10 @@ export default function Grid({
                 transform:
                   wideLetters.includes(currentLetter) &&
                   doubleSlitLetters.includes(currentLetter)
-                  ? `translate(calc(
+                    ? `translate(calc(
                     -${(letterClientWidth - 14) * 0.5}px
                     + ${(letterClientWidth - 14) * 0.6615}px
-                    - ${(1- ((currentWidth - 400) / 300)) * 2}px
+                    - ${(1 - (currentWidth - 400) / 300) * 2}px
                   ), -50%)`
                     : null,
               }}

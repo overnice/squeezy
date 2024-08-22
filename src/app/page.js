@@ -5,29 +5,31 @@ import Head from "next/head";
 import { isMobile } from "react-device-detect";
 import styles from "./page.module.css";
 import Grid from "./Grid/grid";
-import ShopifyButton from './Shopify/ShopifyButton'
+import ShopifyButton from "./Shopify/ShopifyButton";
 
-import localFont from 'next/font/local'
+import localFont from "next/font/local";
 import Button from "./button";
- 
+
 // Font files can be colocated inside of `pages`
-const TT_NEORIS = localFont({ src: '../../public/fonts/TT_Neoris_Variable.woff2' })
-const SQUEEZY = localFont({ src: '../../public/fonts/SqueezyVF.woff2' })
+const TT_NEORIS = localFont({
+  src: "../../public/fonts/TT_Neoris_Variable.woff2",
+});
+const SQUEEZY = localFont({ src: "../../public/fonts/SqueezyVF.woff2" });
 
 export default function Home() {
   const [currentLetter, setCurrentLetter] = useState("K");
   const [currentWidth, setCurrentWidth] = useState();
-  const [snappedWidth, setSnappedWidth] = useState('400');
+  const [snappedWidth, setSnappedWidth] = useState("400");
   const [renderedLetters, setRenderedLetters] = useState([currentLetter]);
   const [renderedLettersWidths, setRenderedLettersWidths] = useState([]);
   const [gyroPermissionGranted, setGyroPermissionGranted] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const [openDetails, setOpenDetails] = useState(false);
-  const [gyroButtonVisibility, setGyroButtonVisibility] = useState('hidden')
-  const [cursorHintVisibility, setCursorHintVisibility] = useState(true)
-  const [loaded, setLoaded] = useState(false)
+  const [gyroButtonVisibility, setGyroButtonVisibility] = useState("hidden");
+  const [cursorHintVisibility, setCursorHintVisibility] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
-  const themes = ["black", "red", "blue", "pink"];
+  const themes = ["black", "red", "yellowGreen", "yellowBlue"];
   const [theme, setTheme] = useState(0);
 
   const changeTheme = (newTheme) => {
@@ -69,8 +71,8 @@ export default function Home() {
   const currentLetterRef = useRef(null);
   const variableLinesSectionRef = useRef(null);
   const editableSectionRef = useRef(null);
-  const gyroButton = useRef()
-  const mainContainer = useRef()
+  const gyroButton = useRef();
+  const mainContainer = useRef();
 
   const min = 0.6080125;
   const max = 1.0880125;
@@ -87,8 +89,8 @@ export default function Home() {
     const handleMouseMove = (e) => {
       if (cursorHintVisibility) {
         setTimeout(() => {
-          setCursorHintVisibility(false)
-        }, 1000)
+          setCursorHintVisibility(false);
+        }, 1000);
       }
       x = Math.abs(center - e.clientX);
       delta = Math.floor(x - (height * min) / 2);
@@ -104,9 +106,9 @@ export default function Home() {
       if (delta >= 0 && delta <= (height * max - height * min) / 2) {
         setCurrentWidth(width);
       } else if (delta < 0) {
-        setCurrentWidth(400)
+        setCurrentWidth(400);
       } else if (delta > (height * max - height * min) / 2) {
-        setCurrentWidth(700)
+        setCurrentWidth(700);
       }
     };
 
@@ -139,37 +141,35 @@ export default function Home() {
   });
 
   useEffect(() => {
-    if (isMobile) setGyroButtonVisibility('visible')
-  }, [gyroButtonVisibility])
+    if (isMobile) setGyroButtonVisibility("visible");
+  }, [gyroButtonVisibility]);
 
   // Gyro
   function getAccel() {
-    if (
-      navigator.userAgent.match(/Android/i)
-    ) {
+    if (navigator.userAgent.match(/Android/i)) {
       setGyroPermissionGranted(true);
       // Android
       let delta;
       const ratio = 300 / 20;
-  
-  
+
       window.addEventListener("deviceorientation", (e) => {
         delta = Math.abs(e.gamma);
-  
+
         if (delta > 2 && delta < 20) {
           const width = 400 + delta * ratio;
-  
+
           const snappedWidth = snappedWidths.reduce(function (prev, curr) {
-            return Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev;
+            return Math.abs(curr - width) < Math.abs(prev - width)
+              ? curr
+              : prev;
           });
 
-          
           setSnappedWidth(snappedWidth);
           setCurrentWidth(width);
         } else if (delta < 2) {
-          setCurrentWidth(400)
+          setCurrentWidth(400);
         } else if (delta > 20) {
-          setCurrentWidth(700)
+          setCurrentWidth(700);
         }
       });
     } else {
@@ -179,25 +179,25 @@ export default function Home() {
           setGyroPermissionGranted(true);
           let delta;
           const ratio = 300 / 20;
-  
+
           window.addEventListener("deviceorientation", (e) => {
             delta = Math.abs(e.gamma);
-  
+
             if (delta > 2 && delta < 20) {
               const width = 400 + delta * ratio;
-  
+
               const snappedWidth = snappedWidths.reduce(function (prev, curr) {
                 return Math.abs(curr - width) < Math.abs(prev - width)
                   ? curr
                   : prev;
               });
-  
+
               setSnappedWidth(snappedWidth);
               setCurrentWidth(width);
             } else if (delta < 2) {
-              setCurrentWidth(400)
+              setCurrentWidth(400);
             } else if (delta > 20) {
-              setCurrentWidth(700)
+              setCurrentWidth(700);
             }
           });
         }
@@ -225,44 +225,42 @@ export default function Home() {
   }, [theme]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-    entries.map((entry, i) => {
-      if (entry.isIntersecting) {
-        setCurrentSection(+entry.target.dataset.index)
-        if (+entry.target.dataset.index === 2) {
-          if (mainContainer.current) {
-            setTimeout(() => {
-              mainContainer.current.style.scrollSnapType = 'none'
-            }, 500);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.map((entry, i) => {
+          if (entry.isIntersecting) {
+            setCurrentSection(+entry.target.dataset.index);
+            if (+entry.target.dataset.index === 2) {
+              if (mainContainer.current) {
+                setTimeout(() => {
+                  mainContainer.current.style.scrollSnapType = "none";
+                }, 500);
+              }
+            } else {
+              if (mainContainer.current) {
+                setTimeout(() => {
+                  mainContainer.current.style.scrollSnapType = "y mandatory";
+                }, 500);
+              }
+            }
+          } else {
           }
-        } else {
-
-          if (mainContainer.current) {
-            setTimeout(() => {
-              mainContainer.current.style.scrollSnapType = 'y mandatory'
-            }, 500);
-          }
-        }
-      } else {
-
+        });
+      },
+      {
+        threshold: 0.1,
       }
-    })
-  },
-  {
-    threshold: 0.1
-  }
-)
+    );
 
-
-  const targets = document.querySelectorAll('section');
-  targets.forEach(x => observer.observe(x))
-      setLoaded(true)
-  }, [])
+    const targets = document.querySelectorAll("section");
+    targets.forEach((x) => observer.observe(x));
+    setLoaded(true);
+  }, []);
 
   const toggleDetails = () => {
-    setOpenDetails(!openDetails)
-  }
-  
+    setOpenDetails(!openDetails);
+  };
+
   return (
     <main
       ref={mainContainer}
@@ -274,25 +272,38 @@ export default function Home() {
       <header className={styles.header}>
         <div className="flex items-center gap-x-4">
           <a href="https://overnice.com">
-            <svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              className="logo fill-current"
-              d="M12.4029 23.8945C10.2161 23.8945 9.6893 22.17 9.6893 15.039C9.6893 7.81474 10.2161 6.18346 12.4029 6.18346C14.5898 6.18346 15.1166 7.90796 15.1166 15.039C15.1166 22.17 14.5898 23.8945 12.4029 23.8945ZM12.4029 0.108887C1.46856 0.108887 0 7.51955 0 14.9458C0 23.1798 1.03757 30.0001 12.4029 30.0001C23.3373 30.0001 24.8059 22.4807 24.8059 15.0545C24.7899 6.82043 23.7683 0.108887 12.4029 0.108887Z"
+            <svg
+              width="25"
+              height="30"
+              viewBox="0 0 25 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                className="logo fill-current"
+                d="M12.4029 23.8945C10.2161 23.8945 9.6893 22.17 9.6893 15.039C9.6893 7.81474 10.2161 6.18346 12.4029 6.18346C14.5898 6.18346 15.1166 7.90796 15.1166 15.039C15.1166 22.17 14.5898 23.8945 12.4029 23.8945ZM12.4029 0.108887C1.46856 0.108887 0 7.51955 0 14.9458C0 23.1798 1.03757 30.0001 12.4029 30.0001C23.3373 30.0001 24.8059 22.4807 24.8059 15.0545C24.7899 6.82043 23.7683 0.108887 12.4029 0.108887Z"
               />
             </svg>
           </a>
           <h1 className={styles.title}>Squeezy VF</h1>
         </div>
 
-        <div className={`hidden sm:block ${styles.subtitle}`}>A squishable and squashable variable font</div>
-          <Button
-            onClick={() => document.getElementById('buy')?.scrollIntoView()}
-            compact
-            text={'Buy now'}
-          />
+        <div className={`hidden sm:block ${styles.subtitle}`}>
+          A squishable and squashable variable font
+        </div>
+        <Button
+          onClick={() => document.getElementById("buy")?.scrollIntoView()}
+          compact
+          text={"Buy now"}
+        />
       </header>
 
-      <section id="info" data-index='0' className={`relative select-none ${styles.variableLines}`} ref={variableLinesSectionRef}>
+      <section
+        id="info"
+        data-index="0"
+        className={`relative select-none ${styles.variableLines}`}
+        ref={variableLinesSectionRef}
+      >
         {/* ------ Letters ------ */}
         <div className={`${styles.letters} ${SQUEEZY.className}`}>
           <div
@@ -339,19 +350,40 @@ export default function Home() {
           <div>
             <button
               id="accelPermsButton"
-              className={`${styles.accessButton} ${cursorHintVisibility ? 'opacity-100' : 'opacity-0 !translate-y-0'} transition-all duration-700 absolute px-5 py-2 text-lg flex items-center gap-4 rounded-full top-1/2 left-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 z-[100]`}
+              className={`${styles.accessButton} ${
+                cursorHintVisibility
+                  ? "opacity-100"
+                  : "opacity-0 !translate-y-0"
+              } transition-all duration-700 absolute px-5 py-2 text-lg flex items-center gap-4 rounded-full top-1/2 left-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 z-[100]`}
             >
               <div>
-                <svg width="25" height="15" viewBox="0 0 25 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="25"
+                  height="15"
+                  viewBox="0 0 25 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <g clipPath="url(#clip0_279_299)">
-                    <path d="M3 7.5H11" stroke="black" strokeWidth="2"/>
-                    <path d="M17 7.5H25" stroke="black" strokeWidth="2"/>
-                    <rect className={styles.arrow} width="14" height="15" fill="white"/>
-                    <path className={styles.arrow} fillRule="evenodd" clipRule="evenodd" d="M1 1L3.83818 14L6.5 8L13 6.50676L1 1Z" fill="black"/>
+                    <path d="M3 7.5H11" stroke="black" strokeWidth="2" />
+                    <path d="M17 7.5H25" stroke="black" strokeWidth="2" />
+                    <rect
+                      className={styles.arrow}
+                      width="14"
+                      height="15"
+                      fill="white"
+                    />
+                    <path
+                      className={styles.arrow}
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M1 1L3.83818 14L6.5 8L13 6.50676L1 1Z"
+                      fill="black"
+                    />
                   </g>
                   <defs>
                     <clipPath id="clip0_279_299">
-                      <rect width="25" height="15" fill="white"/>
+                      <rect width="25" height="15" fill="white" />
                     </clipPath>
                   </defs>
                 </svg>
@@ -359,14 +391,17 @@ export default function Home() {
               Move your cursor to control the font width
             </button>
           </div>
-          )
-        }
+        )}
       </section>
 
-
-      <section id="try" data-index='1' className={[styles.editor, SQUEEZY.className].join(' ')} ref={editableSectionRef}>
+      <section
+        id="try"
+        data-index="1"
+        className={[styles.editor, SQUEEZY.className].join(" ")}
+        ref={editableSectionRef}
+      >
         <p
-          className={[styles.editableArea, SQUEEZY.className].join(' ')}
+          className={[styles.editableArea, SQUEEZY.className].join(" ")}
           contentEditable
           suppressContentEditableWarning
           style={{
@@ -374,7 +409,7 @@ export default function Home() {
           }}
         ></p>
       </section>
-      
+
       <Grid
         isMobile={isMobile}
         snappedWidths={snappedWidths}
@@ -384,7 +419,11 @@ export default function Home() {
       />
 
       {/* Payment area */}
-      <section id="buy" data-index='3' className={`max-w-2xl px-4 mx-auto h-[100svh] flex flex-wrap content-center ${styles.prose}`}>
+      <section
+        id="buy"
+        data-index="3"
+        className={`max-w-2xl px-4 mx-auto h-[100svh] flex flex-wrap content-center ${styles.prose}`}
+      >
         {/* <div className="flex w-full">
           <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
             Squeezy
@@ -410,22 +449,31 @@ export default function Home() {
           </h1>
         </div> */}
         <p className="my-10 text-xl md:!text-2xl leading-[130%]">
-          How would a variable font look like, that feels like it could be squished, extended and would still keep its shape?
-          All characters keep their core while being extremely flexible.
-          There’s likely a lot more to talk about, but maybe we just leave it at that.
+          How would a variable font look like, that feels like it could be
+          squished, extended and would still keep its shape? All characters keep
+          their core while being extremely flexible. There’s likely a lot more
+          to talk about, but maybe we just leave it at that.
         </p>
-        
-        <div className='flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-30)]'>
-            <div className="flex items-center gap-x-2 mb-4">
-              <span className='text-[40px] leading-[100%]'>€50</span>
-              <span className='flex flex-col text-base leading-[110%]'>desktop &<br/>web licence</span>
-            </div>
-            <p className="opacity-60 !text-base !mt-0">
-              Squeezy can be used for both desktop and web. Simple licensing: Personal and commercial use allowed, no pageview count.
-            </p>
-            <div className="flex flex-wrap items-center gap-6 sm:gap-x-10 mt-4 sm:mt-10">
-              <ShopifyButton label={"Buy"} shopItemId={8815969796426} uniqueElementId={'woff2'}></ShopifyButton>
-            </div>
+
+        <div className="flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-30)]">
+          <div className="flex items-center gap-x-2 mb-4">
+            <span className="text-[40px] leading-[100%]">€50</span>
+            <span className="flex flex-col text-base leading-[110%]">
+              desktop &<br />
+              web licence
+            </span>
+          </div>
+          <p className="opacity-60 !text-base !mt-0">
+            Squeezy can be used for both desktop and web. Simple licensing:
+            Personal and commercial use allowed, no pageview count.
+          </p>
+          <div className="flex flex-wrap items-center gap-6 sm:gap-x-10 mt-4 sm:mt-10">
+            <ShopifyButton
+              label={"Buy"}
+              shopItemId={8815969796426}
+              uniqueElementId={"woff2"}
+            ></ShopifyButton>
+          </div>
         </div>
       </section>
 
@@ -433,9 +481,7 @@ export default function Home() {
         {/* <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div> */}
         <div className="flex w-full items-center p-4 justify-between">
           <div className="flex  items-center gap-4 px-4 rounded-full py-1.5 bg-[var(--footer-background)]">
-            <div
-              className={`${styles.themeSwitch}`}
-              >
+            <div className={`${styles.themeSwitch}`}>
               {/* style={{ width: 12 * themes.length + 4 * (themes.length - 1) }} */}
               {themes.map((thisTheme, index) => {
                 return (
@@ -451,37 +497,85 @@ export default function Home() {
               })}
             </div>
             <div className="flex w-full relative items-center gap-4 isolate">
-              <a href="#info" className={`scroll-smooth transition-opacity ${currentSection !== 0 ? 'hidden sm:block' : '' } ${currentSection === 0 ? 'opacity-100' : 'opacity-30'}`}>Info</a>
-              <a href="#try" className={`scroll-smooth transition-opacity ${currentSection !== 1 ? 'hidden sm:block' : '' } ${currentSection === 1 ? 'opacity-100' : 'opacity-30'}`}>Try It</a>
-              <a href="#grid" className={`scroll-smooth transition-opacity ${currentSection !== 2 ? 'hidden sm:block' : '' } ${currentSection === 2 ? 'opacity-100' : 'opacity-30'}`}>Characters</a>
-              <a href="#buy" className={`scroll-smooth transition-opacity ${currentSection !== 3 ? 'hidden sm:block' : '' } ${currentSection === 3 ? 'opacity-100' : 'opacity-30'}`}>Info & Buy</a>
+              <a
+                href="#info"
+                className={`scroll-smooth transition-opacity ${
+                  currentSection !== 0 ? "hidden sm:block" : ""
+                } ${currentSection === 0 ? "opacity-100" : "opacity-50"}`}
+              >
+                Info
+              </a>
+              <a
+                href="#try"
+                className={`scroll-smooth transition-opacity ${
+                  currentSection !== 1 ? "hidden sm:block" : ""
+                } ${currentSection === 1 ? "opacity-100" : "opacity-50"}`}
+              >
+                Try It
+              </a>
+              <a
+                href="#grid"
+                className={`scroll-smooth transition-opacity ${
+                  currentSection !== 2 ? "hidden sm:block" : ""
+                } ${currentSection === 2 ? "opacity-100" : "opacity-50"}`}
+              >
+                Characters
+              </a>
+              <a
+                href="#buy"
+                className={`scroll-smooth transition-opacity ${
+                  currentSection !== 3 ? "hidden sm:block" : ""
+                } ${currentSection === 3 ? "opacity-100" : "opacity-50"}`}
+              >
+                Info & Buy
+              </a>
             </div>
           </div>
-          <a href="https://overnice.com" className="hidden sm:block ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]">Made by Overnice</a>
-          <div onClick={toggleDetails} className="flex cursor-pointer  ml-auto sm:hidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[color-mix(in_srgb,_var(--foreground-shade-20)_50%,_transparent)] hover:bg-[var(--foreground-shade-30)] transition-colors">i</div>
-
+          <a
+            href="https://overnice.com"
+            className="hidden sm:block ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]"
+          >
+            Made by Overnice
+          </a>
+          <div
+            onClick={toggleDetails}
+            className="flex cursor-pointer  ml-auto sm:hidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[color-mix(in_srgb,_var(--foreground-shade-20)_50%,_transparent)] hover:bg-[var(--foreground-shade-30)] transition-colors"
+          >
+            i
+          </div>
         </div>
-        <div className={`w-full bg-white transition-[max-height] ${openDetails ? 'max-h-40' : 'max-h-0'} h-fit overflow-hidden`}>
+        <div
+          className={`w-full bg-white transition-[max-height] ${
+            openDetails ? "max-h-40" : "max-h-0"
+          } h-fit overflow-hidden`}
+        >
           <div className="p-6">
-            <p className="text-[var(--background)] mb-4 text-lg">A squishable and squashable variable font</p>
-            <a href="https://overnice.com" className="rounded-full hover:scale-105 transition-transform text-[var(--foreground)] text-base md:text-lg py-1.5 px-4 bg-[var(--background)]">Made by Overnice</a>
+            <p className="text-[var(--background)] mb-4 text-lg">
+              A squishable and squashable variable font
+            </p>
+            <a
+              href="https://overnice.com"
+              className="rounded-full hover:scale-105 transition-transform text-[var(--foreground)] text-base md:text-lg py-1.5 px-4 bg-[var(--background)]"
+            >
+              Made by Overnice
+            </a>
           </div>
         </div>
       </footer>
 
       {gyroPermissionGranted === false && (
-          <div>
-            <button
-              ref={gyroButton}
-              id="accelPermsButton"
-              className={`${styles.accessButton} fixed px-4 py-2 rounded-full bottom-20 md:bottom-4 left-1/2 whitespace-nowrap -translate-x-1/2 z-[100]`}
-              style={{'visibility': gyroButtonVisibility}}
-              onClick={getAccel}
-            >
-              Activate Gyro Sensor
-            </button>
-          </div>
-        )}
+        <div>
+          <button
+            ref={gyroButton}
+            id="accelPermsButton"
+            className={`${styles.accessButton} fixed px-4 py-2 rounded-full bottom-20 md:bottom-4 left-1/2 whitespace-nowrap -translate-x-1/2 z-[100]`}
+            style={{ visibility: gyroButtonVisibility }}
+            onClick={getAccel}
+          >
+            Activate Gyro Sensor
+          </button>
+        </div>
+      )}
     </main>
   );
 }

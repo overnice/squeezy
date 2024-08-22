@@ -26,14 +26,14 @@
 }
 
 :root {
-  --red-background: #FD2835;
+  --red-background: #EF3A33;
   --red-foreground: #E9FF95;
   --red-foreground-shade-30: #ff6a29;
   --red-foreground-shade-20: #ff5529;
   --red-foreground-shade-10: #FD2835;
   --red-footer-background: #FB9246;
 
-  --blue-background: #73bcff;
+  /* --blue-background: #73bcff;
   --blue-foreground: #9E0028;
   --blue-foreground-shade-30: #9d96eb;
   --blue-foreground-shade-20: #8fa3f2;
@@ -45,7 +45,7 @@
   --pink-foreground-shade-10: #a31083;
   --pink-foreground-shade-20: #ae1d8e;
   --pink-foreground-shade-30: #c719a1;
-  --pink-footer-background: #9E54AE;
+  --pink-footer-background: #9E54AE; */
 
   --black-background: #000;
   --black-foreground: #fff;
@@ -83,7 +83,7 @@ body {
   color: var(--foreground);
 
   &.red {
-  --footer-background: var(--red-footer-background);
+  --footer-background: var(--red-foreground-shade-30);
     --background: var(--red-background);
     --foreground: var(--red-foreground);
     --foreground-shade-30: var(--red-foreground-shade-30);
@@ -91,7 +91,7 @@ body {
     --foreground-shade-10: var(--red-foreground-shade-10);
   }
 
-  &.blue {
+  /* &.blue {
     --footer-background: var(--blue-footer-background);
     --background: var(--blue-background);
     --foreground: var(--blue-foreground);
@@ -107,14 +107,35 @@ body {
     --foreground-shade-30: var(--pink-foreground-shade-30);
     --foreground-shade-20: var(--pink-foreground-shade-20);
     --foreground-shade-10: var(--pink-foreground-shade-10);
-  }
+  } */
 
   &.black {
-    --footer-background: var(--black-footer-background);
+    --footer-background: var(--black-foreground-shade-30);
     --background: var(--black-background);
     --foreground: var(--black-foreground);
     --foreground-shade-30: var(--black-foreground-shade-30);
     --foreground-shade-20: var(--black-foreground-shade-20);
     --foreground-shade-10: var(--black-foreground-shade-10);
+  }
+
+
+  /* NEW THEMES AUG 24 */
+
+  &.yellowGreen {
+    --footer-background: #4DA864;
+    --background: #009460;
+    --foreground: #FFD56C;
+    --foreground-shade-30: #4DA864;
+    --foreground-shade-20: #33A162;
+    --foreground-shade-10: #199B61;
+  }
+
+  &.yellowBlue {
+    --footer-background: #5F6776;
+    --background: #1B2B79;
+    --foreground: #FFF36E;
+    --foreground-shade-30: #5F6776;
+    --foreground-shade-20: #495377;
+    --foreground-shade-10: #323F78;
   }
 }
