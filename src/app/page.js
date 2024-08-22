@@ -448,12 +448,23 @@ export default function Home() {
             Squeezy
           </h1>
         </div> */}
-        <p className="my-10 text-xl md:!text-2xl leading-[130%]">
-          How would a variable font look like, that feels like it could be
-          squished, extended and would still keep its shape? All characters keep
-          their core while being extremely flexible. There’s likely a lot more
-          to talk about, but maybe we just leave it at that.
-        </p>
+        <div className="mb-10">
+          <p className="my-6 text-xl md:!text-2xl leading-[130%]">
+            Fonts are evolving. Once rigid and available only in pre-defined
+            strength and thickness, they now shift and bend, stretch and
+            squeeze.
+          </p>
+          <p className="my-6 text-xl md:!text-2xl leading-[130%]">
+            They can be programmable and reactive. So Julian got right to work
+            and did, what every designer should do at least once in their life:
+            He created a font: Squeezy.
+          </p>
+          <p className="my-6 text-xl md:!text-2xl leading-[130%]">
+            Check out the small web experience we’ve built around it. One of
+            many experiments on the intersection of design and dev we’re working
+            on.
+          </p>
+        </div>
 
         <div className="flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-30)]">
           <div className="flex items-center gap-x-2 mb-4">
