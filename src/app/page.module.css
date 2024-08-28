@@ -173,7 +173,9 @@
   
   &:hover .switch[data-index="1"],
   &:hover .switch[data-index="2"],
-  &:hover .switch[data-index="3"] {
+  &:hover .switch[data-index="3"],
+  &:hover .switch[data-index="4"],
+  &:hover .switch[data-index="5"] {
     margin-left: 0px;
   }
 
@@ -188,13 +190,22 @@
     border: 2px solid var(--foreground-shade-20);
     box-shadow: 0 0 2px var(--foreground-shade-20);
      */
-    &[data-index="1"] {
-      z-index: 4;
+     &[data-index="0"] {
+      z-index: 7;
+    }
+     &[data-index="1"] {
+      z-index: 6;
     }
     &[data-index="2"] {
-      z-index: 3;
+      z-index: 5;
     }
     &[data-index="3"] {
+      z-index: 4;
+    }
+    &[data-index="4"] {
+      z-index: 3;
+    }
+    &[data-index="5"] {
       z-index: 2;
     }
   }
@@ -232,34 +243,53 @@
 
   &[data-index="1"],
   &[data-index="2"],
-  &[data-index="3"] {
+  &[data-index="3"],
+  &[data-index="4"],
+  &[data-index="5"] {
     margin-left: -14px;
   }
 
+  &[data-index="0"] {
+    z-index: 7;
+  }
   &[data-index="1"] {
-    z-index: 4;
+    z-index: 6;
   }
   &[data-index="2"] {
-    z-index: 3;
+    z-index: 5;
   }
   &[data-index="3"] {
+    z-index: 4;
+  }
+  &[data-index="4"] {
+    z-index: 3;
+  }
+  &[data-index="5"] {
     z-index: 2;
   }
 
   &:global(.red) {
-    background: var(--red-foreground);
+    background: var(--red-background);
   }
 
-  &:global(.blue) {
+  /* &:global(.blue) {
     background: var(--blue-foreground);
   }
 
   &:global(.pink) {
     background: var(--pink-foreground);
-  }
+  } */
 
   &:global(.black) {
     background: var(--black-foreground);
+  }
+
+  &:global(.yellowGreen) {
+    background: #009460;
+  }
+
+  &:global(.yellowBlue) {
+    background: #1B2B79;
   }
 }
 
