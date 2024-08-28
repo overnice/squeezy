@@ -113,7 +113,7 @@
   color: var(--foreground);
   font-family: "TT_Neoris", sans-serif;
   font-size: 18px;
-  /* position: fixed; */
+  position: absolute;
   left: 0;
   right: 0;
   text-align: center;

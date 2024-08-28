@@ -291,7 +291,7 @@ export default function Home() {
             text={'Buy now'}
           />
       </header>
-
+      
       <section id="info" data-index='0' className={`relative select-none ${styles.variableLines}`} ref={variableLinesSectionRef}>
         {/* ------ Letters ------ */}
         <div className={`${styles.letters} ${SQUEEZY.className}`}>
@@ -432,7 +432,7 @@ export default function Home() {
       <footer className={`relative flex-wrap ${styles.footer}`}>
         {/* <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div> */}
         <div className="flex w-full items-center p-4 justify-between">
-          <div className="flex  items-center gap-4 px-4 rounded-full py-1.5 bg-[var(--footer-background)]">
+          <div className="flex  items-center gap-4 px-4 rounded-full backdrop:blur-[8px] py-1.5 bg-[var(--footer-background)]">
             <div
               className={`${styles.themeSwitch}`}
               >

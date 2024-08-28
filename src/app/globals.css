@@ -31,27 +31,27 @@
   --red-foreground-shade-30: #ff6a29;
   --red-foreground-shade-20: #ff5529;
   --red-foreground-shade-10: #FD2835;
-  --red-footer-background: #FB9246;
+  --red-footer-background: #FF773280;
 
-  --blue-background: #73bcff;
-  --blue-foreground: #9E0028;
+  --blue-background: #9FD0FC;
+  --blue-foreground: #9C017A;
   --blue-foreground-shade-30: #9d96eb;
   --blue-foreground-shade-20: #8fa3f2;
   --blue-foreground-shade-10: #81aff8;
-  --blue-footer-background: #4ca0ec;
+  --blue-footer-background: #9E69BB80;
 
-  --pink-background: #9E007C;
-  --pink-foreground: #9ECFFF;
+  --pink-background: #9C017A;
+  --pink-foreground: #9FD0FC;
   --pink-foreground-shade-10: #a31083;
   --pink-foreground-shade-20: #ae1d8e;
   --pink-foreground-shade-30: #c719a1;
-  --pink-footer-background: #9E54AE;
+  --pink-footer-background: #9E69BB80;
 
-  --black-background: #000;
+  --black-background: #2C2624;
   --black-foreground: #fff;
-  --black-foreground-shade-30: #333333;
-  --black-foreground-shade-20: #1a1a1a;
-  --black-foreground-shade-10: #0d0d0d;
+  --black-foreground-shade-30: #474242;
+  --black-foreground-shade-20: #413b3b;
+  --black-foreground-shade-10: #383231;
   --black-footer-background: #7C7C7C80;
 
   --footer-background: var(--black-footer-background);
