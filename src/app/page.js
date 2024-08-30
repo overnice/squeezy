@@ -51,42 +51,48 @@ export default function Home() {
   const variableLinesSectionRef = useRef(null);
   const mainContainer = useRef();
 
-  const animeValue = {
-    posX: 400,
+
+  // ANIMATION ---------------------------
+
+  // pseudo values which are animated - their values are used to update independent STATE values
+  const virtualMousePosition = {
+    x: 400,
   }
-  const themeValue = {
-    theme: 0
+  const themeIndex = {
+    value: 0
   }
 
+  // Animation duration is linked to both anim so they sync up.
   const animDuration = 1000
 
   useEffect(() => {
-    // Anime.js animation to increment the value
     anime({
-      targets: animeValue, // initial value
-      posX: 700, // final value
+      targets: virtualMousePosition, // initial value
+      x: 700, // final value
       duration: animDuration, // animation duration in milliseconds
       direction: 'alternate',
       loop: true,
       easing: 'easeInOutCubic',
       round: 1, // round the value to the nearest integer
       update: (anim) => {
-        setPositionX(animeValue.posX);
+        setPositionX(virtualMousePosition.x);
       }
     });
 
     anime({
-      targets: themeValue, // initial value
-      theme: themes.length, // final value
+      targets: themeIndex, // initial value
+      value: themes.length, // final value
       duration: animDuration * 8, // animation duration in milliseconds
       loop: true,
       easing: 'linear',
       round: 1, // round the value to the nearest integer
       update: (anim) => {
-        setTheme(themeValue.theme);
+        setTheme(themeIndex.value);
       }
     });
   }, []);
+
+  // ---------------------------------------------------------------------------
 
   useEffect(() => {
       const snappedWidth = snappedWidths.reduce(function (prev, curr) {
