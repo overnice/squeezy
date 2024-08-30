@@ -81,6 +81,7 @@ body {
   font-variation-settings: 'ital' 1;
   background: var(--background);
   color: var(--foreground);
+  transition: background-color .1s cubic-bezier(0.25,0,0,1);
 
   &.red {
   --footer-background: var(--red-foreground-shade-30);
