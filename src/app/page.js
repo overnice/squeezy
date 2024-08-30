@@ -51,55 +51,55 @@ export default function Home() {
   const variableLinesSectionRef = useRef(null);
   const mainContainer = useRef();
 
-
   // ANIMATION ---------------------------
 
   // pseudo values which are animated - their values are used to update independent STATE values
   const virtualMousePosition = {
     x: 400,
-  }
+  };
 
-  let themeIndex = useRef(0)
+  let themeIndex = useRef(0);
 
   // Animation duration is linked to both anim so they sync up.
-  const animDuration = 1000
+  const animDuration = 2500;
 
   useEffect(() => {
     anime({
       targets: virtualMousePosition, // initial value
       x: 700, // final value
       duration: animDuration, // animation duration in milliseconds
-      direction: 'alternate',
+      direction: "alternate",
       loop: true,
-      easing: 'easeInOutCubic',
+      easing: "easeInOutSine",
       round: 1, // round the value to the nearest integer
       update: (anim) => {
         setPositionX(virtualMousePosition.x);
       },
       loopComplete: (anim) => {
         if (virtualMousePosition.x === 700 || virtualMousePosition.x === 400) {
-          if (themeIndex.current < themes.length -1) {
-            themeIndex.current = themeIndex.current + 1
-            console.log(themeIndex.current)
+          if (themeIndex.current < themes.length - 1) {
+            themeIndex.current = themeIndex.current + 1;
+            console.log(themeIndex.current);
             setTheme(themeIndex.current);
           } else {
-            setTheme(0)
-            themeIndex.current = 0
+            setTheme(0);
+            themeIndex.current = 0;
           }
         }
-      }
+      },
     });
   }, []);
 
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
-      const snappedWidth = snappedWidths.reduce(function (prev, curr) {
-        return Math.abs(curr - positionX) < Math.abs(prev - positionX) ? curr : prev;
-      });
-      setSnappedWidth(snappedWidth);
-      setCurrentWidth(positionX);
-
+    const snappedWidth = snappedWidths.reduce(function (prev, curr) {
+      return Math.abs(curr - positionX) < Math.abs(prev - positionX)
+        ? curr
+        : prev;
+    });
+    setSnappedWidth(snappedWidth);
+    setCurrentWidth(positionX);
   }, [positionX, snappedWidths]);
 
   // RANDOM LETTERS

@@ -348,35 +348,33 @@
 }
 
 .letter {
+  --color: var(--foreground);
   cursor: default;
   position: absolute;
   text-align: center;
   line-height: 1;
   color: rgba(255, 255, 255, 0);
-  -webkit-text-stroke: 0.00625em var(--foreground);
-
-  /* &.mainLetter { 
-    color: var(--foreground-shade-30);
-    opacity: 0.6;
-  } */
+  -webkit-text-stroke: 0.00625em var(--color);
+  transition-property: color, -webkit-text-stroke-color;
+  transition-duration: .1s;
+  transition-timing-function: cubic-bezier(0.25,0,0,1);
 
   &.letter1 {
-    /* opacity: 0.3; */
-    /* -webkit-text-stroke: 5px #333333; */
-    -webkit-text-stroke: 0.00625em var(--foreground-shade-30);
+    --color: var(--foreground-shade-30);
   }
 
   &.letter2 {
-    /* opacity: 0.2; */
-    /* -webkit-text-stroke: 5px #1a1a1a; */
-    -webkit-text-stroke: 0.00625em var(--foreground-shade-20);
+    --color: var(--foreground-shade-20);
   }
 
   &.letter3 {
-    /* opacity: 0.1; */
-    /* -webkit-text-stroke: 5px #0d0d0d; */
-    -webkit-text-stroke: 0.00625em var(--foreground-shade-10);
+    --color: var(--foreground-shade-10);
   }
+
+  /* FILL */   
+  -webkit-text-stroke: none !important;
+  color: var(--color);
+  
 }
 
 .editor {
