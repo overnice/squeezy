@@ -58,9 +58,8 @@ export default function Home() {
   const virtualMousePosition = {
     x: 400,
   }
-  const themeIndex = {
-    value: 0
-  }
+
+  let themeIndex = useRef(0)
 
   // Animation duration is linked to both anim so they sync up.
   const animDuration = 1000
@@ -76,18 +75,18 @@ export default function Home() {
       round: 1, // round the value to the nearest integer
       update: (anim) => {
         setPositionX(virtualMousePosition.x);
-      }
-    });
-
-    anime({
-      targets: themeIndex, // initial value
-      value: themes.length, // final value
-      duration: animDuration * 8, // animation duration in milliseconds
-      loop: true,
-      easing: 'linear',
-      round: 1, // round the value to the nearest integer
-      update: (anim) => {
-        setTheme(themeIndex.value);
+      },
+      loopComplete: (anim) => {
+        if (virtualMousePosition.x === 700 || virtualMousePosition.x === 400) {
+          if (themeIndex.current < themes.length -1) {
+            themeIndex.current = themeIndex.current + 1
+            console.log(themeIndex.current)
+            setTheme(themeIndex.current);
+          } else {
+            setTheme(0)
+            themeIndex.current = 0
+          }
+        }
       }
     });
   }, []);
