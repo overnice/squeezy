@@ -510,38 +510,40 @@ export default function Home() {
               })}
             </div>
             <div className="flex w-full relative items-center gap-4 isolate">
-              <a
-                href="#info"
-                className={`scroll-smooth transition-opacity ${
+              <div
+                // href="#info"
+                onClick={e => document.getElementById('info').scrollIntoView()}
+                className={`scroll-smooth cursor-pointer transition-opacity ${
                   currentSection !== 0 ? "hidden sm:block" : ""
                 } ${currentSection === 0 ? "opacity-100" : "opacity-50"}`}
               >
                 Info
-              </a>
-              <a
-                href="#try"
-                className={`scroll-smooth transition-opacity ${
+              </div>
+              <div
+                // href="#try"
+                onClick={e => document.getElementById('try').scrollIntoView()}
+                className={`scroll-smooth cursor-pointer transition-opacity ${
                   currentSection !== 1 ? "hidden sm:block" : ""
                 } ${currentSection === 1 ? "opacity-100" : "opacity-50"}`}
               >
                 Try It
-              </a>
-              <a
-                href="#grid"
-                className={`scroll-smooth transition-opacity ${
+              </div>
+              <div
+                onClick={e => document.getElementById('grid').scrollIntoView()}
+                className={`scroll-smooth cursor-pointer transition-opacity ${
                   currentSection !== 2 ? "hidden sm:block" : ""
                 } ${currentSection === 2 ? "opacity-100" : "opacity-50"}`}
               >
                 Characters
-              </a>
-              <a
-                href="#buy"
-                className={`scroll-smooth transition-opacity ${
+              </div>
+              <div
+                onClick={e => document.getElementById('buy').scrollIntoView()}
+                className={`scroll-smooth cursor-pointer transition-opacity ${
                   currentSection !== 3 ? "hidden sm:block" : ""
                 } ${currentSection === 3 ? "opacity-100" : "opacity-50"}`}
               >
                 Info & Buy
-              </a>
+              </div>
             </div>
           </div>
           <a
