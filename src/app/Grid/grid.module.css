@@ -60,7 +60,7 @@
   
 
     .widthContainer {
-      @apply bottom-10 md:bottom-24;
+      @apply bottom-10 md:bottom-24 transition-opacity;
       position: absolute;
     }
     

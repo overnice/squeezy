@@ -254,6 +254,23 @@ export default function Grid({
     }
   }, [extSnappedWidth, extCurrentWidth, gyroPermissionGranted]);
 
+  const showWidthTicks = useRef({
+    opacity: '1'
+  })
+  const symbols = ['.', ',', ';', ':', '-', '_', '–', '—']
+
+  useEffect(() => {
+    if (symbols.includes(currentLetter)) {
+      showWidthTicks.current = {
+        opacity: '0'
+      }
+    } else {
+      showWidthTicks.current = {
+        opacity: '1'
+      }
+    }
+  }, [currentLetter, showWidthTicks, symbols]);
+
   return (
     <section id="grid" data-index="2" className={styles.gridContainer}>
       <div className={styles.grid}>
@@ -401,7 +418,7 @@ export default function Grid({
           </div>
         </div>
 
-        <div className={styles.widthContainer}>
+        <div className={styles.widthContainer} style={showWidthTicks.current}>
           {/* WIDTH VALUE! */}
           <p className={styles.width}>{Math.round(currentWidth)}</p>
           {/* ------------ */}
