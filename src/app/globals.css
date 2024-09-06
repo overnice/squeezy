@@ -26,40 +26,11 @@
 }
 
 :root {
-  --red-background: #EF3A33;
-  --red-foreground: #E9FF95;
-  --red-foreground-shade-30: #ff6a29;
-  --red-foreground-shade-20: #ff5529;
-  --red-foreground-shade-10: #FD2835;
-  --red-footer-background: #FF773280;
-
-  /* --blue-background: #73bcff;
-  --blue-foreground: #9E0028;
-  --blue-foreground-shade-30: #9d96eb;
-  --blue-foreground-shade-20: #8fa3f2;
-  --blue-foreground-shade-10: #81aff8;
-  --blue-footer-background: #9E69BB80;
-
-  --pink-background: #9C017A;
-  --pink-foreground: #9FD0FC;
-  --pink-foreground-shade-10: #a31083;
-  --pink-foreground-shade-20: #ae1d8e;
-  --pink-foreground-shade-30: #c719a1;
-  --pink-footer-background: #9E54AE; */
-
-  --black-background: #2C2624;
-  --black-foreground: #fff;
-  --black-foreground-shade-30: #474242;
-  --black-foreground-shade-20: #413b3b;
-  --black-foreground-shade-10: #383231;
-  --black-footer-background: #7C7C7C80;
-
-  --footer-background: var(--black-footer-background);
-  --background: var(--black-background);
-  --foreground: var(--black-foreground);
-  --foreground-shade-30: var(--black-foreground-shade-30);
-  --foreground-shade-20: var(--black-foreground-shade-20);
-  --foreground-shade-10: var(--black-foreground-shade-10);
+  --background: #009460;
+  --foreground: #FFD56C;
+  --foreground-shade-30: #4DA864;
+  --foreground-shade-20: #33A162;
+  --foreground-shade-10: #199B61;
 }
 
 html {
@@ -82,47 +53,25 @@ body {
   background: var(--background);
   color: var(--foreground);
 
-  &.red {
-  --footer-background: var(--red-foreground-shade-30);
-    --background: var(--red-background);
-    --foreground: var(--red-foreground);
-    --foreground-shade-30: var(--red-foreground-shade-30);
-    --foreground-shade-20: var(--red-foreground-shade-20);
-    --foreground-shade-10: var(--red-foreground-shade-10);
+  /* THEMES */
+
+  &.yellowRed {
+    --background: #EF3A33;
+    --foreground: #E9FF95;
+    --foreground-shade-30: #ED7F55;
+    --foreground-shade-20: #ED6B4C;
+    --foreground-shade-10: #EE5842;
   }
 
-  /* &.blue {
-    --footer-background: var(--blue-footer-background);
-    --background: var(--blue-background);
-    --foreground: var(--blue-foreground);
-    --foreground-shade-30: var(--blue-foreground-shade-30);
-    --foreground-shade-20: var(--blue-foreground-shade-20);
-    --foreground-shade-10: var(--blue-foreground-shade-10);
+  &.yellowPurple {
+    --background: #B200A1;
+    --foreground: #FFD56C;
+    --foreground-shade-30: #CD4B8E;
+    --foreground-shade-20: #C53594;
+    --foreground-shade-10: #BE2099;
   }
-
-  &.pink {
-    --footer-background: var(--pink-footer-background);
-    --background: var(--pink-background);
-    --foreground: var(--pink-foreground);
-    --foreground-shade-30: var(--pink-foreground-shade-30);
-    --foreground-shade-20: var(--pink-foreground-shade-20);
-    --foreground-shade-10: var(--pink-foreground-shade-10);
-  } */
-
-  &.black {
-    --footer-background: var(--black-foreground-shade-30);
-    --background: var(--black-background);
-    --foreground: var(--black-foreground);
-    --foreground-shade-30: var(--black-foreground-shade-30);
-    --foreground-shade-20: var(--black-foreground-shade-20);
-    --foreground-shade-10: var(--black-foreground-shade-10);
-  }
-
-
-  /* NEW THEMES AUG 24 */
-
+  
   &.yellowGreen {
-    --footer-background: #4DA864;
     --background: #009460;
     --foreground: #FFD56C;
     --foreground-shade-30: #4DA864;
@@ -131,7 +80,6 @@ body {
   }
 
   &.yellowBlue {
-    --footer-background: #5F6776;
     --background: #1B2B79;
     --foreground: #FFF36E;
     --foreground-shade-30: #5F6776;

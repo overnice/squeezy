@@ -29,7 +29,7 @@ export default function Home() {
   const [cursorHintVisibility, setCursorHintVisibility] = useState(true);
   const [loaded, setLoaded] = useState(false);
 
-  const themes = ["black", "red", "yellowGreen", "yellowBlue"];
+  const themes = ["yellowGreen", "yellowRed", "yellowPurple", "yellowBlue"];
   const [theme, setTheme] = useState(0);
 
   const changeTheme = (newTheme) => {
@@ -364,22 +364,20 @@ export default function Home() {
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g clipPath="url(#clip0_279_299)">
-                    <path d="M3 7.5H11" stroke="black" strokeWidth="2" />
-                    <path d="M17 7.5H25" stroke="black" strokeWidth="2" />
-                    <rect
-                      className={styles.arrow}
-                      width="14"
-                      height="15"
-                      fill="white"
-                    />
-                    <path
-                      className={styles.arrow}
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M1 1L3.83818 14L6.5 8L13 6.50676L1 1Z"
-                      fill="black"
-                    />
+                  <g
+                    className={styles.arrowContainer}
+                    clipPath="url(#clip0_279_299)"
+                  >
+                    <path d="M3 7.5H11" strokeWidth="2" />
+                    <path d="M17 7.5H25" strokeWidth="2" />
+                    <g className={styles.arrow}>
+                      <rect width="14" height="15" />
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M1 1L3.83818 14L6.5 8L13 6.50676L1 1Z"
+                      />
+                    </g>
                   </g>
                   <defs>
                     <clipPath id="clip0_279_299">
@@ -466,7 +464,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-30)]">
+        <div className="flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-20)]">
           <div className="flex items-center gap-x-2 mb-4">
             <span className="text-[40px] leading-[100%]">€50</span>
             <span className="flex flex-col text-base leading-[110%]">
@@ -491,10 +489,8 @@ export default function Home() {
       <footer className={`relative flex-wrap ${styles.footer}`}>
         {/* <div style={{ width: 12 * themes.length + 4 * (themes.length - 1) }}></div> */}
         <div className="flex w-full items-center p-4 justify-between">
-          <div className="flex  items-center gap-4 px-4 rounded-full backdrop:blur-[8px] py-1.5 bg-[var(--footer-background)]">
-            <div
-              className={`${styles.themeSwitch}`}
-              >
+          <div className="flex  items-center gap-4 px-4 rounded-full backdrop:blur-[8px] py-1.5 bg-[var(--foreground-shade-20)]">
+            <div className={`${styles.themeSwitch}`}>
               {/* style={{ width: 12 * themes.length + 4 * (themes.length - 1) }} */}
               {themes.map((thisTheme, index) => {
                 return (
@@ -512,35 +508,39 @@ export default function Home() {
             <div className="flex w-full relative items-center gap-4 isolate">
               <div
                 // href="#info"
-                onClick={e => document.getElementById('info').scrollIntoView()}
-                className={`scroll-smooth cursor-pointer transition-opacity ${
+                onClick={(e) =>
+                  document.getElementById("info").scrollIntoView()
+                }
+                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
                   currentSection !== 0 ? "hidden sm:block" : ""
-                } ${currentSection === 0 ? "opacity-100" : "opacity-50"}`}
+                } ${currentSection === 0 ? "opacity-100" : "opacity-60"}`}
               >
                 Info
               </div>
               <div
                 // href="#try"
-                onClick={e => document.getElementById('try').scrollIntoView()}
-                className={`scroll-smooth cursor-pointer transition-opacity ${
+                onClick={(e) => document.getElementById("try").scrollIntoView()}
+                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
                   currentSection !== 1 ? "hidden sm:block" : ""
-                } ${currentSection === 1 ? "opacity-100" : "opacity-50"}`}
+                } ${currentSection === 1 ? "opacity-100" : "opacity-60"}`}
               >
                 Try It
               </div>
               <div
-                onClick={e => document.getElementById('grid').scrollIntoView()}
-                className={`scroll-smooth cursor-pointer transition-opacity ${
+                onClick={(e) =>
+                  document.getElementById("grid").scrollIntoView()
+                }
+                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
                   currentSection !== 2 ? "hidden sm:block" : ""
-                } ${currentSection === 2 ? "opacity-100" : "opacity-50"}`}
+                } ${currentSection === 2 ? "opacity-100" : "opacity-60"}`}
               >
                 Characters
               </div>
               <div
-                onClick={e => document.getElementById('buy').scrollIntoView()}
-                className={`scroll-smooth cursor-pointer transition-opacity ${
+                onClick={(e) => document.getElementById("buy").scrollIntoView()}
+                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
                   currentSection !== 3 ? "hidden sm:block" : ""
-                } ${currentSection === 3 ? "opacity-100" : "opacity-50"}`}
+                } ${currentSection === 3 ? "opacity-100" : "opacity-60"}`}
               >
                 Info & Buy
               </div>

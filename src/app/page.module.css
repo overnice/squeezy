@@ -204,6 +204,7 @@
   transition: margin 0.3s ease;
   border-radius: 999px;
   z-index: 5;
+  outline: 2px solid var(--foreground-shade-20);
 
   /* &.active {
     margin-left: -10px;
@@ -230,7 +231,7 @@
   &[data-index="3"],
   &[data-index="4"],
   &[data-index="5"] {
-    margin-left: -14px;
+    margin-left: -12px;
   }
 
   &[data-index="0"] {
@@ -264,8 +265,12 @@
     background: var(--pink-foreground);
   } */
 
-  &:global(.black) {
-    background: var(--black-foreground);
+  &:global(.yellowRed) {
+    background: #EF3A33;
+  }
+
+  &:global(.yellowPurple) {
+    background: #B200A1;
   }
 
   &:global(.yellowGreen) {
@@ -420,7 +425,21 @@ p.editableArea {
   }
 }
 
+.arrowContainer {
+  > path {
+    stroke: var(--background);
+  }
+}
+
 .arrow {
+  > rect {
+    fill: var(--foreground);
+  }
+
+  > path {
+    fill: var(--background);
+  }
+  
   animation: arrow 2.5s infinite cubic-bezier(0.25, 0, 0, 1);
   animation-direction: normal;
 }
