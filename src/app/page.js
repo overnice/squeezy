@@ -285,7 +285,7 @@ export default function Home() {
               />
             </svg>
           </a>
-          <h1 className={styles.title}>Squeezy VF</h1>
+          <h1 className={styles.title}>Squeezy Variable</h1>
         </div>
 
         <div className={`hidden sm:block ${styles.subtitle}`}>
@@ -453,15 +453,12 @@ export default function Home() {
             squeeze.
           </p>
           <p className="my-6 text-xl md:!text-2xl leading-[130%]">
-            They can be programmable and reactive. So Julian got right to work
-            and did, what every designer should do at least once in their life:
-            He created a font: Squeezy.
+            As a studio at the intersection of design and tech, a reactive,
+            programmable font is right down our alley. So our founder, Julian,
+            got right to work and did, what every designer should do at least
+            once in their life: Creating a font.
           </p>
-          <p className="my-6 text-xl md:!text-2xl leading-[130%]">
-            Check out the small web experience we’ve built around it. One of
-            many experiments on the intersection of design and dev we’re working
-            on.
-          </p>
+          <p>Try it, buy it or tell us why you should get it for free.</p>
         </div>
 
         <div className="flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-20)]">

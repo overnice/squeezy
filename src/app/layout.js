@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Squeezy",
+  title: "Squeezy Variable",
   description: "A squishable and squashable variable font",
 };
 // <script src="http://sdks.shopifycdn.com/buy-button/1.0.0/buybutton.js"></script>
