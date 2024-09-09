@@ -29,7 +29,7 @@ export default function Home() {
   const [cursorHintVisibility, setCursorHintVisibility] = useState(true);
   const [loaded, setLoaded] = useState(false);
 
-  const themes = ["yellowGreen", "yellowRed", "yellowPurple", "yellowBlue"];
+  const themes = ["yellowGreen", "yellowBlue", "yellowPurple", "yellowRed"];
   const [theme, setTheme] = useState(0);
 
   const changeTheme = (newTheme) => {
@@ -458,7 +458,9 @@ export default function Home() {
             got right to work and did, what every designer should do at least
             once in their life: Creating a font.
           </p>
-          <p>Try it, buy it or tell us why you should get it for free.</p>
+          <p className="my-6 text-xl md:!text-2xl leading-[130%]">
+            Try it, buy it or tell us why you should get it for free.
+          </p>
         </div>
 
         <div className="flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-20)]">
@@ -469,7 +471,7 @@ export default function Home() {
               web licence
             </span>
           </div>
-          <p className="opacity-60 !text-base !mt-0">
+          <p className="opacity-80 !text-base !mt-0">
             Squeezy can be used for both desktop and web. Simple licensing:
             Personal and commercial use allowed, no pageview count.
           </p>
