@@ -255,19 +255,19 @@ export default function Grid({
   }, [extSnappedWidth, extCurrentWidth, gyroPermissionGranted]);
 
   const showWidthTicks = useRef({
-    opacity: '1'
-  })
-  const symbols = ['.', ',', ';', ':', '-', '_', '–', '—']
+    opacity: "1",
+  });
+  const symbols = [".", ",", ";", ":", "-", "_", "–", "—"];
 
   useEffect(() => {
     if (symbols.includes(currentLetter)) {
       showWidthTicks.current = {
-        opacity: '0'
-      }
+        opacity: "0",
+      };
     } else {
       showWidthTicks.current = {
-        opacity: '1'
-      }
+        opacity: "1",
+      };
     }
   }, [currentLetter, showWidthTicks, symbols]);
 
@@ -278,7 +278,7 @@ export default function Grid({
           return (
             <div
               className={`${styles.gridItem} ${
-                currentLetter === letter ? styles.active : "fuck"
+                currentLetter === letter ? styles.active : ""
               }`}
               key={key}
               onClick={() => {
