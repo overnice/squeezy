@@ -420,7 +420,7 @@ export default function Home() {
       <section
         id="buy"
         data-index="3"
-        className={`max-w-2xl px-4 mx-auto h-[100svh] flex flex-wrap content-center ${styles.prose}`}
+        className={`max-w-2xl px-4 mx-auto min-h-[100svh] flex flex-wrap content-center ${styles.prose}`}
       >
         {/* <div className="flex w-full">
           <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
@@ -446,8 +446,8 @@ export default function Home() {
             Squeezy
           </h1>
         </div> */}
-        <div className="mb-10">
-          <p className="my-6 text-xl md:!text-2xl leading-[130%]">
+        <div className="my-10">
+          <p className="mb-6 text-xl md:!text-2xl leading-[130%]">
             Fonts are evolving. Once rigid and available only in pre-defined
             strength and thickness, they now shift and bend, stretch and
             squeeze.
@@ -458,7 +458,7 @@ export default function Home() {
             got right to work and did, what every designer should do at least
             once in their life: Creating a font.
           </p>
-          <p className="my-6 text-xl md:!text-2xl leading-[130%]">
+          <p className="mt-6 text-xl md:!text-2xl leading-[130%]">
             Try it, buy it or tell us why you should get it for free.
           </p>
         </div>
@@ -578,12 +578,14 @@ export default function Home() {
       </footer>
 
       {gyroPermissionGranted === false && (
-        <div>
+        <div
+          className={`${styles.accessButtonContainer} inset-0 fixed z-[1000]`}
+          style={{ visibility: gyroButtonVisibility }}
+        >
           <button
             ref={gyroButton}
             id="accelPermsButton"
-            className={`${styles.accessButton} fixed px-4 py-2 rounded-full bottom-20 md:bottom-4 left-1/2 whitespace-nowrap -translate-x-1/2 z-[100]`}
-            style={{ visibility: gyroButtonVisibility }}
+            className={`${styles.accessButton} fixed px-4 py-2 rounded-full top-1/2 left-1/2 whitespace-nowrap -translate-x-1/2 -translate-y-1/2 z-[100]`}
             onClick={getAccel}
           >
             Activate Gyro Sensor

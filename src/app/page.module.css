@@ -88,6 +88,17 @@
   justify-content: center;
 }
 
+.accessButtonContainer {
+  &:before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: var(--background);
+    opacity: 0.5;
+  }
+  
+}
+
 .accessButton {
   background: var(--foreground);
   color: var(--background);
