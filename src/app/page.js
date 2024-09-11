@@ -395,7 +395,9 @@ export default function Home() {
       <section
         id="try"
         data-index="1"
-        className={[styles.editor, SQUEEZY.className].join(" ")}
+        className={`${[styles.editor, SQUEEZY.className].join(
+          " "
+        )} min-h-[50svh] md:min-h-[100svh]`}
         ref={editableSectionRef}
       >
         <p
@@ -559,7 +561,7 @@ export default function Home() {
           </div>
         </div>
         <div
-          className={`w-full bg-white transition-[max-height] ${
+          className={`bg-[var(--foreground)] w-full transition-[max-height] ${
             openDetails ? "max-h-40" : "max-h-0"
           } h-fit overflow-hidden`}
         >

@@ -379,7 +379,6 @@
 }
 
 .editor {
-  min-height: 100svh;
   display: flex;
   align-items: center;
   box-sizing: border-box;
