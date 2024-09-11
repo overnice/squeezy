@@ -555,7 +555,7 @@ export default function Home() {
           </a>
           <div
             onClick={toggleDetails}
-            className="flex cursor-pointer  ml-auto sm:hidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[color-mix(in_srgb,_var(--foreground-shade-20)_50%,_transparent)] hover:bg-[var(--foreground-shade-30)] transition-colors"
+            className="flex cursor-pointer ml-auto sm:hidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[var(--foreground-shade-20)] hover:bg-[var(--foreground-shade-30)] transition-colors"
           >
             i
           </div>
