@@ -1,7 +1,7 @@
 .main {
   @apply relative md:snap-y md:scroll-smooth;
 
-  overflow: scroll;
+  overflow-y: scroll;
   height: 100dvh;
 
   > section {
