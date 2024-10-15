@@ -263,16 +263,15 @@ export default function Home() {
   const toggleDetails = () => {
     setOpenDetails(!openDetails);
   };
-
+  
   useEffect(() => {
     if (!isMobile) {
       const scroller = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            tryInput.current.focus();
-            console.log('hey')
-
-      
+            setTimeout(() => {
+              tryInput.current.focus({ preventScroll: true });
+            }, 0);
           }
         });
       }, {
