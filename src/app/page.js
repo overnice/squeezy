@@ -265,14 +265,21 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const focusTry = () => {
-      const scroll = mainContainer.current.scrollTop
-      if (scroll > window.innerHeight - 10) {
-          tryInput.current.focus();
-      }
+    if (!isMobile) {
+      const scroller = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            tryInput.current.focus();
+            console.log('hey')
+
+      
+          }
+        });
+      }, {
+        threshold: 0.9,
+      });  
+      scroller.observe(editableSectionRef.current);
     }
-  
-    if (!isMobile) mainContainer.current.addEventListener("scroll", focusTry);
   },[])
 
 
@@ -408,6 +415,7 @@ export default function Home() {
       </section>
 
       <section
+        id="try"
         data-index="1"
         className={`${[styles.editor, SQUEEZY.className].join(
           " "
