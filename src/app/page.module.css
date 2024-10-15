@@ -407,7 +407,7 @@ p.editableArea {
   }
 
   &:empty:before {
-    content: "Type sth...";
+    content: "Type...";
     cursor: pointer;
     color: var(--foreground-shade-30);
   }
