@@ -68,11 +68,13 @@ export default function Home() {
   ];
 
   const headerRef = useRef(null);
+  const tryInput = useRef(null);
   const currentLetterRef = useRef(null);
   const variableLinesSectionRef = useRef(null);
   const editableSectionRef = useRef(null);
   const gyroButton = useRef();
   const mainContainer = useRef();
+  const scrollPos = useRef(0)
 
   const min = 0.6080125;
   const max = 1.0880125;
@@ -115,6 +117,7 @@ export default function Home() {
     const handleResize = () => {
       center = window.innerWidth / 2;
       height = currentLetterRef.current.getBoundingClientRect().height;
+      scrollPos.current = window.scrollY
     };
 
     const variableLinesSection = variableLinesSectionRef.current;
@@ -261,6 +264,18 @@ export default function Home() {
     setOpenDetails(!openDetails);
   };
 
+  useEffect(() => {
+    const focusTry = () => {
+      const scroll = mainContainer.current.scrollTop
+      if (scroll > window.innerHeight - 10) {
+          tryInput.current.focus();
+      }
+    }
+  
+    if (!isMobile) mainContainer.current.addEventListener("scroll", focusTry);
+  },[])
+
+
   return (
     <main
       ref={mainContainer}
@@ -393,7 +408,6 @@ export default function Home() {
       </section>
 
       <section
-        id="try"
         data-index="1"
         className={`${[styles.editor, SQUEEZY.className].join(
           " "
@@ -401,6 +415,7 @@ export default function Home() {
         ref={editableSectionRef}
       >
         <p
+          ref={tryInput}
           className={[styles.editableArea, SQUEEZY.className].join(" ")}
           contentEditable
           suppressContentEditableWarning
