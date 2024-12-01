@@ -575,7 +575,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <a
+          {/* <a
             href="https://overnice.com"
             className="hidden sm:block ml-auto rounded-full hover:scale-105 transition-transform text-[var(--background)] text-base md:text-lg py-1.5 px-4 bg-[var(--foreground)]"
           >
@@ -586,7 +586,7 @@ export default function Home() {
             className="flex cursor-pointer ml-auto sm:hidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[var(--foreground-shade-20)] hover:bg-[var(--foreground-shade-30)] transition-colors"
           >
             i
-          </div>
+          </div> */}
         </div>
         <div
           className={`bg-[var(--foreground)] w-full transition-[max-height] ${
@@ -627,7 +627,7 @@ export default function Home() {
         <>
           <div
             id="awwwards-embed"
-            data-appearance="horizontal"
+            data-appearance="vertical"
             data-color="#E3C352"
             data-type="1"
             data-category="Typography"
