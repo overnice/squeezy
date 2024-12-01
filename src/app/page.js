@@ -29,6 +29,8 @@ export default function Home() {
   const [cursorHintVisibility, setCursorHintVisibility] = useState(true);
   const [loaded, setLoaded] = useState(false);
 
+  const [isClient, setIsClient] = useState(false);
+
   const themes = ["yellowGreen", "yellowBlue", "yellowPurple", "yellowRed"];
   const [theme, setTheme] = useState(0);
 
@@ -74,12 +76,14 @@ export default function Home() {
   const editableSectionRef = useRef(null);
   const gyroButton = useRef();
   const mainContainer = useRef();
-  const scrollPos = useRef(0)
+  const scrollPos = useRef(0);
 
   const min = 0.6080125;
   const max = 1.0880125;
 
   useEffect(() => {
+    setIsClient(true);
+
     let x = 0;
     let delta = 0;
 
@@ -117,7 +121,7 @@ export default function Home() {
     const handleResize = () => {
       center = window.innerWidth / 2;
       height = currentLetterRef.current.getBoundingClientRect().height;
-      scrollPos.current = window.scrollY
+      scrollPos.current = window.scrollY;
     };
 
     const variableLinesSection = variableLinesSectionRef.current;
@@ -263,24 +267,26 @@ export default function Home() {
   const toggleDetails = () => {
     setOpenDetails(!openDetails);
   };
-  
+
   useEffect(() => {
     if (!isMobile) {
-      const scroller = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              tryInput.current.focus({ preventScroll: true });
-            }, 0);
-          }
-        });
-      }, {
-        threshold: 0.9,
-      });  
+      const scroller = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                tryInput.current.focus({ preventScroll: true });
+              }, 0);
+            }
+          });
+        },
+        {
+          threshold: 0.9,
+        }
+      );
       scroller.observe(editableSectionRef.current);
     }
-  },[])
-
+  }, []);
 
   return (
     <main
@@ -615,6 +621,30 @@ export default function Home() {
             Activate Gyro Sensor
           </button>
         </div>
+      )}
+
+      {isClient && (
+        <>
+          <div
+            id="awwwards-embed"
+            data-appearance="horizontal"
+            data-color="#E3C352"
+            data-type="1"
+            data-category="Typography"
+            data-date="Oct. 24"
+            data-link="https://www.awwwards.com/sites/squeezy-variable"
+          >
+            <p>
+              He sido nominado como{" "}
+              <strong>submission.awardCategory.nameHonors </strong>en{" "}
+              <a href="https://www.awwwards.com/">Awwwards</a>.
+            </p>
+          </div>
+          <script
+            async
+            src="https://assets.awwwards.com/assets/js/embed_ribbon.js"
+          ></script>
+        </>
       )}
     </main>
   );
