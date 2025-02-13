@@ -386,6 +386,50 @@ export default function Home() {
     });
   }
 
+  function hoverMove() {
+    gsap.to('#poster-red', {
+      x: '-=3px',
+      y: '+=5px',
+      duration: 0.5,
+      ease: 'power4.out',
+    })
+    gsap.to('#poster-blue', {
+      y: '-=5px',
+      duration: 0.5,
+      ease: 'power4.out',
+    })
+    gsap.to('#poster-purple', {
+      y: '-=2px',
+      x: '+=2px',
+      duration: 0.5,
+      ease: 'power4.out',
+    })
+  }
+  function reset() {
+    gsap.to('#poster-red', {
+      x: -10 + 'px',
+      y: -2 + 'px',
+      rotateZ: -12 + 'deg',
+      duration: 0.5,
+      ease: 'power4.out',
+    })
+    gsap.to('#poster-blue', {
+      x: -0 + 'px',
+      y: -0 + 'px',
+      rotateZ: -2 + 'deg',
+      duration: 0.5,
+      ease: 'power4.out',
+    })
+    gsap.to('#poster-purple', {
+      x: 10 + 'px',
+      y: 4 + 'px',
+      rotateZ: 8 + 'deg',
+      duration: 0.5,
+      ease: 'power4.out',
+    })
+  }
+
+
   return (
     <main
       ref={mainContainer}
@@ -421,8 +465,8 @@ export default function Home() {
           compact
           text={"Buy now"}
         /> */}
-        <div className="flex items-center gap-x-3">
-          <span id="buy-label">Get a poster</span>
+        <a href="https://goods.overnice.com/" onMouseEnter={hoverMove} onMouseLeave={reset} className="block flex items-center gap-x-3">
+          <span id="buy-label" className="opacity-0">Get a poster</span>
           <div className="w-[58px] relative h-[50px]">
             <Image
               id="poster-red"
@@ -449,7 +493,7 @@ export default function Home() {
               alt="squeezy poster in purple"
             ></Image>
           </div>
-        </div>
+        </a>
       </header>
 
       <section
@@ -582,12 +626,12 @@ export default function Home() {
         className={`bg-[#2C2624]`}
       >
         <div
-          className={`max-w-2xl py-32 mx-auto flex gap-12 items-center ${styles.prose}`}
+          className={`max-w-2xl py-32 px-4 md:px-0 mx-auto flex flex-wrap gap-12 justify-start items-center ${styles.prose}`}
         >
           <div className="w-[240px] relative h-[208px]">
             <Image
               id="main-poster-red"
-              className="poster absolute top-1/2 left-1/2 translate-x-[calc(-50%-35px)] translate-y-[calc(-50%-10px)] rotate-[-12deg]"
+              className="absolute top-1/2 left-1/2 translate-x-[calc(-50%-35px)] translate-y-[calc(-50%-10px)] rotate-[-12deg]"
               data-x={-35}
               data-y={-10}
               data-rotate={-12}
@@ -598,7 +642,7 @@ export default function Home() {
             ></Image>
             <Image
               id="main-poster-blue"
-              className="poster absolute top-1/2 left-1/2 translate-x-[calc(-50%+1px)] translate-y-[calc(-50%+1px)] rotate-[-2deg]"
+              className="absolute top-1/2 left-1/2 translate-x-[calc(-50%+1px)] translate-y-[calc(-50%+1px)] rotate-[-2deg]"
               data-x={2}
               data-y={2}
               data-rotate={-2}
@@ -609,7 +653,7 @@ export default function Home() {
             ></Image>
             <Image
               id="main-poster-purple"
-              className="poster absolute top-1/2 left-1/2 translate-x-[calc(-50%+35px)] translate-y-[calc(-50%+15px)] rotate-[8deg]"
+              className="absolute top-1/2 left-1/2 translate-x-[calc(-50%+35px)] translate-y-[calc(-50%+15px)] rotate-[8deg]"
               data-x={35}
               data-y={15}
               data-rotate={8}
@@ -619,21 +663,15 @@ export default function Home() {
               alt="squeezy poster in purple"
             ></Image>
           </div>
-          {/* <Image
-            width={239}
-            height={208}
-            src="/poster-fan.png"
-            alt="squeezy posters show in a fan"
-          ></Image> */}
-          <div className="relative w-fit">
-            <p className="mb-10 text-white text-xl md:!text-2xl leading-[130%]">
+          <div className="relative w-full md:w-1/2">
+            <p className="mb-4 md:mb-10 text-white text-xl md:!text-2xl leading-[130%]">
               One last thing: We made posters featuring the squeezy font. We
               made posters featuring the squeezy font. We made posters
               featuring.
             </p>
             <Button
               themeColors={false}
-              onClick={() => document.getElementById("buy")?.scrollIntoView()}
+              onClick={() => window.open("https://goods.overnice.com/")}
               className="w-fit"
               text={"Get one"}
             />
