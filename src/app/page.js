@@ -6,9 +6,11 @@ import { isMobile } from "react-device-detect";
 import styles from "./page.module.css";
 import Grid from "./Grid/grid";
 import ShopifyButton from "./Shopify/ShopifyButton";
-
+import Image from "next/image";
 import localFont from "next/font/local";
 import Button from "./button";
+
+import gsap from "gsap";
 
 // Font files can be colocated inside of `pages`
 const TT_NEORIS = localFont({
@@ -74,7 +76,7 @@ export default function Home() {
   const editableSectionRef = useRef(null);
   const gyroButton = useRef();
   const mainContainer = useRef();
-  const scrollPos = useRef(0)
+  const scrollPos = useRef(0);
 
   const min = 0.6080125;
   const max = 1.0880125;
@@ -117,7 +119,7 @@ export default function Home() {
     const handleResize = () => {
       center = window.innerWidth / 2;
       height = currentLetterRef.current.getBoundingClientRect().height;
-      scrollPos.current = window.scrollY
+      scrollPos.current = window.scrollY;
     };
 
     const variableLinesSection = variableLinesSectionRef.current;
@@ -263,24 +265,126 @@ export default function Home() {
   const toggleDetails = () => {
     setOpenDetails(!openDetails);
   };
-  
+
   useEffect(() => {
     if (!isMobile) {
-      const scroller = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              tryInput.current.focus({ preventScroll: true });
-            }, 0);
-          }
-        });
-      }, {
-        threshold: 0.9,
-      });  
+      const scroller = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                tryInput.current.focus({ preventScroll: true });
+              }, 0);
+            }
+          });
+        },
+        {
+          threshold: 0.9,
+        }
+      );
       scroller.observe(editableSectionRef.current);
     }
-  },[])
+    const tl = gsap.timeline();
+    tl.fromTo(
+      ".poster",
+      {
+        y: "20%",
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.3,
+      }
+    );
+    tl.to(["#poster-purple", "#poster-blue", "#poster-red"], {
+      x: "15px",
+      y: "5px",
+      rotateZ: "20deg",
+      duration: 0.3,
+      ease: "power4.out",
+    });
+    tl.addLabel("deal", "-=0.1");
+    tl.to(
+      "#poster-purple",
+      {
+        x: "10px",
+        y: "4px",
+        rotateZ: "8deg",
+        duration: 0.5,
+        ease: "power4.out",
+      },
+      "deal"
+    );
+    tl.to(
+      "#poster-blue",
+      {
+        x: "0px",
+        y: "0px",
+        rotateZ: "-2deg",
+        duration: 0.5,
+        ease: "power4.out",
+      },
+      "deal"
+    );
+    tl.to(
+      "#poster-red",
+      {
+        x: "-10px",
 
+        y: "-2px",
+        rotateZ: "-12deg",
+        duration: 0.5,
+        ease: "power4.out",
+      },
+      "deal"
+    );
+    tl.fromTo(
+      "#buy-label",
+      {
+        opacity: 0,
+        x: 10,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+        ease: "power4.out",
+      }, "-=0.4"
+    );
+  }, []);
+
+  function adjustFan(e) {
+    const xPercent = e.clientX / window.innerWidth;
+    const yPercent = e.clientY / window.innerHeight;
+    const mainPosters = gsap.utils.toArray([
+      "#main-poster-red",
+      "#main-poster-blue",
+      "#main-poster-purple",
+    ]);
+    mainPosters.forEach((el) => {
+      gsap.to(el, {
+        x: -64 + el.dataset.x * xPercent + "px",
+        y: -82 + el.dataset.y * yPercent + "px",
+        rotate: el.dataset.rotate * yPercent + "deg",
+      });
+    });
+  }
+
+  function resetFan(e) {
+    const mainPosters = gsap.utils.toArray([
+      "#main-poster-red",
+      "#main-poster-blue",
+      "#main-poster-purple",
+    ]);
+    mainPosters.forEach((el) => {
+      gsap.to(el, {
+        x: -64 + el.dataset.x * 1 + "px",
+        y: -82 + el.dataset.y * 1 + "px",
+        rotate: el.dataset.rotate + "deg",
+      });
+    });
+  }
 
   return (
     <main
@@ -312,11 +416,40 @@ export default function Home() {
         <div className={`hidden sm:block ${styles.subtitle}`}>
           A squishable and squashable variable font
         </div>
-        <Button
+        {/* <Button
           onClick={() => document.getElementById("buy")?.scrollIntoView()}
           compact
           text={"Buy now"}
-        />
+        /> */}
+        <div className="flex items-center gap-x-3">
+          <span id="buy-label">Get a poster</span>
+          <div className="w-[58px] relative h-[50px]">
+            <Image
+              id="poster-red"
+              className="poster absolute opacity-0 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"
+              width={31}
+              height={39}
+              src="/poster-red.png"
+              alt="squeezy poster in red"
+            ></Image>
+            <Image
+              id="poster-blue"
+              className="poster absolute opacity-0 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"
+              width={31}
+              height={39}
+              src="/poster-blue.png"
+              alt="squeezy poster in blue"
+            ></Image>
+            <Image
+              id="poster-purple"
+              className="poster absolute opacity-0 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"
+              width={31}
+              height={39}
+              src="/poster-purple.png"
+              alt="squeezy poster in purple"
+            ></Image>
+          </div>
+        </div>
       </header>
 
       <section
@@ -440,36 +573,80 @@ export default function Home() {
         gyroPermissionGranted={gyroPermissionGranted}
       />
 
+      {/* Posters */}
+      <section
+        id="main-poster"
+        onMouseMove={(e) => adjustFan(e)}
+        onMouseLeave={(e) => resetFan(e)}
+        data-index="3"
+        className={`bg-[#2C2624]`}
+      >
+        <div
+          className={`max-w-2xl py-32 mx-auto flex gap-12 items-center ${styles.prose}`}
+        >
+          <div className="w-[240px] relative h-[208px]">
+            <Image
+              id="main-poster-red"
+              className="poster absolute top-1/2 left-1/2 translate-x-[calc(-50%-35px)] translate-y-[calc(-50%-10px)] rotate-[-12deg]"
+              data-x={-35}
+              data-y={-10}
+              data-rotate={-12}
+              width={128}
+              height={164}
+              src="/poster-red.png"
+              alt="squeezy poster in red"
+            ></Image>
+            <Image
+              id="main-poster-blue"
+              className="poster absolute top-1/2 left-1/2 translate-x-[calc(-50%+1px)] translate-y-[calc(-50%+1px)] rotate-[-2deg]"
+              data-x={2}
+              data-y={2}
+              data-rotate={-2}
+              width={128}
+              height={164}
+              src="/poster-blue.png"
+              alt="squeezy poster in blue"
+            ></Image>
+            <Image
+              id="main-poster-purple"
+              className="poster absolute top-1/2 left-1/2 translate-x-[calc(-50%+35px)] translate-y-[calc(-50%+15px)] rotate-[8deg]"
+              data-x={35}
+              data-y={15}
+              data-rotate={8}
+              width={128}
+              height={164}
+              src="/poster-purple.png"
+              alt="squeezy poster in purple"
+            ></Image>
+          </div>
+          {/* <Image
+            width={239}
+            height={208}
+            src="/poster-fan.png"
+            alt="squeezy posters show in a fan"
+          ></Image> */}
+          <div className="relative w-fit">
+            <p className="mb-10 text-white text-xl md:!text-2xl leading-[130%]">
+              One last thing: We made posters featuring the squeezy font. We
+              made posters featuring the squeezy font. We made posters
+              featuring.
+            </p>
+            <Button
+              themeColors={false}
+              onClick={() => document.getElementById("buy")?.scrollIntoView()}
+              className="w-fit"
+              text={"Get one"}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Payment area */}
       <section
         id="buy"
-        data-index="3"
+        data-index="4"
         className={`max-w-2xl px-4 mx-auto min-h-[100svh] flex flex-wrap content-center ${styles.prose}`}
       >
-        {/* <div className="flex w-full">
-          <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
-            Squeezy
-          </h1>
-          <h1 className={`small grow not-prose ${styles.right} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0s'}} ref={headerRef}>
-            Squeezy
-          </h1>
-        </div>
-        <div className="flex w-full">
-          <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.7s'}} ref={headerRef}>
-            Squeezy
-          </h1>
-          <h1 className={`small grow not-prose ${styles.right} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.7s'}} ref={headerRef}>
-            Squeezy
-          </h1>
-        </div>
-        <div className="flex w-full">
-          <h1 className={`small grow not-prose ${styles.left} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.2s'}} ref={headerRef}>
-            Squeezy
-          </h1>
-          <h1 className={`small grow not-prose ${styles.right} ${styles.small} ${SQUEEZY.className}`} style={{"--delay": '0.2s'}} ref={headerRef}>
-            Squeezy
-          </h1>
-        </div> */}
         <div className="my-10">
           <p className="mb-6 text-xl md:!text-2xl leading-[130%]">
             Fonts are evolving. Once rigid and available only in pre-defined
@@ -577,7 +754,7 @@ export default function Home() {
           </a>
           <div
             onClick={toggleDetails}
-            className="flex cursor-pointer ml-auto sm:hidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[var(--foreground-shade-20)] hover:bg-[var(--foreground-shade-30)] transition-colors"
+            className="flex cursor-pointer ml-auto smHidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[var(--foreground-shade-20)] hover:bg-[var(--foreground-shade-30)] transition-colors"
           >
             i
           </div>
