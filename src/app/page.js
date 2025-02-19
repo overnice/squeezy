@@ -389,7 +389,8 @@ export default function Home() {
   function hoverMove() {
     gsap.to('#poster-red', {
       x: '-=3px',
-      y: '+=5px',
+      y: '+=3px',
+      rotate: '-=10deg',
       duration: 0.5,
       ease: 'power4.out',
     })
@@ -401,6 +402,7 @@ export default function Home() {
     gsap.to('#poster-purple', {
       y: '-=2px',
       x: '+=2px',
+      rotate: '+=10deg',
       duration: 0.5,
       ease: 'power4.out',
     })
@@ -775,10 +777,20 @@ export default function Home() {
                 Characters
               </div>
               <div
-                onClick={(e) => document.getElementById("buy").scrollIntoView()}
+                onClick={(e) =>
+                  document.getElementById("posters").scrollIntoView()
+                }
                 className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
                   currentSection !== 3 ? "hidden sm:block" : ""
                 } ${currentSection === 3 ? "opacity-100" : "opacity-60"}`}
+              >
+                Posters
+              </div>
+              <div
+                onClick={(e) => document.getElementById("buy").scrollIntoView()}
+                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
+                  currentSection !== 4 ? "hidden sm:block" : ""
+                } ${currentSection === 4 ? "opacity-100" : "opacity-60"}`}
               >
                 Info & Buy
               </div>
