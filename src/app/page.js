@@ -621,7 +621,7 @@ export default function Home() {
 
       {/* Posters */}
       <section
-        id="main-poster"
+        id="posters"
         onMouseMove={(e) => adjustFan(e)}
         onMouseLeave={(e) => resetFan(e)}
         data-index="3"
