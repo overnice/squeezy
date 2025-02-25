@@ -1,5 +1,5 @@
 .main {
-  @apply relative md:snap-y md:scroll-smooth;
+  @apply relative md:snap-y md:snap-mandatory md:scroll-smooth;
 
   overflow-y: scroll;
   height: 100dvh;

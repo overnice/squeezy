@@ -235,20 +235,6 @@ export default function Home() {
         entries.map((entry, i) => {
           if (entry.isIntersecting) {
             setCurrentSection(+entry.target.dataset.index);
-            if (+entry.target.dataset.index === 2) {
-              if (mainContainer.current) {
-                setTimeout(() => {
-                  mainContainer.current.style.scrollSnapType = "none";
-                }, 500);
-              }
-            } else {
-              if (mainContainer.current) {
-                setTimeout(() => {
-                  mainContainer.current.style.scrollSnapType = "y mandatory";
-                }, 500);
-              }
-            }
-          } else {
           }
         });
       },
