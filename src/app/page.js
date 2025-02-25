@@ -737,7 +737,7 @@ export default function Home() {
                 onClick={(e) =>
                   document.getElementById("info").scrollIntoView()
                 }
-                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
+                className={`scroll-smooth cursor-pointer hover:opacity-100 transition-opacity ${
                   currentSection !== 0 ? "hidden sm:block" : ""
                 } ${currentSection === 0 ? "opacity-100" : "opacity-60"}`}
               >
@@ -746,7 +746,7 @@ export default function Home() {
               <div
                 // href="#try"
                 onClick={(e) => document.getElementById("try").scrollIntoView()}
-                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
+                className={`scroll-smooth cursor-pointer hover:opacity-100 transition-opacity ${
                   currentSection !== 1 ? "hidden sm:block" : ""
                 } ${currentSection === 1 ? "opacity-100" : "opacity-60"}`}
               >
@@ -756,7 +756,7 @@ export default function Home() {
                 onClick={(e) =>
                   document.getElementById("grid").scrollIntoView()
                 }
-                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
+                className={`scroll-smooth cursor-pointer hover:opacity-100 transition-opacity ${
                   currentSection !== 2 ? "hidden sm:block" : ""
                 } ${currentSection === 2 ? "opacity-100" : "opacity-60"}`}
               >
@@ -766,7 +766,7 @@ export default function Home() {
                 onClick={(e) =>
                   document.getElementById("posters").scrollIntoView()
                 }
-                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
+                className={`scroll-smooth cursor-pointer hover:opacity-100 transition-opacity ${
                   currentSection !== 3 ? "hidden sm:block" : ""
                 } ${currentSection === 3 ? "opacity-100" : "opacity-60"}`}
               >
@@ -774,7 +774,7 @@ export default function Home() {
               </div>
               <div
                 onClick={(e) => document.getElementById("buy").scrollIntoView()}
-                className={`scroll-smooth cursor-pointer hover:opacity-80 transition-opacity ${
+                className={`scroll-smooth cursor-pointer hover:opacity-100 transition-opacity ${
                   currentSection !== 4 ? "hidden sm:block" : ""
                 } ${currentSection === 4 ? "opacity-100" : "opacity-60"}`}
               >
@@ -790,7 +790,7 @@ export default function Home() {
           </a>
           <div
             onClick={toggleDetails}
-            className="flex cursor-pointer ml-auto smHidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[var(--foreground-shade-20)] hover:bg-[var(--foreground-shade-30)] transition-colors"
+            className="flex cursor-pointer ml-auto sm:hidden rounded-full w-[39px] h-[39px] items-center justify-center bg-[var(--foreground-shade-20)] hover:bg-[var(--foreground-shade-30)] transition-colors"
           >
             i
           </div>
