@@ -653,9 +653,7 @@ export default function Home() {
           </div>
           <div className="relative w-full md:w-1/2">
             <p className="mb-4 md:mb-10 text-white text-xl md:!text-2xl leading-[130%]">
-              One last thing: We made posters featuring the squeezy font. We
-              made posters featuring the squeezy font. We made posters
-              featuring.
+              We made limited edition posters featuring the Squeezy font. Printed in the brightest colors on 300gsm heavy matte paper.
             </p>
             <Button
               themeColors={false}
