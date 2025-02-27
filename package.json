@@ -10,16 +10,17 @@
   },
   "dependencies": {
     "@shopify/buy-button-js": "^2.4.0",
-    "next": "13.5.5",
-    "react": "^18",
+    "gsap": "^3.12.7",
+    "next": "^15.1.7",
+    "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
-    "react-dom": "^18"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10",
     "eslint": "^8",
-    "eslint-config-next": "13.5.5",
+    "eslint-config-next": "^15.1.7",
     "postcss": "^8",
     "tailwindcss": "^3"
   }

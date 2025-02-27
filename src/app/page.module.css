@@ -1,11 +1,11 @@
 .main {
-  @apply relative md:snap-y md:scroll-smooth;
+  @apply relative md:snap-y md:snap-mandatory md:scroll-smooth;
 
   overflow-y: scroll;
   height: 100dvh;
 
   > section {
-    @apply md:snap-start;
+    @apply md:snap-center;
   }
 
   --variable-lines-font-size: 90vh;
