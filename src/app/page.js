@@ -668,30 +668,23 @@ export default function Home() {
             got right to work and did, what every designer should do at least
             once in their life: Creating a font.
           </p>
-          <p className="mt-6 text-xl md:!text-2xl leading-[130%]">
-            Try it, buy it or tell us why you should get it for free.
-          </p>
         </div>
 
         <div className="flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-20)]">
-          <div className="flex items-center gap-x-2 mb-4">
-            <span className="text-[40px] leading-[100%]">€50</span>
-            <span className="flex flex-col text-base leading-[110%]">
+          <p className=" !text-base !mt-0">
+            Squeezy can be used for both desktop and web. Simple licensing:
+            Personal and commercial use allowed.
+          </p>
+          <div className="mt-4 flex w-full justify-between items-center gap-x-2">
+            {/* <span className="flex flex-col text-base leading-[110%]">
               desktop &<br />
               web licence
-            </span>
+            </span> */}
+            <div className="ml-autoflex flex-wrap items-center gap-6 sm:gap-x-10">
+              <Button onClick={downloadFonts} text={"Download here"} />
+            </div>
           </div>
-          <p className="opacity-80 !text-base !mt-0">
-            Squeezy can be used for both desktop and web. Simple licensing:
-            Personal and commercial use allowed, no pageview count.
-          </p>
-          <div className="flex flex-wrap items-center gap-6 sm:gap-x-10 mt-4 sm:mt-10">
-            <ShopifyButton
-              label={"Buy"}
-              shopItemId={8815969796426}
-              uniqueElementId={"woff2"}
-            ></ShopifyButton>
-          </div>
+          
         </div>
       </section>
 
@@ -761,7 +754,7 @@ export default function Home() {
                   currentSection !== 4 ? "hidden sm:block" : ""
                 } ${currentSection === 4 ? "opacity-100" : "opacity-60"}`}
               >
-                Info & Buy
+                Info & Download
               </div>
             </div>
           </div>
