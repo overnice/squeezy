@@ -11,6 +11,7 @@ import localFont from "next/font/local";
 import Button from "./button";
 
 import gsap from "gsap";
+import { track } from "@vercel/analytics";
 
 // Font files can be colocated inside of `pages`
 const TT_NEORIS = localFont({
@@ -357,6 +358,16 @@ export default function Home() {
     });
   }
 
+  function downloadFonts() {
+    track("font_download");
+    const a = document.createElement("a");
+    a.href = "/fonts/Squeezy_Files.zip";
+    a.download = "Squeezy_Files.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   function resetFan(e) {
     const mainPosters = gsap.utils.toArray([
       "#main-poster-red",
@@ -453,35 +464,9 @@ export default function Home() {
           compact
           text={"Buy now"}
         /> */}
-        <a href="https://goods.overnice.com/" onMouseEnter={hoverMove} onMouseLeave={reset} className="block flex items-center gap-x-3">
-          <span id="buy-label" className="opacity-0">Get a poster</span>
-          <div className="w-[58px] relative h-[50px]">
-            <Image
-              id="poster-red"
-              className="poster absolute opacity-0 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"
-              width={31}
-              height={39}
-              src="/poster-red.png"
-              alt="squeezy poster in red"
-            ></Image>
-            <Image
-              id="poster-blue"
-              className="poster absolute opacity-0 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"
-              width={31}
-              height={39}
-              src="/poster-blue.png"
-              alt="squeezy poster in blue"
-            ></Image>
-            <Image
-              id="poster-purple"
-              className="poster absolute opacity-0 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2"
-              width={31}
-              height={39}
-              src="/poster-purple.png"
-              alt="squeezy poster in purple"
-            ></Image>
-          </div>
-        </a>
+        <div className="block flex items-center gap-x-3">
+          <Button onClick={downloadFonts} compact text={"Download"} />
+        </div>
       </header>
 
       <section

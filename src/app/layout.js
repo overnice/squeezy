@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "Squeezy Variable",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
           </a>
         </div>
         {children}
+        <Analytics />
         </body>
     </html>
   );
