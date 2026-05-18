@@ -672,8 +672,7 @@ export default function Home() {
 
         <div className="flex w-full p-6 sm:p-10 flex-col justify-center rounded-2xl bg-[var(--foreground-shade-20)]">
           <p className=" !text-base !mt-0">
-            Squeezy can be used for both desktop and web. Simple licensing:
-            Personal and commercial use allowed.
+            Squeezy can be used for both desktop and web. Personal and commercial use allowed.
           </p>
           <div className="mt-4 flex w-full justify-between items-center gap-x-2">
             {/* <span className="flex flex-col text-base leading-[110%]">
